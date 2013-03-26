@@ -1,0 +1,100 @@
+/* #######################################################
+Grey Separator
+####################################################### */
+#container .greySeparator
+{
+	clear: both;
+	margin: 46px 0 0 0;
+	height: 1px;
+	background-color: #807873;
+}
+/* #######################################################
+---/ End Grey Separator
+####################################################### */
+
+
+
+
+
+/*######################################################
+About Content
+##################################################### */
+#container .aboutContent
+{
+	margin: 54px 0 0 0;
+	text-align: left;
+}
+/*######################################################
+---/ End About Content
+##################################################### */
+
+
+
+
+
+
+/* #####################################################
+Description 
+###################################################### */
+#container .aboutContent .description
+{
+	float: left;
+	width: 515px;
+}
+
+#container .aboutContent .description h1
+{
+	margin: 0;
+	padding: 0 0 5px 0;
+	font: normal 3em "Times New Roman", Times, serif;
+	color: #807873;
+	font-style: italic;
+}
+
+#container .aboutContent .description .highlight
+{
+	font-weight: bold;
+	border-bottom: solid 2px #e97004;
+}
+
+#container .aboutContent .description p
+{
+	margin: 20px 0 20px 0;
+	font: normal 0.583em "Times New Roman", Times, serif;
+	line-height: 1.5em;
+}
+
+#container .aboutContent .description a,
+#container .aboutContent .description a:link,
+#container .aboutContent .description a:active,
+#container .aboutContent .description a:visited
+{
+	font-style: normal;
+	color: #e97004;
+	text-decoration: none;
+}
+
+#container .aboutContent .description a:hover
+{
+	text-decoration: underline;
+}
+/*######################################################
+---/ End Description
+##################################################### */
+
+
+
+
+
+
+/* #####################################################
+Image 
+###################################################### */
+#container .aboutContent .image
+{
+	float: right;
+	margin: 25px 0 0 0;
+}
+/*######################################################
+---/ End Description
+##################################################### */

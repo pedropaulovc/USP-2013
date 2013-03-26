@@ -1,0 +1,214 @@
+/* CSS Document */
+*
+{
+	margin: 0;
+	padding: 0;
+}
+
+
+
+body
+{
+	margin: 0 auto;
+	padding: 0;
+	font-size: 24px;
+	text-align: center;
+	background-color: #f6f5f1;
+}
+
+.clear
+{
+	clear: both;
+	height: 0px;
+}
+
+
+
+
+/* #######################################################
+Top Bar
+####################################################### */
+.topBar
+{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 18px;
+	background-color: #807873;
+}
+/* #######################################################
+---/ End Top Bar
+####################################################### */
+
+
+
+
+
+/* #######################################################
+Container
+####################################################### */
+#container
+{
+	margin: 0 auto;
+	padding: 0;
+	width: 934px;
+}
+/* #######################################################
+---/ End Container
+####################################################### */
+
+
+
+
+
+/* #######################################################
+Contact Info
+####################################################### */
+#container .contactInfo
+{
+	float: right;
+	margin: 40px 0 0 0;
+	padding: 0;
+	font: normal .5em "Times New Roman", Times, serif;
+	color: #807873;
+	text-align: right;
+}
+
+#container .contactInfo ul
+{
+	list-style: none;
+}
+/* #######################################################
+---/ End Contact Info
+####################################################### */
+
+
+
+
+
+/* #######################################################
+Navigation Container
+####################################################### */
+#container .navigationContainer
+{
+	clear: both;
+	margin: 5px 0 0 0;
+	padding: 0;
+	height: 75px;
+	text-align: left;
+}
+/* #######################################################
+---/ End Navigation Container
+####################################################### */
+
+
+
+
+
+/* #######################################################
+Logo
+####################################################### */
+
+#container .navigationContainer .logo
+{
+	float: left;
+	margin: 0;
+	padding: 0;	
+}
+
+#container .navigationContainer .logo img
+{
+	border: 0;
+}
+/* #######################################################
+---/ End Logo
+####################################################### */
+
+
+
+
+
+/* #######################################################
+Navigation
+####################################################### */
+
+#container .navigationContainer .navigation
+{
+	float: right;
+	margin: 44px 0 0 0;
+	padding: 0;	
+}
+
+#container .navigationContainer .navigation ul
+{
+	list-style: none;	
+}
+
+#container .navigationContainer .navigation li
+{
+	margin: 0 0 0 26px;
+	padding: 12px 0 0 0;
+	width: 156px;
+	display: inline;
+	float: left;
+	font: normal .75em "Times New Roman", Times, serif;
+	color: #8f8f8f;
+	border-top: solid 2px #b9b6b4;
+}
+
+#container .navigationContainer .navigation li a,
+#container .navigationContainer .navigation li a:link,
+#container .navigationContainer .navigation li a:active,
+#container .navigationContainer .navigation li a:visited
+{
+	color: #8f8f8f;
+	text-decoration: none;
+	width: 156px;
+}
+
+#container .navigationContainer .navigation li a:hover
+{
+	color: #373431;
+}
+
+#container .navigationContainer .navigation .active
+{
+	margin: 0 0 0 26px;
+	padding: 12px 0 0 0;
+	width: 156px;
+	display: inline;
+	float: left;
+	font: normal .75em "Times New Roman", Times, serif;
+	color: #373431;
+	border-top: solid 2px #373431;
+}
+
+#container .navigationContainer .navigation .active a,
+#container .navigationContainer .navigation .active a:link,
+#container .navigationContainer .navigation .active a:active,
+#container .navigationContainer .navigation .active a:visited
+{
+	color: #373431;
+}
+/* #######################################################
+---/ End Navigation
+####################################################### */
+
+
+
+
+
+/* #######################################################
+Footer
+####################################################### */
+#container .footer
+{
+	clear: both;
+	margin: 20px 0 20px 0;
+	text-align: left;
+	font: normal .5em "Times New Roman", Times, serif;
+	color: #807873;
+}
+/* #######################################################
+---/ End Footer
+####################################################### */
