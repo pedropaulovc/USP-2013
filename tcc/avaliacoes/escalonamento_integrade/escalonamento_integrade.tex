@@ -14,7 +14,7 @@
 
 
 \author{Pedro Paulo Vezzá Campos}
-\title{Avaliação do TCC \\ ``Previsão de Utilização de Recursos por Aplicações no InteGrade''}
+\title{Avaliação do TCC \\ `` Escalonamento de aplicações utilizando análise de padrões de uso no InteGrade ''}
 \date{\today}
 \maketitle
 
@@ -22,28 +22,30 @@
 	\begin{description}
 		\item[Título] Previsão de Utilização de Recursos por Aplicações no InteGrade
 		\item[Ano] 2009
-		\item[Aluno] Fabio Augusto Firmo
+		\item[Aluno] Thiago Henrique Coraini 
 		\item[Orientador] Marcelo Finger
-		\item[Nota Obtida] 9.5
+		\item[Nota Obtida] $9.5$
 	\end{description}
 
 \section{Resumo da Monografia}
-	O trabalho propõe uma melhoria em um software de gerenciamento de grades computacionais oportunistas (Aproveitando capacidade computacional ociosa), o \emph{InteGrade}. O problema a ser solucionado é que o programa não é capaz de realizar uma previsão do tempo de processamento e consumo de memória de uma aplicação a ser processada na grade. No momento o criador da aplicação é que fornece tais valores, baseados em suposições ou conhecimento prévio de dados. Há a opção, também, de não fornecer previsão nenhuma. A ausência ou estimativa ruim de valores compromete o desempenho da grade já nestes podem acontecer dois problemas: Estimativas muito conservadorras subutilizam a capacidade da grade enquanto que se estas forem muito agressivas pode haver interferência em outros usos dos computadores que compõem o \emph{cluster}, prejudicando o objetivo de ser uma grade oportunista.
-
-	A solução proposta é baseada em dois aspectos: Primeiro, a definição e busca por execuções anteriores de tarefas similares como parâmetro para a previsão para a tarefa atual. Segundo, a definição de uma fórmula que possa mapear um histórico de execuções na previsão propriamente dita. O trabalho estudou opções estatisticamente simples para modelar os problemas, visando uma implementação igualmente simples. Como critério de similaridade foram escolhidas execuções da mesma aplicação e como critério para consumo computacional a mediana foi a melhor classificada. Comparando os resultados com a bibliografia, os resultados encontram-se em um patamar intermediário. O código relativo ao TCC foi adicionado em um \emph{branch} do desenvolvimento do \emph{InteGrade}.
+	O trabalho propõe a implementação de diversos algoritmos de escalonamento em um software de gerenciamento de grades computacionais oportunistas, aquelas que fazem uso de recursos ociosos, o \emph{InteGrade}. Antes dos trabalhos descritos no TCC o \emph{InteGrade} já contava com um módulo desenvolvido, o \emph{Local Usage Pattern Analyzer (LUPA)}. Sua função é analisar o comportamento de um nó da grade localmente para prever o nível de uso de recursos (CPU e memória) em um período de tempo futuro. Ainda, o projeto contava apenas com um algoritmo de escalonamento de tarefas dentro do grid bastante simples. Este algoritmo apenas excluía da lista de candidatos de nós a serem utilizados os que não atendiam aos requisitos da aplicação no momento da submissão. Dessa forma, o \emph{LUPA} estava subutilizado. O objetivo principal do TCC foi de integrar o \emph{LUPA} ao \emph{InteGrade}, utilizando as informações fornecidos por ele na lógica de escalonamento. Outra meta do trabalho foi implementar alguns algoritmos de escalonamento e realizar experimentos, tentando descobrir se algum teria um desempenho melhor que outro ao executar alguma aplicação.
+	
+	Para cumprir estes objetivos, primeiramente o escalonador foi refatorado, o que permitiu que vários algoritmos pudessem ser desenvolvidos sem que um afetasse o outro. Em seguida, foram desenvolvidos quatro algoritmos para o projeto: CanRunGridApplication, que impede a execução em computadores que não manterão ociosidade pelo tempo mínimo definido,  HowLongCanRunGridApplication, que escalona prioritariamente aquele computador que se mantiver disponível por mais tempo  GreedyAverageResourceUsage, que prioriza o computador que tiver mais recursos disponíveis e BestFitAverageResourceUsage, que prioriza computadores que tenham a menor disponibilidade ainda dentro dos requisitos. Em seguida foi descrito o experimento realizado com 20 computadores na Rede Linux comparando as performances dos escalonadores. Não houve diferença expressiva entre um e outro algoritmo.
+	
 	
 \section{Avaliação da parte técnica}
-	A redação do trabalho é simples e clara. Não há grandes digressões o que contribui para que ele seja bem enxuto, com 31 páginas no total. Encontrei poucos erros ortográficos, menos de 5, frutos de erros de digitação. A organização do trabalho ficou um pouco confusa, as seções 3.1, 3.1.1 -- 3.1.3 poderiam vir antes do capítulo 2 como forma de fornecer as informações necessárias ao restante do texto. No entanto, os conceitos são suficientemente claros para garantir que a leitura ocorra sem problemas.
-
-	Em vários momentos o autor, ao se deparar com uma decisão de projeto, acabou por optar pela solução mais simples. Vale ressaltar que o tempo que o autor deve ter utilizado para se adaptar com a tecnologia que estava trabalhando, \emph{CORBA} e a arquitetura do \emph{InteGrade}, não deve ter sido trivial, o que deve ser levado em conta na análise dos resultados obtidos. De fato, isso pode ter garantido que o trabalho fosse concluído a tempo, por outro lado, não foi possível perceber em sua monografia algum ponto no qual ele tenha sido mais audacioso. 
+	O texto em si é bastante acessível, com uma organização que permite uma leitura sem dificuldades. Não há erros ortográficos ou gramaticais expressivos. O autor traz uma introdução rápida ao contexto no qual o TCC está inserido, permitindo ao leitor rapidamente compreender os objetivos e o desenvolvimento do trabalho.
 	
-	A seção de testes do software é a única mais fraca do trabalho. Foram desenvolvidos alguns testes unitários mas não foram produzidos testes de aceitação ou regressão, de acordo com o autor, pela falta de tempo. Isso é uma deficiência do trabalho, software mal testado é uma porta para diversos bugs obcuros.
+	O foco principal da monografia, o desenvolvimento do escalonador e algoritmos relacionados do \emph{InteGrade} foi uma escolha bastante acertada como tema. Foi possível perceber que o trabalho envolveu estudos amplos tanto dos fundamentos tecnológicos nos quais o \emph{InteGrade} está baseado, \emph{CORBA}, Lua e C++, por exemplo, quanto da teoria de escalonamento implementando alguns algoritmos clássicos na área. O código produzido é relevante uma vez que trouxe benfícios ao software, integrando um componente mal utilizado e tornando a arquitetura do escalonador mais adaptável para mudanças futuras.
+	
+	A única crítica ao trabalho está nos experimentos realizados. A escolha da Rede Linux como local para testar as modificações foi um problema já que devido a dúvidas sobre a interferência do \emph{InteGrade} no desempenho da rede o experimento teve de ser interrompido, prejudicando quaisquer resultados que viessem a ser coletados. Ainda, não houve em nenhum momento uma análise do comportamento dos algoritmos de escalonamento, algo que indicasse que estavam funcionando corretamente.
+	
 	
 \section{Avaliação da parte subjetiva}
-	Foi feito um balanço breve do curso e foram apresentadas as disciplinas mais úteis na opinião do autor. O balanço poderia ser mais detalhado, o aluno resumiu quatro anos de bacharelado em três parágrafos apenas. Ainda, foi apresentado um pouco do trabalho de bastidores na confecção do TCC, algo muito útil para dar uma perspectiva ao leitor das dificuldades enfrentadas no desenvolvimento da monografia, esta ideia parece bastante útil de ser incorporada à minha monografia. 
+	Na parte subjetiva o autor faz bom um balanço do seu envolvimento com o projeto \emph{InteGrade}, do qual foi aluno de iniciação científica, expondo os desafios enfrentados, como por exemplo o fato de o software ainda não estar maduro o suficiente e, assim, propenso a bugs diversos. O autor mostrou que fez uma reflexão ao concluir que provavelmente não iria continuar no projeto ao fim de sua IC, pela vontade de conduzir um projeto que fosse exclusivamente dele. O BCC também foi alvo de análise, tanto ao apresentar as disciplinas mais importantes para a sua graduação quanto ao fazer um balanço com um certo ar melancólico da graduação, mas esperançoso com os trabalhos na pós-graduação. 
 	
 \section{Comentários}
-	No geral simpatizo com o trabalho por ser objetivo e sincero. Os resultados são intermediários aos da bibilografia consultada, o que é um ótimo resultado para um TCC. Particularmente concederia uma nota $9.0$, com os únicos descontos sendo a deficiência nos testes do software e a falta de alguma parte mais audaciosa no trabalho.
+	Como dito anteriormente, o texto é de leitura simples, com boa organização e bem redigido. Os trabalhos desenvolvidos foram relevantes o suficente para justificar um trabalho de conclusão de curso. Apenas a parte experimental poderia ser melhor trabalhada. A obra como um todo receberia uma nota $9.5$ pela dedicação ao projeto.
 
 
 %\nocite{*}
