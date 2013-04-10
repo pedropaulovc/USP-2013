@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage[brazilian]{babel}
+\usepackage[a4paper]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+%\usepackage{url}
+%\usepackage{graphicx}
+%\usepackage[pdfborder={0 0 0}]{hyperref}
+%\usepackage{amssymb}
+%\usepackage{amsmath}
+
+\begin{document}
+
+
+\author{Pedro Paulo Vezzá Campos}
+\title{Avaliação do TCC \\ `` Escalonamento de aplicações utilizando análise de padrões de uso no InteGrade ''}
+\date{\today}
+\maketitle
+
+\section{Dados do Trabalho Analisado}
+	\begin{description}
+		\item[Título] Previsão de Utilização de Recursos por Aplicações no InteGrade
+		\item[Ano] 2009
+		\item[Aluno] Thiago Henrique Coraini 
+		\item[Orientador] Marcelo Finger
+		\item[Nota Obtida] $9.5$
+	\end{description}
+
+\section{Resumo da Monografia}
+	O trabalho propõe a implementação de diversos algoritmos de escalonamento em um software de gerenciamento de grades computacionais oportunistas, aquelas que fazem uso de recursos ociosos, o \emph{InteGrade}. Antes dos trabalhos descritos no TCC o \emph{InteGrade} já contava com um módulo desenvolvido, o \emph{Local Usage Pattern Analyzer (LUPA)}. Sua função é analisar o comportamento de um nó da grade localmente para prever o nível de uso de recursos (CPU e memória) em um período de tempo futuro. Ainda, o projeto contava apenas com um algoritmo de escalonamento de tarefas dentro do grid bastante simples. Este algoritmo apenas excluía da lista de candidatos de nós a serem utilizados os que não atendiam aos requisitos da aplicação no momento da submissão. Dessa forma, o \emph{LUPA} estava subutilizado. O objetivo principal do TCC foi de integrar o \emph{LUPA} ao \emph{InteGrade}, utilizando as informações fornecidos por ele na lógica de escalonamento. Outra meta do trabalho foi implementar alguns algoritmos de escalonamento e realizar experimentos, tentando descobrir se algum teria um desempenho melhor que outro ao executar alguma aplicação.
+	
+	Para cumprir estes objetivos, primeiramente o escalonador foi refatorado, o que permitiu que vários algoritmos pudessem ser desenvolvidos sem que um afetasse o outro. Em seguida, foram desenvolvidos quatro algoritmos para o projeto: CanRunGridApplication, que impede a execução em computadores que não manterão ociosidade pelo tempo mínimo definido,  HowLongCanRunGridApplication, que escalona prioritariamente aquele computador que se mantiver disponível por mais tempo  GreedyAverageResourceUsage, que prioriza o computador que tiver mais recursos disponíveis e BestFitAverageResourceUsage, que prioriza computadores que tenham a menor disponibilidade ainda dentro dos requisitos. Em seguida foi descrito o experimento realizado com 20 computadores na Rede Linux comparando as performances dos escalonadores. Não houve diferença expressiva entre um e outro algoritmo.
+	
+	
+\section{Avaliação da parte técnica}
+	O texto em si é bastante acessível, com uma organização que permite uma leitura sem dificuldades. Não há erros ortográficos ou gramaticais expressivos. O autor traz uma introdução rápida ao contexto no qual o TCC está inserido, permitindo ao leitor rapidamente compreender os objetivos e o desenvolvimento do trabalho.
+	
+	O foco principal da monografia, o desenvolvimento do escalonador e algoritmos relacionados do \emph{InteGrade} foi uma escolha bastante acertada como tema. Foi possível perceber que o trabalho envolveu estudos amplos tanto dos fundamentos tecnológicos nos quais o \emph{InteGrade} está baseado, \emph{CORBA}, Lua e C++, por exemplo, quanto da teoria de escalonamento implementando alguns algoritmos clássicos na área. O código produzido é relevante uma vez que trouxe benfícios ao software, integrando um componente mal utilizado e tornando a arquitetura do escalonador mais adaptável para mudanças futuras.
+	
+	A única crítica ao trabalho está nos experimentos realizados. A escolha da Rede Linux como local para testar as modificações foi um problema já que devido a dúvidas sobre a interferência do \emph{InteGrade} no desempenho da rede o experimento teve de ser interrompido, prejudicando quaisquer resultados que viessem a ser coletados. Ainda, não houve em nenhum momento uma análise do comportamento dos algoritmos de escalonamento, algo que indicasse que estavam funcionando corretamente.
+	
+	
+\section{Avaliação da parte subjetiva}
+	Na parte subjetiva o autor faz bom um balanço do seu envolvimento com o projeto \emph{InteGrade}, do qual foi aluno de iniciação científica, expondo os desafios enfrentados, como por exemplo o fato de o software ainda não estar maduro o suficiente e, assim, propenso a bugs diversos. O autor mostrou que fez uma reflexão ao concluir que provavelmente não iria continuar no projeto ao fim de sua IC, pela vontade de conduzir um projeto que fosse exclusivamente dele. O BCC também foi alvo de análise, tanto ao apresentar as disciplinas mais importantes para a sua graduação quanto ao fazer um balanço com um certo ar melancólico da graduação, mas esperançoso com os trabalhos na pós-graduação. 
+	
+\section{Comentários}
+	Como dito anteriormente, o texto é de leitura simples, com boa organização e bem redigido. Os trabalhos desenvolvidos foram relevantes o suficente para justificar um trabalho de conclusão de curso. Apenas a parte experimental poderia ser melhor trabalhada. A obra como um todo receberia uma nota $9.5$ pela dedicação ao projeto.
+
+
+%\nocite{*}
+%\bibliographystyle{abnt-num}
+%\bibliography{bibliografia}
+
+\end{document}
