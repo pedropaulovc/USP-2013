@@ -1,4 +1,4 @@
-DOCUMENT = previsor_integrade
+DOCUMENT = avaliacoes
 
 document : $(DOCUMENT).tex
 #	pdflatex $(DOCUMENT).tex
