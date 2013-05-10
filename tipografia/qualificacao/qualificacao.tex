@@ -27,21 +27,20 @@
 \usepackage{url}
 
 
-\title{Algoritmos de Roteamento}
-
-%\subtitle{}
+\title{Projeto Final: Proposta}
+\subtitle{AUP2303 - Design de Tipos}
 
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
 %\author{F.~Author\inst{1} \and S.~Another\inst{2}}
-\author{Pedro Paulo V. Campos \\ Tarcísio Eduardo M. Crocomo}
+\author{Pedro Paulo Vezzá Campos - 7538743}
 
 \date{\today}
 
 
 % This is only inserted into the PDF information catalog. Can be left
 % out.
-\subject{Algoritmos de Roteamento}
+\subject{Projeto Final Design de Tipos}
 
 
 
@@ -67,7 +66,7 @@
 % If you wish to uncover everything in a step-wise fashion, uncomment
 % the following command:
 
-\beamerdefaultoverlayspecification{<+->}
+%\beamerdefaultoverlayspecification{<+->}
 
 \begin{document}
 
@@ -82,392 +81,94 @@
 \end{frame}
 
 
-\section{Introdução}
+\section{Ideia}
 \subsection{}
 
 \begin{frame}
-\frametitle{Motivação}
-\texttt{\footnotesize traceroute to \textbf{nhk.co.jp} (61.58.37.103) \\
- 1  192.168.1.254  0.150 ms \\
- 2  \textbf{roteador.inf.ufsc.br}  1.835 ms \\
- 3  npd252e1-1gb-\textbf{npd}254rs.bb.ufsc.br  5.233 ms \\
- 4  popsc-1g-ufsc-(...)-r250.bb.\textbf{pop-sc}.rnp.br  5.939 ms \\
- 5  rnp-2g-194-251-v40-r251.bb.pop-sc.rnp.br  6.613 ms \\
- 6  so-1-0-0-r1-\textbf{rs}.bkb.rnp.br  11.776 ms \\
- 7  so-0-0-0-r1-\textbf{df}.bkb.rnp.br  51.419 ms \\
- 8  so-0-2-0-r1-\textbf{sp}.bkb.rnp.br  66.531 ms \\
-(...) \\
-16  xe-0-1-0.r21.\textbf{miam}fl02.us.bb.gin.ntt.net 177.438 ms \\
-(...) \\
-20  as-1.r21.\textbf{osak}jp01.jp.bb.gin.ntt.net  396.762 ms \\
-21  ae-2.r23.\textbf{toky}jp01.jp.bb.gin.ntt.net  374.946 ms \\
-22  129.250.3.75  407.060 ms \\
-23  xe-1-1-0.a05.\textbf{taip}tw01.tw.ra.gin.ntt.net 430.482 ms \\
-(...) \\
-27  nhk-grp.\textbf{jp}  408.878 ms
-}
-\end{frame}
-
-\begin{frame}
-\frametitle{O Roteador}
+\frametitle{Lego Mindstorms	Education}
 %\usepackage{graphics} is needed for \includegraphics
-%\begin{figure}[htp]
-%\begin{center}
-%  \includegraphics[width=90mm]{Imagens/D-Link.jpg}
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=\linewidth]{imagens/pecas-003.jpg}
 %  \caption[dlink]{DI-604: 100 Mbps, \$60}
 %  \label{dlink}
-%\end{center}
-%\end{figure}
+\end{center}
+\end{figure}
 \end{frame}
 
 \begin{frame}
-\frametitle{O Roteador}
+\frametitle{Lego Mindstorms	Education}
 %\usepackage{graphics} is needed for \includegraphics
-
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=90mm]{imagens/pecas-000.jpg}
+%  \caption[dlink]{DI-604: 100 Mbps, \$60}
+%  \label{dlink}
+\end{center}
+\end{figure}
 \end{frame}
 
 \begin{frame}
-\frametitle{Desafios}
-\begin{description}
-  \setlength{\itemsep}{0.7cm}%
-  \item[Correção] Fornecer não apenas uma rota válida mas a melhor
-  \item[Escalabilidade] Tamanho de rede variável. Algoritmos
-  eficientes
-  \item[Estabilidade] Rápida adaptação a mudanças ou problemas na rede
-  \item[Robustez] Funcionar por anos sem necessitar reinicialização
-  \item[Justiça] Visar eficiência global sem gerar \emph{starvation}
-\end{description}
-
-\end{frame}
-
-
-\section{Fundamentação}
-\subsection{}
-
-% \begin{frame}
-% \frametitle{Modelos de Troca de Dados}
-%  	\begin{table}	
-%  	\begin{center}
-% 		\begin{tabular}{c c}
-% 		\textbf{Unicast} &
-% 			\parbox[c]{1em}{\includegraphics[width=25mm]{Imagens/Unicast.png}}\\
-% 		\textbf{Anycast} & 
-% 			\parbox[c]{1em}{\includegraphics[width=25mm]{Imagens/Anycast.png}}\\ 
-% 		\textbf{Multicast} & 
-% 			\parbox[c]{1em}{\includegraphics[width=25mm]{Imagens/Multicast.png}}\\ 
-% 		\textbf{Broadcast} & 
-% 			\parbox[c]{1em}{\includegraphics[width=25mm]{Imagens/Broadcast.png}}\\ 
-% 		\end{tabular}
-% 		\label{modelos_troca_dados}
-% 	\end{center}
-% 	\end{table}
-% \end{frame}
-
-\begin{frame}
-\frametitle{Modelos de Troca de Dados}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Métricas para Classificação de Rotas}
-\begin{itemize}
-  \setlength{\itemsep}{0.7cm}%
-  \item Número de hops
-  \item Largura de banda
-  \item Custo (monetário)
-  \item Latência
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Sistemas Autônomos}
-\begin{itemize}
-  \setlength{\itemsep}{0.7cm}%
-  \item Como tornar escalável e administrável um conjunto de \textasciitilde2bi de
-  computadores interconectados?
-  \item Solução: Agrupar em um SA redes operadas por um ou mais operadores que apresentam uma única política clara de roteamento.
-  \item Exemplo: AS11242 - POP-SC - Responsável por 73728 IPs 
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Classificação de Protocolos de Roteamento}
-\framesubtitle{Quanto à Vizinhança}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Classificação de Protocolos de Roteamento}
-\framesubtitle{Quanto à Vizinhança}
-\begin{block}{Externos}
-G(V,A)\\
-V = \{v $\mid$ v  é um sistema autônomo\}\\
-A = \{($v_1$, $v_2$, m) $\mid$ $v_1$, $v_2 \in$ V, há uma ligação direta
-entre $v_1$ e $v_2$  com um custo m\}
-\end{block}
-
-\begin{block}{Internos}
-G(V,A)\\
-V = \{v $\mid$ v é nodo da rede de um sistema autônomo\}\\
-A = \{($v_1$, $v_2$, m) $\mid$ $v_1$, $v_2 \in$ V, há uma ligação direta
-entre $v_1$ e $v_2$  com um custo m\}
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{Classificação de Protocolos de Roteamento}
-\framesubtitle{Quanto à Escolha de Rotas}
-\begin{itemize}
-  \item Estáticos (Não adaptativos)
-  \begin{itemize}
-     \item Menor caminho
-     \item \emph{Flooding}
-     \item Baseado em Fluxo (\emph{Flow-based}) 
-  \end{itemize}
-  \item Dinâmicos (Adaptativos)
-  \begin{itemize}
-     \item Vetor distância
-     \item Estado do \emph{link} (\emph{Link State})
-     \item Hierárquico 
-  \end{itemize}
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Rotas Ótimas}
-\begin{itemize}
-  \setlength{\itemsep}{0.7cm}%
-  \item É possível criar uma descrição das rotas ótimas sem levar em conta a
-  topologia da rede?
-  \item Como medir a qualidade de um algoritmo de roteamento?
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Princípio de Otimização}
-\begin{block}{Teorema}
-Se um roteador \emph{J} estiver no caminho ótimo entre os roteadores \emph{I} e \emph{K}, o caminho
-ótimo de \emph{J} a \emph{K} também estará na mesma rota.
-\end{block}
+\frametitle{Lego Mindstorms	Education}
 %\usepackage{graphics} is needed for \includegraphics
-
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=\linewidth]{imagens/pecas-001.jpg}
+%  \caption[dlink]{DI-604: 100 Mbps, \$60}
+%  \label{dlink}
+\end{center}
+\end{figure}
 \end{frame}
 
 \begin{frame}
-\frametitle{Princípio de Otimização}
-\begin{block}{Prova (por contradição)}
-Se houvesse uma rota melhor que a enunciada entre \emph{J} e \emph{K}, ela poderia ser
-concatenada a $R_1$ para criar uma rota melhor entre \emph{I} e \emph{K}, contradizendo a
-afirmação que a rota $R_{ik}$ é ótima. $\qed$
-\end{block}
+\frametitle{Lego Mindstorms	Education}
 %\usepackage{graphics} is needed for \includegraphics
-
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=\linewidth]{imagens/pecas-002.jpg}
+%  \caption[dlink]{DI-604: 100 Mbps, \$60}
+%  \label{dlink}
+\end{center}
+\end{figure}
 \end{frame}
 
-\begin{frame}
-\frametitle{Árvore de Escoamento}
-%\usepackage{graphics} is needed for \includegraphics
-
-\end{frame}
-
-
-\section{Algoritmos Estáticos}
+\section{Proposta}
 \subsection{}
 
 \begin{frame}
-\frametitle{Menor Caminho}
-
-\begin{itemize}
-  \setlength{\itemsep}{0.7cm}%
-  \item Um dos algoritmos mais simples
-  \item A partir do modelo de grafos de uma rede interna gera uma sequência de
-  nodos a serem percorridos para um pacote sair da origem e chegar ao destino.
-  \item Algoritmo global, conhecimento completo do grafo 
-  \item Calculado de maneira centralizada e distribuída para os roteadores
-  \item Algoritmo de Dijkstra
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{\emph{Flooding}}
-
-\begin{itemize}
-  \setlength{\itemsep}{0.7cm}%
-  \item Envia pacotes para todos os vizinhos, exceto pra de onde ele veio
-  \item Necessita de controle para evitar o envio de infinitos pacotes
-  \item Não costuma ser prático, exceto quando seu efeito é efetivamente o desejado
-  \item Escolhe o menor caminho, pois escolhe todos simultaneamente 
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Baseado em Fluxo}
-\begin{itemize}
-  \setlength{\itemsep}{0.7cm}%
-  \item Conta carga da rede junto da topologia
-  \item Fluxo médio conhecido anteriormente
-  \item Cálculo do atraso médio entre nodos
-  \item Algoritmo que determine menor atraso médio determina o roteamento
-\end{itemize}
-\end{frame}
-
-
-\section{Algoritmos Dinâmicos}
-\subsection{}
-
-\begin{frame}
-\frametitle{Vetor Distância}
-\begin{itemize}
-  \setlength{\itemsep}{0.7cm}%
-  \item Algoritmo distribuído
-  \item Cada roteador possui uma tabela (vetor) contendo a melhor distância conhecida até cada destino e a linha de saída preferencial utilizada para alcançá-lo.
-  \item Utilizado na ARPANET: \emph{Routing Information Protocol} (RIP)
-  \item Objetivo: Encontrar o menor caminho
-  \begin{itemize}
-    \item Algoritmo de Bellman-Ford
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Algoritmo de Bellman-Ford}
-\begin{block}{Princípio}
-Se os vizinhos de um nodo \emph{i} conhecem um caminho até um nodo \emph{j}, a menor distância
-entre o nodo \emph{i} e \emph{j} é obtido encontrando o menor valor resultante
-da soma da distância de \emph{i} até um vizinho e deste até \emph{j}.
-\end{block}
-
-\end{frame}
-
-\begin{frame}
-\begin{columns}
-	\begin{column}{0.5\textwidth}
-	\begin{block}{Algoritmo}
-	\end{block}
-	\end{column}
-	
-	\begin{column}{0.5\textwidth}
-		\begin{block}{Algoritmo}
-		\end{block}
-		
- 		\begin{block}{Algoritmo}
- 		\end{block}
-	\end{column}
-\end{columns}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Vetor Distância}
+\frametitle{Vetorizar algumas peças (todas?)}
 %\usepackage{graphics} is needed for \includegraphics
-
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=\linewidth]{imagens/pecas-004.jpg}
+%  \caption[dlink]{DI-604: 100 Mbps, \$60}
+%  \label{dlink}
+\end{center}
+\end{figure}
 \end{frame}
 
 \begin{frame}
-\frametitle{Convergência do Vetor Distância}
-
-\begin{itemize}
-  \item Vetor distância reage bem (linearmente) a boas notícias:
-  %\usepackage{graphics} is needed for \includegraphics
-
-   \item Já a más notícias\ldots
-\end{itemize}
+\frametitle{Protótipo: Caracteres chave com design modular}
+%\usepackage{graphics} is needed for \includegraphics
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=60mm]{imagens/Lego.png}
+%  \caption[dlink]{DI-604: 100 Mbps, \$60}
+%  \label{dlink}
+\end{center}
+\end{figure}
 \end{frame}
 
 \begin{frame}
-\frametitle{Problema da Contagem ao Infinito}
- %\usepackage{graphics} is needed for \includegraphics
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Estado do \emph{Link}}
-
-\begin{itemize}
-  \item Descobrir vizinhos
-  \item Propagar informação
-  \begin{itemize}
-     \item Quem
-     \item Vizinhos
-     \item Número de sequência
-  \end{itemize}
-  \item Criação do mapa da rede
-  \item Recalcular e reenviar em caso de falha
-  \item Cálculo da melhor rota é independente
-  \item OSPF - Open Shortest Path First:
-  \begin{itemize}
-     \item Protocolo muito utilizado em redes internas,
-        baseado em link-state.
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Roteamento Hierárquico}
-\begin{itemize}
-  \setlength{\itemsep}{0.7cm}%
-  \item Utilizado no roteamento externo (inter-rede)
-  \item \textasciitilde2bi de dispositivos $\to$ 35.000 Sistemas Autônomos
-  (2010)
-  \item Exemplo: \emph{Border Gateway Protocol} (BGP)
-  \item Responsável por tornar a Internet uma aplicação verdadeiramente distribuída.
-  \item Obediência a leis internacionais e decisões políticas
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Roteamento Hierárquico}
-\begin{itemize}
-  \item Funcionamento básico: Similar ao vetor distância. Roteadores enviam uns
-  aos outros duas informações:
-  \begin{itemize}
-    \item Que eles estão vivos e quais redes (Faixas de IPs) estão sob sua
-    responsabilidade.
-    \item Qual a rota completa que utilizam para chegar ao destino (Solução para
-    o problema da contagem ao infinito!)
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Roteamento Hierárquico}
- %\usepackage{graphics} is needed for \includegraphics
-
-\begin{itemize}
-  \item O que acontece se G cair?
-\end{itemize}
-\end{frame}
-
-
-\section{Conclusão}
-\subsection{}
-
-\begin{frame}
-\frametitle{Conclusão}
-\begin{itemize}
-  \setlength{\itemsep}{0.7cm}%
-  \item Grafos e seus algoritmos são ferramentas extremamente úteis em redes de
-  computadores. Permitem a modelagem e solução de diferentes situações encontradas na área.
-  \item A Internet como a conhecemos só existe hoje graças aos avanços no
-  desenvolvimento de melhores e mais eficientes algoritmos de roteamento.
-  \item Não há uma "bala de prata", diferentes algoritmos servem a diferentes
-  propósitos
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Bibliografia}
-\begin{itemize}
-  \item TANENBAUM, A. S. Redes de Computadores. 4 ed. São Paulo: Elsevier, 2003.
-  \item DE CASTRO, M. C. F. Redes Comutadas. setembro de 2002. Disponível em:
-  <\url{http://www.ee.pucrs.br/~decastro/download.html}>.
-  \item CARISSIMI, A. Algoritmos de roteamento. 2008. Disponível em:
-  <\url{http://www.inf.ufrgs.br/~asc/redes/pdf/aula21.pdf}>.
-  \item CAMPONOGARA, E. Caminhos Mínimos Com Uma Fonte. abril de 2009.
-  Disponível em:
-  <\url{http://www.das.ufsc.br/~camponog/Disciplinas/DAS-9003/slides_CLR/l14-shortest-path.pdf}>
-\end{itemize}
+\frametitle{Protótipo: Caracteres chave com design modular}
+%\usepackage{graphics} is needed for \includegraphics
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=\linewidth]{imagens/Lego1Linha.png}
+%  \caption[dlink]{DI-604: 100 Mbps, \$60}
+%  \label{dlink}
+\end{center}
+\end{figure}
 \end{frame}
 
 \end{document}
