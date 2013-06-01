@@ -1,0 +1,210 @@
+[
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "0a3d72515be6a0b44fe07327d074f37ca845559e",
+    "jarFileModificationDate": "2012-08-28T22:29:50-03:00",
+    "location": "/opt/libs/jdk1.7.0_07/jre/lib/jsse.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "be4b5665189bb2e541bc2b1ba29e4fe3140880c8",
+    "jarFileModificationDate": "2012-08-28T22:30:24-03:00",
+    "location": "/opt/libs/jdk1.7.0_07/jre/lib/ext/localedata.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.cloudbus.cloudsim.cloudsim",
+    "version": {
+      "major": 3,
+      "minor": 0,
+      "micro": 3,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "d996d356b545724a0f384f383c1ffe84c45c1852",
+    "jarFileModificationDate": "2013-05-14T08:24:31-03:00",
+    "location": "/nfs/home/bcc/pedrovc/USP/2013/workspace/CloudSim/cloudsim-3.0.3.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "1e96450ddfa43ae75c22b6d1b0f4a332bc8587dd",
+    "jarFileModificationDate": "2012-08-28T22:23:34-03:00",
+    "location": "/opt/libs/jdk1.7.0_07/jre/lib/jfr.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "e0cdc8f768f5bc0d7d9165320bada5f417c0285c",
+    "jarFileModificationDate": "2012-08-28T22:10:12-03:00",
+    "location": "/opt/libs/jdk1.7.0_07/jre/lib/ext/dnsns.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5608cb60fd88b82aa4c1cbae76262189fe4f82a7",
+    "jarFileModificationDate": "2012-08-28T22:30:00-03:00",
+    "location": "/opt/libs/jdk1.7.0_07/jre/lib/charsets.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f56383db77ae9502e6ca617e57d55ee73d631c46",
+    "jarFileModificationDate": "2012-08-28T22:09:55-03:00",
+    "location": "/opt/libs/jdk1.7.0_07/jre/lib/ext/sunec.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "simjava2",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "1ee0bfb646d69a9189dcc180fb252eaffea64d03",
+    "jarFileModificationDate": "2013-05-20T10:28:37-03:00",
+    "location": "/nfs/home/bcc/pedrovc/USP/2013/workspace/GridSim/simjava2.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "abbc4bda24b4196316e85b0e4b67527731ab6f12",
+    "jarFileModificationDate": "2012-08-28T22:10:03-03:00",
+    "location": "/opt/libs/jdk1.7.0_07/jre/lib/ext/sunpkcs11.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "cloudsim-3.0.3-sources",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "3ff14e28bf1a39de0b827ad431cbffd760c00095",
+    "jarFileModificationDate": "2013-05-14T08:24:31-03:00",
+    "location": "/nfs/home/bcc/pedrovc/USP/2013/workspace/CloudSim/cloudsim-3.0.3-sources.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a5fe3d98da25f67c558bac356c7f88834c366bd0",
+    "jarFileModificationDate": "2012-08-28T22:23:34-03:00",
+    "location": "/opt/libs/jdk1.7.0_07/jre/lib/resources.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "35666d721d6ea21920daf12c79bb69b5ad6a0b22",
+    "jarFileModificationDate": "2012-08-28T22:14:23-03:00",
+    "location": "/opt/libs/jdk1.7.0_07/jre/lib/ext/zipfs.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "2bad7bafb33c65f78f00999c4a8d9ab9728c21b4",
+    "jarFileModificationDate": "2012-08-28T22:13:51-03:00",
+    "location": "/opt/libs/jdk1.7.0_07/jre/lib/ext/sunjce_provider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "gridsim",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "b9c031219a910ebdd64faad67da829593741ad73",
+    "jarFileModificationDate": "2013-05-20T10:28:37-03:00",
+    "location": "/nfs/home/bcc/pedrovc/USP/2013/workspace/GridSim/gridsim.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "94e40b04792ac94d19ebff83b21d4157e4f45a5a",
+    "jarFileModificationDate": "2012-08-28T22:29:49-03:00",
+    "location": "/opt/libs/jdk1.7.0_07/jre/lib/rt.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "9c65be66b7d064aa969eed550ce6bca0c930fd4c",
+    "jarFileModificationDate": "2012-08-28T22:07:38-03:00",
+    "location": "/opt/libs/jdk1.7.0_07/jre/lib/jce.jar",
+    "javaRuntime": true
+  }
+]
