@@ -4,7 +4,7 @@ Grey Separator
 #container .greySeparator
 {
 	clear: both;
-	margin: 46px 0 0 0;
+	margin: 60px 0 0 0;
 	height: 1px;
 	background-color: #807873;
 }
@@ -39,14 +39,14 @@ Description
 #container .aboutContent .description
 {
 	float: left;
-	width: 515px;
+/*	width: 515px; */
 }
 
-#container .aboutContent .description h1
+#container .aboutContent .description h1, h2, h3, h4, h5, h6
 {
-	margin: 0;
+	margin: 0 0 30px 0;
 	padding: 0 0 5px 0;
-	font: normal 3em "Times New Roman", Times, serif;
+	font: normal 3em "Noto Serif", "Times New Roman", Times, serif;
 	color: #807873;
 	font-style: italic;
 }
@@ -57,27 +57,107 @@ Description
 	border-bottom: solid 2px #e97004;
 }
 
-#container .aboutContent .description p
+#container .aboutContent .description h2
 {
-	margin: 20px 0 20px 0;
-	font: normal 0.583em "Times New Roman", Times, serif;
+	font-size: 2.6em;
+	
+}
+
+#container .aboutContent .description h3
+{
+	font-size: 2.2em;
+}
+
+#container .aboutContent .description h4
+{
+	font-size: 1.8em;
+}
+
+#container .aboutContent .description h5
+{
+	font-size: 1.4em;
+}
+
+#container .aboutContent .description h6
+{
+	font-size: 1em;
+}
+
+#container .aboutContent .description
+{
+	font: normal 0.583em "Noto Serif", "Times New Roman", Times, serif;
 	line-height: 1.5em;
 }
 
 #container .aboutContent .description a,
 #container .aboutContent .description a:link,
 #container .aboutContent .description a:active,
-#container .aboutContent .description a:visited
+#container .aboutContent .description a:visited,
+.footer a,
+.footer a:link,
+.footer a:active,
+.footer a:visited
 {
 	font-style: normal;
 	color: #e97004;
 	text-decoration: none;
 }
 
-#container .aboutContent .description a:hover
+#container .aboutContent .description a:hover,
+.footer a:hover
 {
 	text-decoration: underline;
 }
+
+html>/**/body ol.nested 
+{ /* Won't be interpreted by IE6/7. */
+    list-style-type: none;
+    counter-reset: level1;
+}
+
+ol.nested li:before 
+{
+    content: counter(level1) ". ";
+    counter-increment: level1;
+}
+ol.nested li ol 
+{
+    list-style-type: none;
+    counter-reset: level2;
+}
+ol.nested li ol li:before 
+{
+    content: counter(level1) "." counter(level2) " ";
+    counter-increment: level2;
+}
+ol.nested li span 
+{ /* For IE6/7. */
+    margin: 0 5px 0 -25px;
+}
+
+#container .aboutContent .description p, 
+#container .aboutContent .description ul,
+#container .aboutContent .description  ol
+{
+	margin: 20px 0 20px 0;
+}
+
+#container .aboutContent .description ul,
+#container .aboutContent .description  ol
+{
+	padding-left: 20px;
+}
+
+#container .aboutContent .description ul
+{
+	list-style: none;
+}
+
+#container .aboutContent .description li
+{
+	margin-bottom: 10px;
+}
+
 /*######################################################
 ---/ End Description
 ##################################################### */
@@ -94,7 +174,133 @@ Image
 {
 	float: right;
 	margin: 25px 0 0 0;
+	padding-left: 75px;
+	padding-bottom: 50px;
 }
 /*######################################################
 ---/ End Description
 ##################################################### */
+
+
+/* #####################################################
+Table 
+###################################################### */
+.datagrid table
+{
+	border-collapse:collapse;
+	text-align:center;
+	width:100%;
+}
+
+.datagrid
+{
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	background:#fff;
+	border:1px solid #8C8C8C;
+	border-radius:3px;
+	font:normal 12px/150% "Noto Serif", "Times New Roman", Times, serif;
+	overflow:hidden;
+	margin: 20px 0 20px 0;
+}
+
+.datagrid table td,.datagrid table th
+{
+	padding:3px 10px;
+}
+
+.datagrid table thead th
+{
+	background:0;
+	background-color:#8C8C8C;
+	border-left:1px solid #A3A3A3;
+	color:#FFF;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8C8C8C',endColorstr='#7D7D7D');
+	font-size:15px;
+	font-weight:700;
+}
+
+.datagrid table thead th:first-child
+{
+	border:none;
+}
+
+.datagrid table tbody td
+{
+	border-left:1px solid #DBDBDB;
+	color:#7D7D7D;
+	font-size:12px;
+	font-weight:400;
+}
+
+.datagrid table tbody .alt td
+{
+	background:#EBEBEB;
+	color:#7D7D7D;
+}
+
+.datagrid table tbody td:first-child
+{
+	border-left:none;
+}
+
+.datagrid table tbody tr:last-child td
+{
+	border-bottom:none;
+}
+
+.datagrid table tfoot td div
+{
+	background:#EBEBEB;
+	border-top:1px solid #8C8C8C;
+	padding:2px;
+}
+
+.datagrid table tfoot td
+{
+	font-size:12px;
+	padding:0;
+}
+
+.datagrid table tfoot td ul
+{
+	list-style:none;
+	margin:0;
+	padding:0;
+	text-align:right;
+}
+
+.datagrid table tfoot li
+{
+	display:inline;
+}
+
+.datagrid table tfoot li a
+{
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	background:0;
+	background-color:#8C8C8C;
+	border:1px solid #8C8C8C;
+	border-radius:3px;
+	color:#F5F5F5;
+	display:inline-block;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8C8C8C',endColorstr='#7D7D7D');
+	margin:1px;
+	padding:2px 8px;
+	text-decoration:none;
+}
+
+.datagrid table tfoot ul.active,.datagrid table tfoot ul a:hover
+{
+	background:none;
+	background-color:#8C8C8C;
+	border-color:#7D7D7D;
+	color:#F5F5F5;
+	text-decoration:none;
+}
+
+
+/* #####################################################
+End table 
+###################################################### */

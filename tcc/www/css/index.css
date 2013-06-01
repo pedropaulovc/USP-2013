@@ -4,7 +4,7 @@ Grey Separator
 #container .greySeparator
 {
 	clear: both;
-	margin: 46px 0 0 0;
+	margin: 60px 0 0 0;
 	height: 1px;
 	background-color: #807873;
 }
@@ -30,7 +30,7 @@ Intro
 {
 	margin: 0;
 	padding: 0 0 5px 0;
-	font: normal 3em "Times New Roman", Times, serif;
+	font: normal 3em "Noto Serif", "Times New Roman", Times, serif;
 	color: #807873;
 	font-style: italic;
 }
@@ -45,7 +45,7 @@ Intro
 {
 	margin: 25px 0 0 0;
 	padding: 0;
-	font: normal .75em "Times New Roman", Times, serif;
+	font: normal .75em "Noto Serif", "Times New Roman", Times, serif;
 	color: #373431;
 	line-height: 1.5em;
 }
@@ -53,14 +53,19 @@ Intro
 #container .intro a,
 #container .intro a:link,
 #container .intro a:active,
-#container .intro a:visited
+#container .intro a:visited,
+.footer a,
+.footer a:link,
+.footer a:active,
+.footer a:visited
 {
 	font-style: normal;
 	color: #e97004;
 	text-decoration: none;
 }
 
-#container .intro a:hover
+#container .intro a:hover,
+.footer a:hover
 {
 	text-decoration: underline;
 }
@@ -104,7 +109,7 @@ Featured work
 {
 	margin: 0;
 	padding: 0;
-	font: normal 1em "Times New Roman", Times, serif;
+	font: normal 1em "Noto Serif", "Times New Roman", Times, serif;
 	color: #373431;
 	font-style: italic;
 }
@@ -149,7 +154,7 @@ Featured work
 	margin: 0 16px 0 0;
 	width: 300px;
 	float: left;
-	font: normal 0.75em "Times New Roman", Times, serif;
+	font: normal 0.75em "Noto Serif", "Times New Roman", Times, serif;
 	color: #373431;
 	font-style: italic;
 }

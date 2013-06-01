@@ -67,9 +67,9 @@ Contact Info
 #container .contactInfo
 {
 	float: right;
-	margin: 40px 0 0 0;
+	margin: 20px 0 0 0;
 	padding: 0;
-	font: normal .5em "Times New Roman", Times, serif;
+	font: normal .5em "Noto Serif", "Times New Roman", Times, serif;
 	color: #807873;
 	text-align: right;
 }
@@ -151,7 +151,7 @@ Navigation
 	width: 156px;
 	display: inline;
 	float: left;
-	font: normal .75em "Times New Roman", Times, serif;
+	font: normal .75em "Noto Serif", "Times New Roman", Times, serif;
 	color: #8f8f8f;
 	border-top: solid 2px #b9b6b4;
 }
@@ -178,7 +178,7 @@ Navigation
 	width: 156px;
 	display: inline;
 	float: left;
-	font: normal .75em "Times New Roman", Times, serif;
+	font: normal .75em "Noto Serif", "Times New Roman", Times, serif;
 	color: #373431;
 	border-top: solid 2px #373431;
 }
@@ -206,9 +206,10 @@ Footer
 	clear: both;
 	margin: 20px 0 20px 0;
 	text-align: left;
-	font: normal .5em "Times New Roman", Times, serif;
+	font: normal .5em "Noto Serif", "Times New Roman", Times, serif;
 	color: #807873;
 }
 /* #######################################################
 ---/ End Footer
 ####################################################### */
+
