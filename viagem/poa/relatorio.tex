@@ -1,0 +1,91 @@
+\documentclass{article}
+\usepackage[brazilian]{babel}
+\usepackage[a4paper]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{rotating}
+\usepackage[cm]{fullpage}
+\usepackage{url}
+\usepackage{graphicx}
+%\usepackage[pdfborder={0 0 0}]{hyperref}
+%\usepackage{amssymb}
+%\usepackage{amsmath}
+
+\begin{document}
+\title{Relatório de Viagem ao FISL14}
+\author{Pedro Paulo Vezzá Campos - 7538743}
+\date{\today}
+
+\maketitle
+
+%TODO: Verificar trajetos
+
+\hfill À Comissão de Graduação do IME/USP:\\
+
+Este documento é um relatório descrevendo as atividades realizadas durante a minha participação no 14$^o$ Fórum Internacional de Software Livre (FISL), que ocorreu de 3 a 6 de julho em Porto Alegre e que foi financiado com verba do programa Pró-Eve. Permaneço à disposição para quaisquer esclarecimentos.
+
+\vspace{3cm}
+
+\begin{flushright}
+	\noindent\rule{8cm}{0.4pt} \\
+	Pedro Paulo Vezzá Campos\\
+	\url{pedro@vezza.com.br}\\
+	(11) 97132-1145\\
+\end{flushright}
+
+
+\section{Introdução}
+Um grupo de 12 alunos de graduação em Ciência da Computação organizou-se para participar do 14$^o$ Fórum Internacional de Software Livre, para compartilhar experiências na área de Computação e estreitar laços com comunidades de software livre que estavam presentes no evento. O FISL continua uma tradição de 14 anos de ser um grande palco de debates entre entusiastas do Software Livre, onde é possível discutir questões técnicas e ideológicas, tais como Pirataria e liberdade na produção de software, hardware, cultura e até mesmo sementes livres.
+
+\section{Objetivo}
+Meu objetivo com esta viagem era de aprofundar meus conhecimentos na área de Cloud Computing, que é o assunto principal do meu TCC (\url{http://linux.ime.usp.br/~pedrovc/mac499}) e adquirir alguns subsídios que me permitissem cumprir meu projeto de iniciação científica junto ao projeto Apoio BCC (\url{http://bcc.ime.usp.br}) da melhor maneira possível. Como objetivo secundário havia o interesse em absorver cultura de outros locais em Porto Alegre, tais como museus.
+
+\section{Descrição das Atividades Realizadas}
+A viagem iniciou no dia 2 de julho com a ida a Porto Alegre. Devido a problemas meteorológicos houve um atraso de 3 horas na partida do avião fazendo com que o grupo chegasse à cidade apenas no período da tarde. Foi feito o checkin e um reconhecimento das redondezas do hotel.
+
+No dia 3 de julho o FISL iniciou suas atividades. Após o credenciamento os alunos se separaram para assistir as palestras que mais lhes interessavam. Eu optei pelas seguintes atividades no dia:
+
+\begin{description}
+	\item[Metaprogramação em Python] Bastante proveitosa, o palestrante apresentou diversos \emph{cases} nos quais poderia-se utilizar metaprogramação para evitar a repetição de código em tarefas tais como debug de um programa.
+	\item[Copyfight: muito além do download grátis] Apresentação do livro homônimo e uma roda de discussão que incluiu Tobias Anderson, cofundador do Pirate Bay e Tadzia de Oliva Maya, ativista do movimento de agricultura livre. A roda de discussão tomou um rumo bastante ideológico porém ainda útil para manter-me atualizado sobre os últimos desdobramentos nas discussões sobre o assunto.
+	\item[Emscripten: compilando de várias linguagens para JavaScript] Uma tendência recente no desenvolvimento web é a compilação cruzada de linguagens, principalmente linguagens mais fortemente tipadas, tais como C e C++ para JavaScript. Isso permite um reaproveitamento de bases de código, tornando-as portáteis para execução em navegadores web. \emph{Engines} de jogos, por exemplo, podem ser portadas para JavaScript com relativa facilidade permitindo criar jogos complexos que são executados diretamente na web.
+	\item[Concorrência e paralelismo além das threads e dos mutexes] Esta palestra introduziu os diferentes modelos de programação paralela, ponderando prós e contras de cada uma delas. Apesar de ser introdutória, apresentou uma boa dose de código para exemplificar modelos tais como MIMD, SIMD, processamento vetorial, passagem de mensagens e threads.
+	\item[Participação no Stand do CCSL/USP] Como prometido na carta de pedido de verba, eu contribuí com o stand permanecendo lá de 15:00 a 17:00 atendendo a visitantes interessados em saber mais sobre o projeto.
+\end{description}
+
+Continuando, no dia 4 de julho, optei por visitar o Museu de Ciências e Tecnologia da PUC-RS, que se localiza ao lado do centro de enventos onde ocorreu o FISL. A proposta do museu é apresentar diversas áreas tais como mecânica, ondulatória, física moderna, matemática, geologia e etc de uma maneira lúdica. Foi um momento de descontração onde foi possível aplicar testar conhecimentos adquiridos durante as disciplinas básicas da graduação, tais como Física I e II. Retornando ao evento, uma palestra relevante foi \textbf{Facebook: gerenciando tráfego globalmente para atender 1 bilhão de usuários}, o palestrante apresentou a arquitetura de rede que o Facebook emprega para garantir que o site tenha uma confiabilidade e velocidade grandes enquanto atende uma quantidade global de usuários. 
+
+No dia 5 de julho as palestras continuaram como de costume. As palestras que mais me interessaram no dia foram:
+
+\begin{description}
+	\item[Making GNU/Linux Run Faster] John ``Maddog'' Hall apresentou um projeto audacioso de otimizar mais de mil módulos que compõem o \emph{kernel} do Linux. Módulos que muitas vezes não são revisados de maneira profunda há mais de 10 anos, quando a qualidade dos compiladores disponíveis era muito diferente. A proposta é que desenvolvedores ganhem conhecimento sobre o funcionamento em mais baixo nível de um SO, ajudando um projeto de software livre fundamental e ainda concorrendo a prêmios.
+	\item[Agile e Design Thinking: Fazendo o certo da melhor forma] A proposta da palestra era apresentar como métodos ágeis são complementados pela metodologia de \emph{Design Thinking}. Infelizmente a palestra foi basicamente uma leitura de materiais prontos e não contribuiu mais do que se eu consultasse algum livro ou artigo sobre o assunto.
+	\item[Build \& Deploy to a Cloud Infrastructure] Um engenheiro do projeto SuSe apresentou a plataforma OpenStack que visa criar um ambiente completo de \emph{Cloud Computing} utilizando apenas tecnologias livres. Útil para conhecimento da plataforma apesar de pouco profunda.
+	\item[Participação no Stand do CCSL/USP] Novamente, permaneci lá de 15:00 a 17:00 atendendo a visitantes interessados em saber mais sobre o projeto.
+	\item[Scrapy: Fazendo Scraping de Dados Como Gente Grande] Essa palestra seria bastante útil a mim pois sou o responsável pelo MatrUSP (\url{http://bcc.ime.usp.br/matrusp}) e faço uso intenso de \emph{scraping} de dados do JupiterWeb. Infelizmente a palestra foi cancelada no último momento.
+\end{description}
+
+O dia 6 de julho foi o último dia de FISL. A programação do dia foi até as 18:00 e as últimas palestras que participei foram:
+
+\begin{description}
+	\item[Internacionali(s|z)ation at Google] Esta palestra foi cancelada de última hora, a organização afirmou que não conseguiu localizar o palestrante dentro do FISL.
+	\item[Monitorando Data Center com Arduino (gastando menos de R\$200,00)] O palestrante trabalha no Centro Tecnológico da Aeronáutica e implementou sozinho um sistema baseado em Arduino para monitorar diversos parâmetros do \emph{data center} que ele gerencia, tais como energia, luminosidade, umidade e temperatura. Foi bastante motivante ver que com um pequeno investimento é possível criar um sistema complexo para automatizar tarefas.
+	\item[Cidades Inteligentes] Uma roda de discussão com o Secretário de Transportes de Porto Alegre e outros intelectuais. O assunto principal acabou sendo desviado para as manifestações políticas que aconteceram no Brasil nas últimas semanas.
+	\item[Bitcoin, passado, presente e futuro] Foi apresentada uma introdução rápida do funcionamento do Bitcoin, que promete revolucionar nossa relação com o dinheiro da mesma forma que a Internet revolucionou nossa relação com as pessoas.
+	\item[Participação no Stand do CCSL/USP] Novamente, permaneci lá de 15:00 a 18:00 atendendo a visitantes interessados em saber mais sobre o projeto.
+\end{description}
+
+No dia 7 de julho estávamos programados para conhecer outros museus importantes de Porto Alegre tais como o Gasômetro, a Casa de Cultura Mario Quintana e o Mercado Público. Infelizmente o Mercado Público sofreu um terrível incêndio na noite do dia 6, o que nos fez abortar nossos planos iniciais. Ainda, neste dia houve uma chuva forte, complicando nossa locomoção pela cidade. Por medo de problemas em nosso voo de retorno devido novamente a condições climáticas, optamos por irmos ao aeroporto mais cedo que o previsto.
+
+\section{Conclusão e Agradecimentos}
+Como foi possível ver, a viagem ao FISL14 foi bastante intensa e enriquecedora. Além de contato com tecnologias que não conhecia ou que queria aprofundar, a viagem foi marcante pela experiência vivida com os amigos do curso. Considero, ainda, que cumpri meus objetivos, retornando a São Paulo com ânimo renovado para a conclusão da minha graduação e meu projeto de Inciação Científica. 
+
+Gostaria de agradecer a todos do IME/USP que tornaram essa oportunidade em realidade, em especial à Comissão de Graduação, e sua secretária Ana Lúcia de Oliveira Santos pela ajuda prestada na concessão do auxílio financeiro sem o qual a viagem não seria possível.
+
+
+%\nocite{*}
+%\bibliographystyle{abnt-num}
+%\bibliography{bibliografia}
+
+\end{document}
