@@ -84,7 +84,7 @@ public class Experiment1 {
 			//VM description
 			int vmid = 0;
 			int mips = 100;
-			long size = 10000; //image size (MB)
+			long size = 1000; //image size (MB)
 			int ram = 2048; //vm memory (MB)
 			long bw = 100;
 			int pesNumber = 1; //number of cpus

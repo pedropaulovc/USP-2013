@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/WorkflowSim/src/org/workflowsim/examples/WorkflowSimExample1.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.debug.ui.ATTR_CAPTURE_IN_FILE" value="${workspace_loc:/WorkflowSim/tmp/output.txt}"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.workflowsim.examples.WorkflowSimExample1"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-p ${project_loc}/config/config.txt"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="WorkflowSim"/>
+</launchConfiguration>

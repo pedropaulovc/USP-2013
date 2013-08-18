@@ -1,0 +1,15 @@
+1376397956592	Copy compilation unit
+1376398045212	Rename type 'FCFSScheduler'
+1376399572989	Copy compilation unit
+1376399588279	Rename package 'mac499.examples'
+1376399598799	Rename type 'WorkflowSimExample1'
+1376403451658	Copy compilation unit
+1376403466043	Rename type 'RandomPlanner'
+1376592936220	Extract method 'calculateComputationCosts'
+1376662916793	Rename field 'costs'
+1376663517537	Rename local variable 'task'
+1376663524562	Rename local variable 'taskObject'
+1376663741608	Rename local variable 'taskObject1'
+1376663744131	Rename local variable 'task1'
+1376663794904	Rename local variable 'taskObject'
+1376663816027	Rename local variable 'task'
