@@ -1,0 +1,82 @@
+%% ------------------------------------------------------------------------- %%
+\chapter{Introdução}
+\label{cap:introducao}
+Esta monografia desenvolvida durante o ano de \oldstylenums{2013} para a disciplina MAC0499 --
+Trabalho de Formatura Supervisionado apresenta os trabalhos realizados no estudo
+e experimentação com técnicas de escalonamento de tarefas em ambientes de 
+computação em nuvem sob a orientação do professor Daniel Macêdo Batista.
+
+Em conjunto com a aluna de mestrado Elaine Watanabe, foi desenvolvido e testado
+um novo algoritmo fosse energeticamente eficiente. Enquanto a aluna focou na
+concepção do algoritmo, o aluno dedicou-se a adaptar simuladores existentes para
+validar o algoritmo e realizar experimentos que atestem sua a qualidade.
+
+A parte objetiva deste trabalho está organizado da seguinte forma: No capítulo \ref{cap:conceitos}
+são apresentados brevemente os conceitos que fundamentam pesquisas na área e que
+são necessários para a compreensão dos capítulos seguintes. Posteriormente, 
+no capítulo \ref{cap:experimentos} o foco é direcionado para a situação atual
+na área de estudo, é apresentado de maneira profunda o novo algoritmo desenvolvido
+juntamente com resultados experimentais comparativos. Conclusões e considerações 
+finais são descritas em \ref{cap:conclusoes}.
+
+Já a parte subjetiva está organizada em dois tópicos principais: No capítulo 
+\ref{cap:o_tcc} há uma reflexão acerca do processo de produção deste trabalho
+e sua aplicação. Já no capítulo \ref{cap:a_graduacao} há uma reflexão mais ampla
+sobre as experiências vividas em cinco anos de graduação em duas universidades
+distintas e uma previsão dos próximos passos a seguir.
+
+
+\section{Motivação}
+\label{sec:motivacao}
+Desde a década de 1970 a oferta de poder computacional, armazenamento e
+comunicação vem crescendo em um ritmo exponencial com o tempo. Até o fim da
+década de 1990 essas necessidades vinham sendo supridas com aperfeiçoamentos nas
+arquiteturas dos computadores e melhorias no processo produtivo. A Lei de Moore
+continuava se mostrando válida, duplicando o poder dos computadores e servidores
+a cada 18 meses e, junto com esse aumento, impondo uma necessidade energética
+cada vez maior para manter o computador funcionando e refrigerado. Porém, com a
+chegada dos anos 2000 percebeu-se que o projeto de processadores encontrou uma
+barreira de potência. Processadores da época, tal como o Pentium 4, dissipavam
+100W de potência e sua eficiência energética era baixa. \cite{patterson:computer_organization}
+Assim, surgiu uma nova tendência, processadores mais simples e mais paralelos
+utilizando novas técnicas de economia de energia. Em suma, surgiu uma demanda
+por uma computação mais ``verde'' (\emph{green computing}).
+
+Cloud computing é uma alternativa viável para amenizar tal problema através da
+racionalização de recursos computacionais. Na seção \ref{sec:computacao_nuvem}
+são apresentadas as inovações presentes nesse modelo de computação. Porém, o 
+sucesso dessa metodologia depende de estratégias inteligentes que permitam 
+gerenciar os recursos disponíveis permitindo realizar uma economia de escala
+sem afetar os usuários.
+
+Em um nível mais técnico, uma nuvem é desenhada para executar tarefas, estas
+subdivididas em subtarefas. Cada subtarefa pode possuir uma demanda específica
+de ambiente para ser executada, sistema operacional, programas instalados, poder
+mínimo de processamento, armazenamento, etc. Ainda, subtarefas podem depender de
+que uma subtarefa anterior tenha sido concluída antes de poder ser executada. Em
+\cite{chaves:scheduling_software_requirements} e 
+\cite{batista:embedding_software_requirements} Chaves e Batista mostraram que é 
+possível modelar tais tarefas como digrafos acíclicos (DAGs) que incorporem as
+demandas de ambiente. Ainda, desenvolveram uma heurística para escalonar as
+subtarefas em computação em grade (\emph{grid computing}), similar à computação
+em nuvem, visando diminuir o tempo de conclusão da tarefa através da otimização
+do tráfego de rede necessário.
+
+Este trabalho tem por intenção desenvolver uma nova heurística para o problema
+apresentado que também otimize o consumo energético sem grandes prejuízos ao
+tempo de execução da tarefa. Seu desempenho deve ser comparado com a heurística
+proposta por Chaves e Batista em \cite{chaves:scheduling_software_requirements} 
+e \cite{batista:embedding_software_requirements} e com outros algoritmos com
+objetivos similares encontrados na literatura. Para isso será feito uso de um
+simulador de computação em nuvem.
+
+
+\section{Objetivos}
+\label{sec:objetivos}
+
+
+
+\section{Desafios}
+\label{sec:desafios}
+
+
