@@ -1,9 +1,9 @@
-% Arquivo LaTeX de exemplo de dissertaÁ„o/tese a ser apresentados ‡ CPG do IME-USP
+% Arquivo LaTeX de exemplo de disserta√ß√£o/tese a ser apresentados √† CPG do IME-USP
 % 
-% Vers„o 5: Sex Mar  9 18:05:40 BRT 2012
+% Vers√£o 5: Sex Mar  9 18:05:40 BRT 2012
 %
-% CriaÁ„o: Jes˙s P. Mena-Chalco
-% Revis„o: Fabio Kon e Paulo Feofiloff
+% Cria√ß√£o: Jes√∫s P. Mena-Chalco
+% Revis√£o: Fabio Kon e Paulo Feofiloff
 %  
 % Obs: Leia previamente o texto do arquivo README.txt
 
@@ -13,18 +13,18 @@
 % Pacotes 
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[pdftex]{graphicx}           % usamos arquivos pdf/png como figuras
-\usepackage{setspace}                   % espaÁamento flexÌvel
-\usepackage{indentfirst}                % indentaÁ„o do primeiro par·grafo
-\usepackage{makeidx}                    % Ìndice remissivo
+\usepackage{setspace}                   % espa√ßamento flex√≠vel
+\usepackage{indentfirst}                % indenta√ß√£o do primeiro par√°grafo
+\usepackage{makeidx}                    % √≠ndice remissivo
 \usepackage[nottoc]{tocbibind}          % acrescentamos a bibliografia/indice/conteudo no Table of Contents
 \usepackage{courier}                    % usa o Adobe Courier no lugar de Computer Modern Typewriter
-\usepackage{lmodern}                    % usa a vers„o amig·vel a caracteres acentuados da fonte Modern.
-\usepackage{type1cm}                    % fontes realmente escal·veis
-\usepackage{listings}                   % para formatar cÛdigo-fonte (ex. em Java)
+\usepackage{lmodern}                    % usa a vers√£o amig√°vel a caracteres acentuados da fonte Modern.
+\usepackage{type1cm}                    % fontes realmente escal√°veis
+\usepackage{listings}                   % para formatar c√≥digo-fonte (ex. em Java)
 \usepackage{titletoc}
-%\usepackage[bf,small,compact]{titlesec} % cabeÁalhos dos tÌtulos: menores e compactos
+%\usepackage[bf,small,compact]{titlesec} % cabe√ßalhos dos t√≠tulos: menores e compactos
 \usepackage[fixlanguage]{babelbib}
 \usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
 \usepackage[usenames,svgnames,dvipsnames]{xcolor}
@@ -32,11 +32,11 @@
 %\usepackage[pdftex,plainpages=false,pdfpagelabels,pagebackref,colorlinks=true,citecolor=black,linkcolor=black,urlcolor=black,filecolor=black,bookmarksopen=true]{hyperref} % links em preto
 \usepackage[pdftex,plainpages=false,pdfpagelabels,pagebackref,colorlinks=true,citecolor=DarkGreen,linkcolor=NavyBlue,urlcolor=DarkRed,filecolor=green,bookmarksopen=true]{hyperref} % links coloridos
 \usepackage[all]{hypcap}                % soluciona o problema com o hyperref e capitulos
-\usepackage[square,sort,nonamebreak,comma]{natbib}  % citaÁ„o bibliogr·fica alpha (alpha-ime.bst)
+\usepackage[square,sort,nonamebreak,comma]{natbib}  % cita√ß√£o bibliogr√°fica alpha (alpha-ime.bst)
 \fontsize{60}{62}\usefont{OT1}{cmr}{m}{n}{\selectfont}
 
 % ---------------------------------------------------------------------------- %
-% CabeÁalhos similares ao TAOCP de Donald E. Knuth
+% Cabe√ßalhos similares ao TAOCP de Donald E. Knuth
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -45,17 +45,17 @@
 \renewcommand{\headrulewidth}{0pt}
 
 % ---------------------------------------------------------------------------- %
-\graphicspath{{./figuras/}}             % caminho das figuras (recomend·vel)
-\frenchspacing                          % arruma o espaÁo: id est (i.e.) e exempli gratia (e.g.) 
-\urlstyle{same}                         % URL com o mesmo estilo do texto e n„o mono-spaced
-\makeindex                              % para o Ìndice remissivo
-\raggedbottom                           % para n„o permitir espaÁos extra no texto
+\graphicspath{{./figuras/}}             % caminho das figuras (recomend√°vel)
+\frenchspacing                          % arruma o espa√ßo: id est (i.e.) e exempli gratia (e.g.) 
+\urlstyle{same}                         % URL com o mesmo estilo do texto e n√£o mono-spaced
+\makeindex                              % para o √≠ndice remissivo
+\raggedbottom                           % para n√£o permitir espa√ßos extra no texto
 \fontsize{60}{62}\usefont{OT1}{cmr}{m}{n}{\selectfont}
 \cleardoublepage
 \normalsize
 
 % ---------------------------------------------------------------------------- %
-% OpÁıes de listing usados para o cÛdigo fonte
+% Op√ß√µes de listing usados para o c√≥digo fonte
 % Ref: http://en.wikibooks.org/wiki/LaTeX/Packages/Listings
 \lstset{ %
 language=Java,                  % choose the language of the code
@@ -87,47 +87,46 @@ framexrightmargin=10pt
 % Corpo do texto
 \begin{document}
 \frontmatter 
-% cabeÁalho para as p·ginas das seÁıes anteriores ao capÌtulo 1 (frontmatter)
+% cabe√ßalho para as p√°ginas das se√ß√µes anteriores ao cap√≠tulo 1 (frontmatter)
 \fancyhead[RO]{{\footnotesize\rightmark}\hspace{2em}\thepage}
 \setcounter{tocdepth}{2}
 \fancyhead[LE]{\thepage\hspace{2em}\footnotesize{\leftmark}}
 \fancyhead[RE,LO]{}
 \fancyhead[RO]{{\footnotesize\rightmark}\hspace{2em}\thepage}
 
-\onehalfspacing  % espaÁamento
+\onehalfspacing  % espa√ßamento
 
 % ---------------------------------------------------------------------------- %
 % CAPA
-% Nota: O tÌtulo para as dissertaÁıes/teses do IME-USP devem caber em um 
-% orifÌcio de 10,7cm de largura x 6,0cm de altura que h· na capa fornecida pela SPG.
+% Nota: O t√≠tulo para as disserta√ß√µes/teses do IME-USP devem caber em um 
+% orif√≠cio de 10,7cm de largura x 6,0cm de altura que h√° na capa fornecida pela SPG.
 \thispagestyle{empty}
 \begin{center}
     \vspace*{2.3cm}
-    \textbf{\Large{Um Algoritmo de Escalonamento em ComputaÁ„o em Nuvem 
+    \textbf{\Large{Um Algoritmo de Escalonamento em Computa√ß√£o em Nuvem 
     Energeticamente Consciente}}\\
     
     \vspace*{1.2cm}
-    \Large{Pedro Paulo Vezz· Campos}
+    \Large{Pedro Paulo Vezz√° Campos}
     
     \vskip 2cm
     \textsc{
     Monografia apresentada\\[-0.25cm] 
     ao\\[-0.25cm]
-    Instituto de Matem·tica e EstatÌstica\\[-0.25cm]
+    Instituto de Matem√°tica e Estat√≠stica\\[-0.25cm]
     da\\[-0.25cm]
-    Universidade de S„o Paulo\\[-0.25cm]
+    Universidade de S√£o Paulo\\[-0.25cm]
     para\\[-0.25cm]
-    obtenÁ„o do tÌtulo\\[-0.25cm]
+    obten√ß√£o do t√≠tulo\\[-0.25cm]
     de\\[-0.25cm]
-    Bacharel em CiÍncia da ComputaÁ„o}
+    Bacharel em Ci√™ncia da Computa√ß√£o}
     
     \vskip 1.5cm
-    Programa: Bacharelado em CiÍncia da ComputaÁ„o\\
-    Orientador: Prof. Dr. Daniel MacÍdo Batista\\
-    Co-orientadora: Elaine Naomi Watanabe
+    Programa: Bacharelado em Ci√™ncia da Computa√ß√£o\\
+    Orientador: Prof. Dr. Daniel Mac√™do Batista\\
 
    	\vskip 1cm
-%    \normalsize{Durante o desenvolvimento deste trabalho o autor recebeu auxÌlio
+%    \normalsize{Durante o desenvolvimento deste trabalho o autor recebeu aux√≠lio
 %    financeiro da CAPES/CNPq/FAPESP}
     
     \vskip 0.5cm
@@ -135,12 +134,12 @@ framexrightmargin=10pt
 \end{center}
 
 % ---------------------------------------------------------------------------- %
-% P·gina de rosto (S” PARA A VERS√O DEPOSITADA - ANTES DA DEFESA)
-% ResoluÁ„o CoPGr 5890 (20/12/2010)
+% P√°gina de rosto (S√ì PARA A VERS√ÉO DEPOSITADA - ANTES DA DEFESA)
+% Resolu√ß√£o CoPGr 5890 (20/12/2010)
 %
 % IMPORTANTE:
 %   Coloque um '%' em todas as linhas
-%   desta p·gina antes de compilar a vers„o
+%   desta p√°gina antes de compilar a vers√£o
 %   final, corrigida, do trabalho
 %
 %
@@ -148,51 +147,51 @@ framexrightmargin=10pt
 %\thispagestyle{empty}
 %    \begin{center}
 %        \vspace*{2.3 cm}
-%        \textbf{\Large{TÌtulo do trabalho a ser apresentado ‡ \\
-%        CPG para a dissertaÁ„o/tese}}\\
+%        \textbf{\Large{T√≠tulo do trabalho a ser apresentado √† \\
+%        CPG para a disserta√ß√£o/tese}}\\
 %        \vspace*{2 cm}
 %    \end{center}
 %
 %    \vskip 2cm
 %
 %    \begin{flushright}
-%	Esta È a vers„o original da dissertaÁ„o/tese elaborada pelo\\
+%	Esta √© a vers√£o original da disserta√ß√£o/tese elaborada pelo\\
 %	candidato (Nome Completo do Aluno), tal como \\
-%	submetida ‡ Comiss„o Julgadora.
+%	submetida √† Comiss√£o Julgadora.
  %   \end{flushright}
 
 %\pagebreak
 
 
 % ---------------------------------------------------------------------------- %
-% P·gina de rosto (S” PARA A VERS√O CORRIGIDA - AP”S DEFESA)
-% ResoluÁ„o CoPGr 5890 (20/12/2010)
+% P√°gina de rosto (S√ì PARA A VERS√ÉO CORRIGIDA - AP√ìS DEFESA)
+% Resolu√ß√£o CoPGr 5890 (20/12/2010)
 %
-% Nota: O tÌtulo para as dissertaÁıes/teses do IME-USP devem caber em um 
-% orifÌcio de 10,7cm de largura x 6,0cm de altura que h· na capa fornecida pela SPG.
+% Nota: O t√≠tulo para as disserta√ß√µes/teses do IME-USP devem caber em um 
+% orif√≠cio de 10,7cm de largura x 6,0cm de altura que h√° na capa fornecida pela SPG.
 %
 % IMPORTANTE:
 %   Coloque um '%' em todas as linhas desta
-%   p·gina antes de compilar a vers„o do trabalho que ser· entregue
-%   ‡ Comiss„o Julgadora antes da defesa
+%   p√°gina antes de compilar a vers√£o do trabalho que ser√° entregue
+%   √† Comiss√£o Julgadora antes da defesa
 %
 %
 %\newpage
 %\thispagestyle{empty}
 %    \begin{center}
 %        \vspace*{2.3 cm}
-%        \textbf{\Large{TÌtulo do trabalho a ser apresentado ‡ \\
-%        CPG para a dissertaÁ„o/tese}}\\
+%        \textbf{\Large{T√≠tulo do trabalho a ser apresentado √† \\
+%        CPG para a disserta√ß√£o/tese}}\\
 %        \vspace*{2 cm}
 %    \end{center}
 %
 %    \vskip 2cm
 %
 %    \begin{flushright}
-%	Esta vers„o da dissertaÁ„o/tese contÈm as correÁıes e alteraÁıes sugeridas\\
-%	pela Comiss„o Julgadora durante a defesa da vers„o original do trabalho,\\
-%	realizada em 14/12/2010. Uma cÛpia da vers„o original est· disponÌvel no\\
-%	Instituto de Matem·tica e EstatÌstica da Universidade de S„o Paulo.
+%	Esta vers√£o da disserta√ß√£o/tese cont√©m as corre√ß√µes e altera√ß√µes sugeridas\\
+%	pela Comiss√£o Julgadora durante a defesa da vers√£o original do trabalho,\\
+%	realizada em 14/12/2010. Uma c√≥pia da vers√£o original est√° dispon√≠vel no\\
+%	Instituto de Matem√°tica e Estat√≠stica da Universidade de S√£o Paulo.
 %
 %    \vskip 2cm
 %
@@ -200,10 +199,10 @@ framexrightmargin=10pt
 %    \vskip 4.2cm
 %
 %    \begin{quote}
-%    \noindent Comiss„o Julgadora:
+%    \noindent Comiss√£o Julgadora:
 %    
 %    \begin{itemize}
-%		\item Prof™. Dr™. Nome Completo (orientadora) - IME-USP [sem ponto final]
+%		\item Prof¬™. Dr¬™. Nome Completo (orientadora) - IME-USP [sem ponto final]
 %		\item Prof. Dr. Nome Completo - IME-USP [sem ponto final]
 %		\item Prof. Dr. Nome Completo - IMPA [sem ponto final]
 %    \end{itemize}
@@ -212,11 +211,11 @@ framexrightmargin=10pt
 %\pagebreak
 
 
-%\pagenumbering{roman}     % comeÁamos a numerar 
+%\pagenumbering{roman}     % come√ßamos a numerar 
 
 % ---------------------------------------------------------------------------- %
 % Agradecimentos:
-% Se o candidato n„o quer fazer agradecimentos, deve simplesmente eliminar esta p·gina 
+% Se o candidato n√£o quer fazer agradecimentos, deve simplesmente eliminar esta p√°gina 
 %\chapter*{Agradecimentos}
 
 
@@ -224,16 +223,16 @@ framexrightmargin=10pt
 % Resumo
 %\chapter*{Resumo}
 %
-%\noindent CAMPOS, P P. V. \textbf{TÌtulo do trabalho em portuguÍs}. 
+%\noindent CAMPOS, P P. V. \textbf{T√≠tulo do trabalho em portugu√™s}. 
 %2010. 120 f.
-%Tese (Doutorado) - Instituto de Matem·tica e EstatÌstica,
-%Universidade de S„o Paulo, S„o Paulo, 2010.
+%Tese (Doutorado) - Instituto de Matem√°tica e Estat√≠stica,
+%Universidade de S√£o Paulo, S√£o Paulo, 2010.
 %\\
 %
-%Elemento obrigatÛrio, constituÌdo de uma sequÍncia de frases concisas e
-%objetivas, em forma de texto.  Deve apresentar os objetivos, mÈtodos empregados,
-%resultados e conclusıes.  O resumo deve ser redigido em par·grafo ˙nico, conter
-%no m·ximo 500 palavras e ser seguido dos termos representativos do conte˙do do
+%Elemento obrigat√≥rio, constitu√≠do de uma sequ√™ncia de frases concisas e
+%objetivas, em forma de texto.  Deve apresentar os objetivos, m√©todos empregados,
+%resultados e conclus√µes.  O resumo deve ser redigido em par√°grafo √∫nico, conter
+%no m√°ximo 500 palavras e ser seguido dos termos representativos do conte√∫do do
 %trabalho (palavras-chave). 
 %Texto texto texto texto texto texto texto texto texto texto texto texto texto
 %texto texto texto texto texto texto texto texto texto texto texto texto texto
@@ -253,16 +252,16 @@ framexrightmargin=10pt
 % ---------------------------------------------------------------------------- %
 % Abstract
 %\chapter*{Abstract}
-%\noindent SOBRENOME, A. B. C. \textbf{TÌtulo do trabalho em inglÍs}. 
+%\noindent SOBRENOME, A. B. C. \textbf{T√≠tulo do trabalho em ingl√™s}. 
 %2010. 120 f.
-%Tese (Doutorado) - Instituto de Matem·tica e EstatÌstica,
-%Universidade de S„o Paulo, S„o Paulo, 2010.
+%Tese (Doutorado) - Instituto de Matem√°tica e Estat√≠stica,
+%Universidade de S√£o Paulo, S√£o Paulo, 2010.
 %\\
 %
 %
-%Elemento obrigatÛrio, elaborado com as mesmas caracterÌsticas do resumo em
-%lÌngua portuguesa. De acordo com o Regimento da PÛs- GraduaÁ„o da USP (Artigo
-%99), deve ser redigido em inglÍs para fins de divulgaÁ„o. 
+%Elemento obrigat√≥rio, elaborado com as mesmas caracter√≠sticas do resumo em
+%l√≠ngua portuguesa. De acordo com o Regimento da P√≥s- Gradua√ß√£o da USP (Artigo
+%99), deve ser redigido em ingl√™s para fins de divulga√ß√£o. 
 %Text text text text text text text text text text text text text text text text
 %text text text text text text text text text text text text text text text text
 %text text text text text text text text text text text text text text text text
@@ -275,23 +274,23 @@ framexrightmargin=10pt
 %\noindent \textbf{Keywords:} keyword1, keyword2, keyword3.
 
 % ---------------------------------------------------------------------------- %
-% Sum·rio
-\tableofcontents    % imprime o sum·rio
+% Sum√°rio
+\tableofcontents    % imprime o sum√°rio
 
 % ---------------------------------------------------------------------------- %
 %\chapter{Lista de Abreviaturas}
 %\begin{tabular}{ll}
-%         CFT         & Transformada contÌnua de Fourier (\emph{Continuous Fourier Transform})\\
+%         CFT         & Transformada cont√≠nua de Fourier (\emph{Continuous Fourier Transform})\\
 %         DFT         & Transformada discreta de Fourier (\emph{Discrete Fourier Transform})\\
-%        EIIP         & Potencial de interaÁ„o elÈtron-Ìon (\emph{Electron-Ion Interaction Potentials})\\
+%        EIIP         & Potencial de intera√ß√£o el√©tron-√≠on (\emph{Electron-Ion Interaction Potentials})\\
 %        STFT         & Tranformada de Fourier de tempo reduzido (\emph{Short-Time Fourier Transform})\\
 %\end{tabular}
 
 % ---------------------------------------------------------------------------- %
-%\chapter{Lista de SÌmbolos}
+%\chapter{Lista de S√≠mbolos}
 %\begin{tabular}{ll}
-%        $\omega$    & FrequÍncia angular\\
-%        $\psi$      & FunÁ„o de an·lise \emph{wavelet}\\
+%        $\omega$    & Frequ√™ncia angular\\
+%        $\psi$      & Fun√ß√£o de an√°lise \emph{wavelet}\\
 %        $\Psi$      & Transformada de Fourier de $\psi$\\
 %\end{tabular}
 
@@ -301,14 +300,14 @@ framexrightmargin=10pt
 %\listoftables            
 
 % ---------------------------------------------------------------------------- %
-% CapÌtulos do trabalho
+% Cap√≠tulos do trabalho
 \mainmatter
 
-% cabeÁalho para as p·ginas de todos os capÌtulos
+% cabe√ßalho para as p√°ginas de todos os cap√≠tulos
 \fancyhead[RE,LO]{\thesection}
 
-\singlespacing              % espaÁamento simples
-%\onehalfspacing            % espaÁamento um e meio
+\singlespacing              % espa√ßamento simples
+%\onehalfspacing            % espa√ßamento um e meio
 
 \part{Parte Objetiva}
 
@@ -323,7 +322,7 @@ framexrightmargin=10pt
 \input cap-o-tcc             % associado ao arquivo: 'cap-o-tcc.tex'
 \input cap-a-graduacao       % associado ao arquivo: 'cap-a-graduacao.tex'
 
-% cabeÁalho para os apÍndices
+% cabe√ßalho para os ap√™ndices
 %\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\appendixname\ \thechapter}} {\MakeUppercase{#1}} }
 %\fancyhead[RE,LO]{}
 %\appendix
@@ -332,18 +331,18 @@ framexrightmargin=10pt
 
 % ---------------------------------------------------------------------------- %
 % Bibliografia
-\backmatter \singlespacing   % espaÁamento simples
-\bibliographystyle{alpha-ime}% citaÁ„o bibliogr·fica alpha
+\backmatter \singlespacing   % espa√ßamento simples
+\bibliographystyle{alpha-ime}% cita√ß√£o bibliogr√°fica alpha
 \bibliography{bibliografia}  % associado ao arquivo: 'bibliografia.bib'
 
 % ---------------------------------------------------------------------------- %
-% Õndice remissivo
-%\index{TBP|see{periodicidade regi„o codificante}}
+% √çndice remissivo
+%\index{TBP|see{periodicidade regi√£o codificante}}
 %\index{DSP|see{processamento digital de sinais}}
 %\index{STFT|see{transformada de Fourier de tempo reduzido}}
 %\index{DFT|see{transformada discreta de Fourier}}
 %\index{Fourier!transformada|see{transformada de Fourier}}
 
-%\printindex   % imprime o Ìndice remissivo no documento 
+%\printindex   % imprime o √≠ndice remissivo no documento 
 
 \end{document}

@@ -1,82 +1,117 @@
 %% ------------------------------------------------------------------------- %%
-\chapter{IntroduÁ„o}
+\chapter{Introdu√ß√£o}
 \label{cap:introducao}
 Esta monografia desenvolvida durante o ano de \oldstylenums{2013} para a disciplina MAC0499 --
 Trabalho de Formatura Supervisionado apresenta os trabalhos realizados no estudo
-e experimentaÁ„o com tÈcnicas de escalonamento de tarefas em ambientes de 
-computaÁ„o em nuvem sob a orientaÁ„o do professor Daniel MacÍdo Batista.
+e experimenta√ß√£o com t√©cnicas de escalonamento de tarefas em ambientes de 
+computa√ß√£o em nuvem sob a orienta√ß√£o do professor Daniel Mac√™do Batista.
 
 Em conjunto com a aluna de mestrado Elaine Watanabe, foi desenvolvido e testado
 um novo algoritmo fosse energeticamente eficiente. Enquanto a aluna focou na
-concepÁ„o do algoritmo, o aluno dedicou-se a adaptar simuladores existentes para
+concep√ß√£o do algoritmo, o aluno dedicou-se a adaptar simuladores existentes para
 validar o algoritmo e realizar experimentos que atestem sua a qualidade.
 
-A parte objetiva deste trabalho est· organizado da seguinte forma: No capÌtulo \ref{cap:conceitos}
-s„o apresentados brevemente os conceitos que fundamentam pesquisas na ·rea e que
-s„o necess·rios para a compreens„o dos capÌtulos seguintes. Posteriormente, 
-no capÌtulo \ref{cap:experimentos} o foco È direcionado para a situaÁ„o atual
-na ·rea de estudo, È apresentado de maneira profunda o novo algoritmo desenvolvido
-juntamente com resultados experimentais comparativos. Conclusıes e consideraÁıes 
-finais s„o descritas em \ref{cap:conclusoes}.
+A parte objetiva deste trabalho est√° organizado da seguinte forma: No cap√≠tulo
+\ref{cap:conceitos} s√£o apresentados brevemente os conceitos que fundamentam
+pesquisas na √°rea e que s√£o necess√°rios para a compreens√£o dos cap√≠tulos
+seguintes. Posteriormente, no cap√≠tulo \ref{cap:experimentos} o foco √©
+direcionado para a situa√ß√£o atual na √°rea de estudo, √© apresentado de maneira
+profunda o novo algoritmo desenvolvido juntamente com resultados experimentais
+comparativos. Conclus√µes e considera√ß√µes finais s√£o descritas em
+\ref{cap:conclusoes}.
 
-J· a parte subjetiva est· organizada em dois tÛpicos principais: No capÌtulo 
-\ref{cap:o_tcc} h· uma reflex„o acerca do processo de produÁ„o deste trabalho
-e sua aplicaÁ„o. J· no capÌtulo \ref{cap:a_graduacao} h· uma reflex„o mais ampla
-sobre as experiÍncias vividas em cinco anos de graduaÁ„o em duas universidades
-distintas e uma previs„o dos prÛximos passos a seguir.
+J√° a parte subjetiva est√° organizada em dois t√≥picos principais: No cap√≠tulo 
+\ref{cap:o_tcc} h√° uma reflex√£o acerca do processo de produ√ß√£o deste trabalho
+e sua aplica√ß√£o. J√° no cap√≠tulo \ref{cap:a_graduacao} h√° uma reflex√£o mais ampla
+sobre as experi√™ncias vividas em cinco anos de gradua√ß√£o em duas universidades
+distintas e uma previs√£o dos pr√≥ximos passos a seguir.
 
 
-\section{MotivaÁ„o}
+\section{Motiva√ß√£o}
 \label{sec:motivacao}
-Desde a dÈcada de 1970 a oferta de poder computacional, armazenamento e
-comunicaÁ„o vem crescendo em um ritmo exponencial com o tempo. AtÈ o fim da
-dÈcada de 1990 essas necessidades vinham sendo supridas com aperfeiÁoamentos nas
+Desde a d√©cada de 1970 a oferta de poder computacional, armazenamento e
+comunica√ß√£o vem crescendo em um ritmo exponencial com o tempo. At√© o fim da
+d√©cada de 1990 essas necessidades vinham sendo supridas com aperfei√ßoamentos nas
 arquiteturas dos computadores e melhorias no processo produtivo. A Lei de Moore
-continuava se mostrando v·lida, duplicando o poder dos computadores e servidores
-a cada 18 meses e, junto com esse aumento, impondo uma necessidade energÈtica
-cada vez maior para manter o computador funcionando e refrigerado. PorÈm, com a
+continuava se mostrando v√°lida, duplicando o poder dos computadores e servidores
+a cada 18 meses e, junto com esse aumento, impondo uma necessidade energ√©tica
+cada vez maior para manter o computador funcionando e refrigerado. Por√©m, com a
 chegada dos anos 2000 percebeu-se que o projeto de processadores encontrou uma
-barreira de potÍncia. Processadores da Època, tal como o Pentium 4, dissipavam
-100W de potÍncia e sua eficiÍncia energÈtica era baixa. \cite{patterson:computer_organization}
-Assim, surgiu uma nova tendÍncia, processadores mais simples e mais paralelos
-utilizando novas tÈcnicas de economia de energia. Em suma, surgiu uma demanda
-por uma computaÁ„o mais ``verde'' (\emph{green computing}).
+barreira de pot√™ncia. Processadores da √©poca, tal como o Pentium 4, dissipavam
+100W de pot√™ncia e sua efici√™ncia energ√©tica era baixa. \cite{patterson:computer_organization}
+Assim, surgiu uma nova tend√™ncia, processadores mais simples e mais paralelos
+utilizando novas t√©cnicas de economia de energia. Em suma, surgiu uma demanda
+por uma computa√ß√£o mais ``verde'' (\emph{green computing}).
 
-Cloud computing È uma alternativa vi·vel para amenizar tal problema atravÈs da
-racionalizaÁ„o de recursos computacionais. Na seÁ„o \ref{sec:computacao_nuvem}
-s„o apresentadas as inovaÁıes presentes nesse modelo de computaÁ„o. PorÈm, o 
-sucesso dessa metodologia depende de estratÈgias inteligentes que permitam 
-gerenciar os recursos disponÌveis permitindo realizar uma economia de escala
-sem afetar os usu·rios.
+Iniciou-se, assim, uma tend√™ncia de concentra√ß√£o do poder de computa√ß√£o e 
+armazenamento em torno dos grandes \emph{data centers} e \emph{data warehouses}.
+A computa√ß√£o em nuvem (\emph{cloud computing}) passou a ser apresentada como
+uma solu√ß√£o para a redu√ß√£o de custos e desperd√≠cios atrav√©s da
+racionaliza√ß√£o de recursos computacionais. Na se√ß√£o \ref{sec:computacao_nuvem}
+s√£o apresentadas as inova√ß√µes presentes nesse modelo de computa√ß√£o. Por√©m, o 
+sucesso dessa metodologia depende de estrat√©gias inteligentes que permitam 
+gerenciar os recursos dispon√≠veis permitindo realizar uma economia de escala
+sem afetar os usu√°rios.
 
-Em um nÌvel mais tÈcnico, uma nuvem È desenhada para executar tarefas, estas
-subdivididas em subtarefas. Cada subtarefa pode possuir uma demanda especÌfica
+Em um n√≠vel mais t√©cnico, uma nuvem √© desenhada para executar tarefas, estas
+subdivididas em subtarefas. Cada subtarefa pode possuir uma demanda espec√≠fica
 de ambiente para ser executada, sistema operacional, programas instalados, poder
-mÌnimo de processamento, armazenamento, etc. Ainda, subtarefas podem depender de
-que uma subtarefa anterior tenha sido concluÌda antes de poder ser executada. Em
+m√≠nimo de processamento, armazenamento, etc. Ainda, subtarefas podem depender de
+que uma subtarefa anterior tenha sido conclu√≠da antes de poder ser executada. Em
 \cite{chaves:scheduling_software_requirements} e 
-\cite{batista:embedding_software_requirements} Chaves e Batista mostraram que È 
-possÌvel modelar tais tarefas como digrafos acÌclicos (DAGs) que incorporem as
-demandas de ambiente. Ainda, desenvolveram uma heurÌstica para escalonar as
-subtarefas em computaÁ„o em grade (\emph{grid computing}), similar ‡ computaÁ„o
-em nuvem, visando diminuir o tempo de conclus„o da tarefa atravÈs da otimizaÁ„o
-do tr·fego de rede necess·rio.
-
-Este trabalho tem por intenÁ„o desenvolver uma nova heurÌstica para o problema
-apresentado que tambÈm otimize o consumo energÈtico sem grandes prejuÌzos ao
-tempo de execuÁ„o da tarefa. Seu desempenho deve ser comparado com a heurÌstica
-proposta por Chaves e Batista em \cite{chaves:scheduling_software_requirements} 
-e \cite{batista:embedding_software_requirements} e com outros algoritmos com
-objetivos similares encontrados na literatura. Para isso ser· feito uso de um
-simulador de computaÁ„o em nuvem.
+\cite{batista:embedding_software_requirements} Chaves e Batista mostraram que √© 
+poss√≠vel modelar tais tarefas como digrafos ac√≠clicos (DAGs) que incorporem as
+demandas de ambiente. Ainda, desenvolveram uma heur√≠stica para escalonar as
+subtarefas em computa√ß√£o em grade (\emph{grid computing}), similar √† computa√ß√£o
+em nuvem, visando diminuir o tempo de conclus√£o da tarefa atrav√©s da otimiza√ß√£o
+do tr√°fego de rede necess√°rio.
 
 
 \section{Objetivos}
 \label{sec:objetivos}
-
+Este trabalho tem por inten√ß√£o implementar e validar uma nova heur√≠stica para o
+problema apresentado que tamb√©m otimize o consumo energ√©tico sem grandes preju√≠zos
+ao tempo de execu√ß√£o da tarefa. A heur√≠stica foi desenvolvida por Elaine Watanabe, 
+aluna de Mestrado em Computa√ß√£o do IME/USP. O desempenho desse algoritmo √©
+ser comparado com a heur√≠stica proposta por Chaves e Batista em
+\cite{chaves:scheduling_software_requirements} e
+\cite{batista:embedding_software_requirements} e com outros algoritmos com
+objetivos similares encontrados na literatura. Para isso ser√° feito uso de um
+simulador de computa√ß√£o em nuvem, o WorkflowSim, a ser detalhado na se√ß√£o
+\ref{sec:ambiente_simulacao}.
 
 
 \section{Desafios}
 \label{sec:desafios}
+As dificuldades enfrentadas neste artigo vem de duas fontes: A primeira √©
+tecnol√≥gica, h√° diversos simuladores de computa√ß√£o em nuvem ou em grade, por√©m
+o t√≥pico de simula√ß√£o energ√©tica √© relativamente recente como atividade de 
+pesquisa. Sendo assim, de todos programas de simula√ß√£o estudados, CloudSim, 
+GridSim, SimGrid e WorkflowSim, apenas o primeiro possui tal funcionalidade
+funcional. O simulador escolhido, WorkflowSim, apesar de ser baseado no CloudSim 
+n√£o tem por padr√£o a API de simula√ß√£o energ√©tica dispon√≠vel. Uma das tarefas da
+monografia foi justamente resolver tal problema.
+
+O outro desafio √© uma quest√£o computacional mais fundamental: O problema de 
+escalonar tarefas em diversos processadores (Num sentido mais amplo do que seria
+um processador) √© NP-completo. \cite{sinnen:task_scheduling_parallel_systems}
+Para contornar esse problema foram desenvolvidas diversas heur√≠sticas, inclusive
+a apresentada nesta monografia. Um trecho do livro
+\emph{Task Scheduling for Parallel Systems} de Oliver Sinnen resume a rela√ß√£o
+custo-benef√≠cio que deve ser ponderada para a descoberta de um escalonamento
+√≥timo:
+
+\begin{quote}
+Unfortunately, finding a schedule of minimal length (i.e., an optimal schedule)
+is in general a difficult problem. This becomes intuitively clear as one realizes that
+an optimal schedule is a trade-off between high parallelism and low interprocessor
+communication. On the one hand, nodes should be distributed among the processors
+in order to balance the workload. On the other hand, the more the nodes are distributed,
+the more interprocessor communications, which are expensive, are performed. In fact,
+the general decision problem (a decision problem is one whose answer is either ``yes''
+or ``no'') associated with the scheduling problem is NP-complete. 
+\cite{sinnen:task_scheduling_parallel_systems}
+\end{quote}
+
 
 
