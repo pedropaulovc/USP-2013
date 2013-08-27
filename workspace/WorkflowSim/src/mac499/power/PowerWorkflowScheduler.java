@@ -19,14 +19,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import org.cloudbus.cloudsim.Cloudlet;
-import org.cloudbus.cloudsim.DatacenterBroker;
-import org.cloudbus.cloudsim.DatacenterCharacteristics;
-import org.cloudbus.cloudsim.Log;
-import org.cloudbus.cloudsim.core.CloudSim;
-import org.cloudbus.cloudsim.core.CloudSimTags;
-import org.cloudbus.cloudsim.core.SimEvent;
-import org.cloudbus.cloudsim.lists.VmList;
 import mac499.power.failure.FailureGenerator;
 import mac499.power.scheduler.BaseScheduler;
 import mac499.power.scheduler.DataAwareScheduler;
@@ -39,6 +31,15 @@ import mac499.power.scheduler.StaticScheduler;
 import mac499.power.utils.Parameters;
 import mac499.power.utils.Parameters.SCHMethod;
 
+import org.cloudbus.cloudsim.Cloudlet;
+import org.cloudbus.cloudsim.DatacenterCharacteristics;
+import org.cloudbus.cloudsim.Log;
+import org.cloudbus.cloudsim.core.CloudSim;
+import org.cloudbus.cloudsim.core.CloudSimTags;
+import org.cloudbus.cloudsim.core.SimEvent;
+import org.cloudbus.cloudsim.lists.VmList;
+import org.cloudbus.cloudsim.power.PowerDatacenterBroker;
+
 /**
  * WorkflowScheduler represents a scheduler acting on behalf of a user. It hides
  * VM management, as vm creation, sumbission of jobs to this VMs and destruction
@@ -48,7 +49,7 @@ import mac499.power.utils.Parameters.SCHMethod;
  * @since WorkflowSim Toolkit 1.0
  * @date Apr 9, 2013
  */
-public class WorkflowScheduler extends DatacenterBroker {
+public class PowerWorkflowScheduler extends PowerDatacenterBroker {
 
     /**
      * The workflow engine id associated with this workflow scheduler.
@@ -64,7 +65,7 @@ public class WorkflowScheduler extends DatacenterBroker {
      * @pre name != null
      * @post $none
      */
-    public WorkflowScheduler(String name) throws Exception {
+    public PowerWorkflowScheduler(String name) throws Exception {
         super(name);
     }
 

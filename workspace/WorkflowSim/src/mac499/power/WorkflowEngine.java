@@ -62,7 +62,7 @@ public class WorkflowEngine extends SimEntity {
      * The associated scheduler id*
      */
     private List<Integer> schedulerId;
-    private List<WorkflowScheduler> scheduler;
+    private List<PowerWorkflowScheduler> scheduler;
 
     /**
      * Created a new WorkflowEngine object.
@@ -87,11 +87,11 @@ public class WorkflowEngine extends SimEntity {
 
         jobsSubmitted = 0;
 
-        setSchedulers(new ArrayList<WorkflowScheduler>());
+        setSchedulers(new ArrayList<PowerWorkflowScheduler>());
         setSchedulerIds(new ArrayList<Integer>());
 
         for (int i = 0; i < schedulers; i++) {
-            WorkflowScheduler wfs = new WorkflowScheduler(name + "_Scheduler_" + i);
+            PowerWorkflowScheduler wfs = new PowerWorkflowScheduler(name + "_Scheduler_" + i);
             getSchedulers().add(wfs);
             getSchedulerIds().add(wfs.getId());
             wfs.setWorkflowEngineId(this.getId());
@@ -494,7 +494,7 @@ public class WorkflowEngine extends SimEntity {
      * @param <T> the generic type
      * @return the schedulers
      */
-    public List<WorkflowScheduler> getSchedulers() {
+    public List<PowerWorkflowScheduler> getSchedulers() {
         return this.scheduler;
     }
 
@@ -547,7 +547,7 @@ public class WorkflowEngine extends SimEntity {
      * @param index the scheduler id
      * @return the scheduler
      */
-    public WorkflowScheduler getScheduler(int schedulerId) {
+    public PowerWorkflowScheduler getScheduler(int schedulerId) {
 
         if (this.scheduler != null) {
             return this.scheduler.get(schedulerId);
