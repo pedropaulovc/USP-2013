@@ -37,7 +37,7 @@ import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
 import mac499.power.ClusterStorage;
 import mac499.power.PowerCondorVM;
-import mac499.power.DatacenterExtended;
+import mac499.power.PowerDatacenterExtended;
 import mac499.power.Job;
 import mac499.power.WorkflowEngine;
 import mac499.power.WorkflowPlanner;
@@ -121,7 +121,7 @@ public class WorkflowSimExample1 {
             // Initialize the CloudSim library
             CloudSim.init(num_user, calendar, trace_flag);
 
-            DatacenterExtended datacenter0 = createDatacenter("Datacenter_0");
+            PowerDatacenterExtended datacenter0 = createDatacenter("Datacenter_0");
 
             /**
              * Create a WorkflowPlanner with one schedulers.
@@ -163,7 +163,7 @@ public class WorkflowSimExample1 {
         }
     }
 
-    private static DatacenterExtended createDatacenter(String name) {
+    private static PowerDatacenterExtended createDatacenter(String name) {
 
         // Here are the steps needed to create a PowerDatacenter:
         // 1. We need to create a list to store one or more
@@ -210,7 +210,7 @@ public class WorkflowSimExample1 {
         double costPerStorage = 0.1;	// the cost of using storage in this resource
         double costPerBw = 0.1;			// the cost of using bw in this resource
         LinkedList<Storage> storageList = new LinkedList<Storage>();	//we are not adding SAN devices by now
-        DatacenterExtended datacenter = null;
+        PowerDatacenterExtended datacenter = null;
 
 
         DatacenterCharacteristics characteristics = new DatacenterCharacteristics(
@@ -232,7 +232,7 @@ public class WorkflowSimExample1 {
             // The bandwidth to the source site 
             s1.setBandwidth("source", intraBandwidth);
             storageList.add(s1);
-            datacenter = new DatacenterExtended(name, characteristics, new VmAllocationPolicySimple(hostList), storageList, 0);
+            datacenter = new PowerDatacenterExtended(name, characteristics, new VmAllocationPolicySimple(hostList), storageList, 0);
         } catch (Exception e) {
         }
 

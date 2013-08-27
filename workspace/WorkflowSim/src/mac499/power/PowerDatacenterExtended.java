@@ -31,6 +31,8 @@ import org.cloudbus.cloudsim.VmAllocationPolicy;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.core.CloudSimTags;
 import org.cloudbus.cloudsim.core.SimEvent;
+import org.cloudbus.cloudsim.power.PowerDatacenter;
+
 import mac499.power.utils.ReplicaCatalog;
 
 /**
@@ -41,9 +43,9 @@ import mac499.power.utils.ReplicaCatalog;
  * @since WorkflowSim Toolkit 1.0
  * @date Apr 9, 2013
  */
-public class DatacenterExtended extends Datacenter {
+public class PowerDatacenterExtended extends PowerDatacenter {
 
-    public DatacenterExtended(String name,
+    public PowerDatacenterExtended(String name,
             DatacenterCharacteristics characteristics,
             VmAllocationPolicy vmAllocationPolicy,
             List<Storage> storageList,
