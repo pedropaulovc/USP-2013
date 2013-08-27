@@ -23,9 +23,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
+
 import org.workflowsim.Task;
 import org.workflowsim.clustering.TaskSet;
-import sun.net.www.http.KeepAliveCache;
 
 /**
  *  HorizontalDistanceBalancing is a method that merges tasks based on distance metric

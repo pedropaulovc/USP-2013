@@ -51,10 +51,13 @@ file.system	= LOCAL
 
 #Scheduling Related Parameters
 #If you have specified planner.method, it will be disabled
-scheduler.method= HEFT_SCH
+#Options: MAXMIN_SCH, MINMIN_SCH, MCT_SCH, DATA_SCH, 
+          STATIC_SCH, FCFS_SCH, INVALID_SCH, HEFT_SCH
+scheduler.method= FCFS_SCH
 
 #Planning Related Parameters
-planner.method= HEFT
+#Options: INVALID, RANDOM, HEFT
+planner.method= INVALID
 
 #Please replace it with your real physical path
 #dax.path       = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Inspiral_200.xml

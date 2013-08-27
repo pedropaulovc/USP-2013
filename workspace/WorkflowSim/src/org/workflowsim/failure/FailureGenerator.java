@@ -17,6 +17,7 @@ package org.workflowsim.failure;
 
 import java.util.Iterator;
 import java.util.Random;
+
 import org.cloudbus.cloudsim.Cloudlet;
 import org.cloudbus.cloudsim.Log;
 import org.workflowsim.Job;

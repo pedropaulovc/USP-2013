@@ -19,10 +19,10 @@ package org.workflowsim.clustering.balancing.methods;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
+
 import org.workflowsim.Task;
 import org.workflowsim.clustering.TaskSet;
 

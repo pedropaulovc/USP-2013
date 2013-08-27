@@ -17,6 +17,7 @@ package org.workflowsim.planning;
 
 import java.util.Iterator;
 import java.util.Random;
+
 import org.workflowsim.CondorVM;
 import org.workflowsim.Task;
 

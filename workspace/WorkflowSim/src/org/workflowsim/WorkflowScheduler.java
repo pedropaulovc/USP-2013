@@ -19,8 +19,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import mac499.scheduler.HEFTScheduler;
-
 import org.cloudbus.cloudsim.Cloudlet;
 import org.cloudbus.cloudsim.DatacenterBroker;
 import org.cloudbus.cloudsim.DatacenterCharacteristics;
@@ -30,9 +28,10 @@ import org.cloudbus.cloudsim.core.CloudSimTags;
 import org.cloudbus.cloudsim.core.SimEvent;
 import org.cloudbus.cloudsim.lists.VmList;
 import org.workflowsim.failure.FailureGenerator;
-import org.workflowsim.scheduler.DataAwareScheduler;
 import org.workflowsim.scheduler.BaseScheduler;
+import org.workflowsim.scheduler.DataAwareScheduler;
 import org.workflowsim.scheduler.FCFSScheduler;
+import org.workflowsim.scheduler.HEFTScheduler;
 import org.workflowsim.scheduler.MCTScheduler;
 import org.workflowsim.scheduler.MaxMinScheduler;
 import org.workflowsim.scheduler.MinMinScheduler;

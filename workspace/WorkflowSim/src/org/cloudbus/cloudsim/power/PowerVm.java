@@ -184,7 +184,7 @@ public class PowerVm extends Vm {
 	 * 
 	 * @return the utilization history
 	 */
-	protected List<Double> getUtilizationHistory() {
+	public List<Double> getUtilizationHistory() {
 		return utilizationHistory;
 	}
 
@@ -220,7 +220,7 @@ public class PowerVm extends Vm {
 	 * 
 	 * @param schedulingInterval the schedulingInterval to set
 	 */
-	protected void setSchedulingInterval(double schedulingInterval) {
+	public void setSchedulingInterval(double schedulingInterval) {
 		this.schedulingInterval = schedulingInterval;
 	}
 

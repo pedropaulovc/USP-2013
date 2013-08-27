@@ -19,6 +19,7 @@ package org.workflowsim.clustering.balancing.metrics;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+
 import org.workflowsim.clustering.TaskSet;
 
 /**

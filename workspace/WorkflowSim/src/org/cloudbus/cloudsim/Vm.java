@@ -276,7 +276,7 @@ public class Vm {
 	 * 
 	 * @param id the new id
 	 */
-	protected void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -285,7 +285,7 @@ public class Vm {
 	 * 
 	 * @param userId the new user id
 	 */
-	protected void setUserId(int userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
@@ -314,7 +314,7 @@ public class Vm {
 	 * 
 	 * @param mips the new mips
 	 */
-	protected void setMips(double mips) {
+	public void setMips(double mips) {
 		this.mips = mips;
 	}
 
@@ -332,7 +332,7 @@ public class Vm {
 	 * 
 	 * @param numberOfPes the new number of pes
 	 */
-	protected void setNumberOfPes(int numberOfPes) {
+	public void setNumberOfPes(int numberOfPes) {
 		this.numberOfPes = numberOfPes;
 	}
 
@@ -418,7 +418,7 @@ public class Vm {
 	 * 
 	 * @param vmm the new VMM
 	 */
-	protected void setVmm(String vmm) {
+	public void setVmm(String vmm) {
 		this.vmm = vmm;
 	}
 
@@ -456,7 +456,7 @@ public class Vm {
 	 * 
 	 * @param cloudletScheduler the new vm scheduler
 	 */
-	protected void setCloudletScheduler(CloudletScheduler cloudletScheduler) {
+	public void setCloudletScheduler(CloudletScheduler cloudletScheduler) {
 		this.cloudletScheduler = cloudletScheduler;
 	}
 
@@ -492,7 +492,7 @@ public class Vm {
 	 * 
 	 * @param currentAllocatedSize the new current allocated size
 	 */
-	protected void setCurrentAllocatedSize(long currentAllocatedSize) {
+	public void setCurrentAllocatedSize(long currentAllocatedSize) {
 		this.currentAllocatedSize = currentAllocatedSize;
 	}
 
