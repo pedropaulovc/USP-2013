@@ -66,5 +66,6 @@ planner.method= INVALID
 #dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/CyberShake_1000.xml
 #dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/fake-21-1.xml
 dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Montage_25.xml
+dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Montage_100.xml
 #Reducer mode used to remove duplicate dependencies
 #reduce.method	= montage

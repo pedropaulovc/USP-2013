@@ -348,7 +348,7 @@ public class PowerDatacenterExtended extends PowerDatacenter {
         //this is a bug of CloudSim if the runtime is smaller than 0.1 (now is 0.01) it doesn't work at all
         if (CloudSim.clock() < 0.111 || CloudSim.clock() > getLastProcessTime() + 0.01) {
             List<? extends Host> list = getVmAllocationPolicy().getHostList();
-            double smallerTime = Double.MAX_VALUE;
+            double smallerTime = updateCloudetProcessingWithoutSchedulingFutureEventsForce();
             // for each host...
             for (int i = 0; i < list.size(); i++) {
                 Host host = list.get(i);
