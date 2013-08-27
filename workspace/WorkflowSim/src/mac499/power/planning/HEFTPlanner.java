@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.cloudbus.cloudsim.Log;
-import mac499.power.CondorVM;
+import mac499.power.PowerCondorVM;
 import mac499.power.Task;
 
 /**
@@ -30,7 +30,7 @@ import mac499.power.Task;
  */
 public class HEFTPlanner extends BasePlanner {
 
-	private Map<Task, Map<CondorVM, Double>> computationCosts;
+	private Map<Task, Map<PowerCondorVM, Double>> computationCosts;
 	private Map<Task, Map<Task, Double>> transferCosts;
 
 	public HEFTPlanner() {
@@ -108,10 +108,10 @@ public class HEFTPlanner extends BasePlanner {
 	private void calculateComputationCosts() {
 		for (Object taskObject : getTaskList()) {
 			Task task = (Task) taskObject;
-			Map<CondorVM, Double> costsVm = new HashMap<CondorVM, Double>();
+			Map<PowerCondorVM, Double> costsVm = new HashMap<PowerCondorVM, Double>();
 
 			for (Object vmObject : getVmList()) {
-				CondorVM vm = (CondorVM) vmObject;
+				PowerCondorVM vm = (PowerCondorVM) vmObject;
 				if (vm.getNumberOfPes() < task.getNumberOfPes())
 					costsVm.put(vm, Double.MAX_VALUE);
 				else

@@ -17,7 +17,7 @@ package mac499.power.scheduler;
 
 import org.cloudbus.cloudsim.Cloudlet;
 import org.cloudbus.cloudsim.Log;
-import mac499.power.CondorVM;
+import mac499.power.PowerCondorVM;
 import mac499.power.WorkflowSimTags;
 
 /**
@@ -43,10 +43,10 @@ public class MCTScheduler extends BaseScheduler {
         for (int i = 0; i < size; i++) { 
             Cloudlet cloudlet = (Cloudlet) getCloudletList().get(i);
             int vmSize = getVmList().size();
-            CondorVM firstIdleVm = null;
+            PowerCondorVM firstIdleVm = null;
 
             for (int j = 0; j < vmSize; j++) {
-                CondorVM vm = (CondorVM) getVmList().get(j);
+                PowerCondorVM vm = (PowerCondorVM) getVmList().get(j);
                 if (vm.getState() == WorkflowSimTags.VM_STATUS_IDLE) {
                     firstIdleVm = vm;
                     break;
@@ -57,7 +57,7 @@ public class MCTScheduler extends BaseScheduler {
             }
 
             for (int j = 0; j < vmSize; j++) {
-                CondorVM vm = (CondorVM) getVmList().get(j);
+                PowerCondorVM vm = (PowerCondorVM) getVmList().get(j);
                 if ((vm.getState() == WorkflowSimTags.VM_STATUS_IDLE)
                         && (vm.getCurrentRequestedTotalMips() > firstIdleVm.getCurrentRequestedTotalMips())) {
                     firstIdleVm = vm;

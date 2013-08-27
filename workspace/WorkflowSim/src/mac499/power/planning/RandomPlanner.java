@@ -18,7 +18,7 @@ package mac499.power.planning;
 import java.util.Iterator;
 import java.util.Random;
 
-import mac499.power.CondorVM;
+import mac499.power.PowerCondorVM;
 import mac499.power.Task;
 
 /**
@@ -58,7 +58,7 @@ public class RandomPlanner extends BasePlanner {
             Random random = new Random((long)duration);
             int vmId = random.nextInt(vmNum);
             
-            CondorVM vm = (CondorVM) getVmList().get(vmId);
+            PowerCondorVM vm = (PowerCondorVM) getVmList().get(vmId);
             //This shows the cpu capability of a vm
             double mips = vm.getMips();
             

@@ -15,10 +15,11 @@
  */
 package mac499.power;
 
-import org.cloudbus.cloudsim.CloudletScheduler;
-import org.cloudbus.cloudsim.Vm;
 import mac499.power.utils.ReplicaCatalog;
 import mac499.power.utils.ReplicaCatalog.FileSystem;
+
+import org.cloudbus.cloudsim.CloudletScheduler;
+import org.cloudbus.cloudsim.power.PowerVm;
 
 /**
  * Condor Vm extends a VM: the difference is it has a locl storage system and it
@@ -28,7 +29,7 @@ import mac499.power.utils.ReplicaCatalog.FileSystem;
  * @since WorkflowSim Toolkit 1.0
  * @date Apr 9, 2013
  */
-public class CondorVM extends Vm {
+public class PowerCondorVM extends PowerVm {
 
     /*
      * The local storage system a vm has if file.system=LOCAL
@@ -62,7 +63,7 @@ public class CondorVM extends Vm {
      * @pre cloudletScheduler != null
      * @post $none
      */
-    public CondorVM(
+    public PowerCondorVM(
             int id,
             int userId,
             double mips,
@@ -70,9 +71,11 @@ public class CondorVM extends Vm {
             int ram,
             long bw,
             long size,
+            int priority,
             String vmm,
-            CloudletScheduler cloudletScheduler) {
-        super(id, userId, mips, numberOfPes, ram, bw, size, vmm, cloudletScheduler);
+            CloudletScheduler cloudletScheduler,
+            double schedulingInterval) {
+        super(id, userId, mips, numberOfPes, ram, bw, size, ram, vmm, cloudletScheduler, schedulingInterval);
         /*
          * At the beginning all vm status is idle. 
          */

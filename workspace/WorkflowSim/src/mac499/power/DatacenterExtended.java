@@ -293,7 +293,7 @@ public class DatacenterExtended extends Datacenter {
                         int userId = cl.getUserId();
                         Host host = getVmAllocationPolicy().getHost(vmId, userId);
                         Vm vm = host.getVm(vmId, userId);
-                        CondorVM condorVm = (CondorVM) vm;
+                        PowerCondorVM condorVm = (PowerCondorVM) vm;
 
                         boolean requiredFileStagein = true;
                         
@@ -418,7 +418,7 @@ public class DatacenterExtended extends Datacenter {
                         /**
                          * Left here for future work
                          */
-                        CondorVM vm = (CondorVM) host.getVm(vmId, userId);
+                        PowerCondorVM vm = (PowerCondorVM) host.getVm(vmId, userId);
 
                         ReplicaCatalog.addStorageList(file.getName(), Integer.toString(vmId));
                         break;

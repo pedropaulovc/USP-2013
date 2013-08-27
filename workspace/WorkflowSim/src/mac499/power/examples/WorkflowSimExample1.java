@@ -31,11 +31,12 @@ import org.cloudbus.cloudsim.Storage;
 import org.cloudbus.cloudsim.VmAllocationPolicySimple;
 import org.cloudbus.cloudsim.VmSchedulerTimeShared;
 import org.cloudbus.cloudsim.core.CloudSim;
+import org.cloudbus.cloudsim.examples.power.Constants;
 import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
 import mac499.power.ClusterStorage;
-import mac499.power.CondorVM;
+import mac499.power.PowerCondorVM;
 import mac499.power.DatacenterExtended;
 import mac499.power.Job;
 import mac499.power.WorkflowEngine;
@@ -59,10 +60,10 @@ import mac499.power.utils.Parameters;
  */
 public class WorkflowSimExample1 {
 
-    private static List<CondorVM> createVM(int userId, int vms) {
+    private static List<PowerCondorVM> createVM(int userId, int vms) {
 
         //Creates a container to store VMs. This list is passed to the broker later
-        LinkedList<CondorVM> list = new LinkedList<CondorVM>();
+        LinkedList<PowerCondorVM> list = new LinkedList<PowerCondorVM>();
 
         //VM Parameters
         long size = 10000; //image size (MB)
@@ -73,11 +74,11 @@ public class WorkflowSimExample1 {
         String vmm = "Xen"; //VMM name
 
         //create VMs
-        CondorVM[] vm = new CondorVM[vms];
+        PowerCondorVM[] vm = new PowerCondorVM[vms];
 
         for (int i = 0; i < vms; i++) {
             double ratio = 1.0;
-            vm[i] = new CondorVM(i, userId, mips * ratio, pesNumber, ram, bw, size, vmm, new CloudletSchedulerSpaceShared());
+            vm[i] = new PowerCondorVM(i, userId, mips * ratio, pesNumber, ram, bw, size, 1, vmm, new CloudletSchedulerSpaceShared(), Constants.SCHEDULING_INTERVAL);
             list.add(vm[i]);
         }
 
@@ -134,7 +135,7 @@ public class WorkflowSimExample1 {
              * Create a list of VMs.The userId of a vm is basically the id of the scheduler
              * that controls this vm. 
              */
-            List<CondorVM> vmlist0 = createVM(wfEngine.getSchedulerId(0), Parameters.getVmNum());
+            List<PowerCondorVM> vmlist0 = createVM(wfEngine.getSchedulerId(0), Parameters.getVmNum());
 
             /**
              * Submits this list of vms to this WorkflowEngine.

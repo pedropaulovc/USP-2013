@@ -19,7 +19,7 @@ import java.util.Iterator;
 
 import org.cloudbus.cloudsim.Cloudlet;
 import org.cloudbus.cloudsim.Log;
-import mac499.power.CondorVM;
+import mac499.power.PowerCondorVM;
 import mac499.power.WorkflowSimTags;
 
 /**
@@ -42,7 +42,7 @@ public class HEFTScheduler extends BaseScheduler {
             boolean stillHasVm = false;
             for (Iterator itc = getVmList().iterator(); itc.hasNext();) {
 
-                CondorVM vm = (CondorVM) itc.next();
+                PowerCondorVM vm = (PowerCondorVM) itc.next();
                 if (vm.getState() == WorkflowSimTags.VM_STATUS_IDLE) {
                     stillHasVm = true;
                     vm.setState(WorkflowSimTags.VM_STATUS_BUSY);

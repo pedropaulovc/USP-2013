@@ -21,7 +21,7 @@ import java.util.List;
 import org.cloudbus.cloudsim.Cloudlet;
 import org.cloudbus.cloudsim.File;
 import org.cloudbus.cloudsim.Log;
-import mac499.power.CondorVM;
+import mac499.power.PowerCondorVM;
 import mac499.power.Job;
 import mac499.power.WorkflowSimTags;
 import mac499.power.utils.ReplicaCatalog;
@@ -54,10 +54,10 @@ public class DataAwareScheduler extends BaseScheduler {
             }
 
             int vmSize = getVmList().size();
-            CondorVM closestVm = null;//(CondorVM)getVmList().get(0);
+            PowerCondorVM closestVm = null;//(CondorVM)getVmList().get(0);
             double minTime = Double.MAX_VALUE;
             for (int j = 0; j < vmSize; j++) {
-                CondorVM vm = (CondorVM) getVmList().get(j);
+                PowerCondorVM vm = (PowerCondorVM) getVmList().get(j);
                 if (vm.getState() == WorkflowSimTags.VM_STATUS_IDLE) {
                    
                     

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cloudbus.cloudsim.Cloudlet;
-import mac499.power.CondorVM;
+import mac499.power.PowerCondorVM;
 import mac499.power.WorkflowSimTags;
 
 /**
@@ -78,9 +78,9 @@ public class MinMinScheduler extends BaseScheduler {
             hasChecked.set(minIndex, true);
 
             int vmSize = getVmList().size();
-            CondorVM firstIdleVm = null;//(CondorVM)getVmList().get(0);
+            PowerCondorVM firstIdleVm = null;//(CondorVM)getVmList().get(0);
             for (int j = 0; j < vmSize; j++) {
-                CondorVM vm = (CondorVM) getVmList().get(j);
+                PowerCondorVM vm = (PowerCondorVM) getVmList().get(j);
                 if (vm.getState() == WorkflowSimTags.VM_STATUS_IDLE) {
                     firstIdleVm = vm;
                     break;
@@ -90,7 +90,7 @@ public class MinMinScheduler extends BaseScheduler {
                 break;
             }
             for (int j = 0; j < vmSize; j++) {
-                CondorVM vm = (CondorVM) getVmList().get(j);
+                PowerCondorVM vm = (PowerCondorVM) getVmList().get(j);
                 if ((vm.getState() == WorkflowSimTags.VM_STATUS_IDLE)
                         && vm.getCurrentRequestedTotalMips() > firstIdleVm.getCurrentRequestedTotalMips()) {
                     firstIdleVm = vm;

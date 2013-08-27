@@ -290,7 +290,7 @@ public class WorkflowScheduler extends DatacenterBroker {
         getCloudletReceivedList().add(cloudlet);
         getCloudletSubmittedList().remove(cloudlet);
 
-        CondorVM vm = (CondorVM) getVmsCreatedList().get(cloudlet.getVmId());
+        PowerCondorVM vm = (PowerCondorVM) getVmsCreatedList().get(cloudlet.getVmId());
         //so that this resource is released
         vm.setState(WorkflowSimTags.VM_STATUS_IDLE);
 
