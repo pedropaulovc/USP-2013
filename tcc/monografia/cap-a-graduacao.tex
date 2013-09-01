@@ -1,9 +1,161 @@
 %% ------------------------------------------------------------------------- %%
 \chapter{A Graduação em Ciência da Computação}
 \label{cap:a_graduacao}
+Realizo neste capítulo um balanço sobre os cinco anos de graduação em Ciência
+da Computação realizados em duas universidades bastante distintas: A 
+Universidade Federal de Santa Catarina, por dois anos, e a Universidade de São
+Paulo, por três anos. A primeira graduação, por estar localizada juntamente
+com os cursos de engenharia da UFSC, tem foco bastante voltado à parte
+tecnológica da Computação, com grupos fortes fazendo pesquisa em Banco de Dados,
+Sistemas Operacionais e Engenharia de Software. Já a segunda, localizada dentro
+do Instituto de Matemática e Estatística, foca muito mais nos estudos de 
+Matemática e conteúdos de fundamentos de Computação como Algoritmos, Grafos e 
+Autômatos. 
+
+Felizmente, essas as diferenças se tornam complementares quando há interesse 
+do aluno de tentar absorver o que cada lugar tem de melhor. Me considero um
+sortudo por ter a chance de abraçar essa oportunidade e espero ter aproveitado
+ao máximo o que me foi oferecido. De fato, encerro esse ciclo com a sensação de
+dever cumprido, seja em termos acadêmicos, concluindo a graduação com boas notas
+e cumprindo com meus deveres estudantis, seja em termos sociais, cultivando 
+boas amizades em cada lugar e aproveitando o que a Universidade oferece a seus
+alunos: restaurante universitário, biblioteca, cursos de idiomas, esportes,
+viagens acadêmicas, festas universitárias, iniciação científica etc.
 
 \section{Disciplinas cursadas relevantes para o desenvolvimento do TCC}
 \label{sec:disciplinas_relevantes}
+Desenvolver este TCC foi uma amostra bastante relevante de como os conteúdos em
+Ciência da Computação estão relacionados, em maior ou menor grau. Felizmente, 
+a área de Redes de Computadores é bastante eclética nas fundações que utiliza
+para gerar seus resultados. (E que resultados! A Internet é fruto dos esforços
+de inúmeros pesquisadores em Redes e sempre gerou fascínio em mim. Compreender
+seu funcionamento e a sua capacidade de mudança foram alguns dos motivos que 
+me fizeram escolher Computação como a carreira que quero perseguir
+profissionalmente.)
+
+Nesta seção é apresentada uma lista de cursos que fizeram a diferença para o
+desenvolvimento da minha monografia, direta ou indiretamente, em ordem
+cronológica.
+
+\subsection{Programação Orientada a Objetos II}
+\begin{description}
+	\item[Universidade] UFSC
+	\item[Professor] Luiz Fernando Bier Melgarejo
+\end{description}
+POO II é uma disciplina obrigatória do segundo semestre de Computação na UFSC.
+O propósito da matéria é cobrir os principais conceitos de Orientação a Objetos
+e pô-los em prática em um projeto. O destaque dessa disciplina não é tanto o
+conteúdo mas sim a metodologia de ensino do professor.
+
+Após uma rápida introdução ao \emph{framework} a ser usado durante a disciplina, os
+alunos começam desenvolvendo mini-projetos de interesse próprio e usando os
+(Poucos) conceitos que conhecem de POO aprendidos em POO I. Durante o semestre é
+obrigação do aluno se oferecer para apresentar os códigos que vem produzindo 
+no(s) projeto(s). É nesse momento que entra o professor, criticando ferozmente o
+trabalho do aluno, comentando brevemente sobre práticas de programação e padrões
+de projeto que o aluno não conhecia mas que poderiam ser utilizados. É
+importante notar que o professor nunca dava a solução do problema. Cabia aos
+alunos mudar seus códigos por conta própria, pesquisar boas soluções e 
+discutir com colegas para chegar a um consenso do que deve ser apresentado como
+``solução'' em uma aula posterior.
+
+O curioso é que os alunos que sobreviviam a tal provação eram na grande maioria
+aprovados. Mas mais que apenas uma nota no histórico escolar, os alunos saiam
+muito mais unidos que antes graças à necessidade de companheirismo para
+enfrentar o ``temido'' professor. Além disso, absorviam muito mais conceitos
+do que numa aula expositiva simples, afinal, ninguém queria ser criticado na 
+frente dos seus colegas então todos pensavam muito em seus códigos antes de 
+fazer a apresentação.
+
+Para este TCC, foi necessário analisar bastante código dos simuladores
+utilizados além de empregar técnicas vistas nessa disciplina para o
+desenvolvimento do PowerWorfkflowSim. Foi, também, nessa disciplina que criei
+a maior intimidade com programação Java, muito utilizada neste trabalho.
+
+\subsection{Organização de Computadores I}
+\begin{description}
+	\item[Universidade] UFSC
+	\item[Professor] Luiz Cláudio Villar dos Santos
+\end{description}
+
+Organização de Computadores é uma disciplina obrigatória do terceiro semestre de
+Computação na UFSC. O propósito da disciplina é apresentar a interface 
+hardware-software. Novamente, o destaque novamente vai para o professor.
+Por um lado, ele é respeitado pelo seu profundo conhecimento de Computação em
+geral e vivência profissional enquanto que por outro é temido pelo seu alto
+índice de reprovação.
+
+O professor faz questão de ministrar seu curso tal como fazem as melhores
+universidades do país. O que pode ser problemático em termos de notas, 
+novamente garante que os alunos que saiam da disciplina estejam preparados para
+enfrentar problemas com muito mais confiança que em outros lugares.
+
+Para o trabalho de conclusão, foram fundamentais a conceituação de consumo
+energético e os \emph{tradeoffs} envolvidos na questão velocidade $\times$ 
+economia energética. 
+
+\subsection{Algoritmos em Grafos}
+\begin{description}
+	\item[Universidade] USP
+	\item[Professor] Arnaldo Mandel
+\end{description}
+
+Algoritmos em Grafos é uma disciplina obrigatória do quinto semestre de
+Computação do IME-USP. Aqui, são estudadas as formas de representação
+computacional de grafos, um pouco de modelagem de problemas usando grafos e 
+diversos algoritmos fundamentais da área.
+
+Grafos e seus algoritmos são uma verdadeira cornucópia de utilidades em Ciência
+da Computação. Uma estrutura simples e elegante é capaz de modelar e resolver
+inúmeros problemas e de uma maneira normalmente intuitiva ou palpável. Para
+um trabalho envolvendo Redes isso não pode ser diferente. Processei DAGs de
+fluxos de trabalho científicos, apliquei uma busca em profundidade para 
+gerar uma ordenação topológica com o objetivo executar códigos em diversos nós 
+interligados. Claramente, Grafos foram fundamentais para esse trabalho.
+
+\subsection{Programação para Redes de Computadores}
+\begin{description}
+	\item[Universidade] USP
+	\item[Professor] Daniel Macêdo Batista
+\end{description}
+
+Programação para Redes de Computadores é uma disciplina optativa do curso de
+Computação do IME-USP. Aqui é feita uma abordagem \emph{top-down} do modelo
+TCP-IP (Internet) de Redes de Computadores. São estudados os conceitos
+fundamentais de cada camada, protocolos relevantes e realizados experimentos
+para reforçar os conceitos aprendidos.
+
+Apesar de já ter cursado Redes de Computadores na UFSC, fazendo um estudo
+\emph{bottom-up} e estudando redes OSI juntamente com TCP-IP, sentia que meus 
+conhecimentos na área estavam ainda fracos e cursar Programação para Redes de
+Computadores foi uma ótima decisão. Por ser uma disciplina conjunta com a pós
+graduação há alunos muito capacitados e interessados no estudo da disciplina.
+Ainda, o professor consegue em seu curso um feito muito difícil disciplinas de
+graduação: Motivar os alunos a discutir os assuntos em aula, enriquecendo-a.
+Por fim, o professor mostra que tem conhecimento prático de programação em redes
+ao programar e simular os conceitos vistos diretamente na aula.
+
+Para o TCC o professor Daniel aceitou a tarefa de ser meu orientador, muito 
+profissional, trouxe sempre materiais que tornassem o meu trabalho melhor e 
+contribuiu com comentários muito pertinentes.
+
 
 \section{Próximos Passos}
 \label{sec:proximos_passos}
+Com o fim da graduação iminente, surgem as dúvidas de qual carreira seguir.
+Como comentado no começo do capítulo, considero que aproveitei a universidade
+nas várias formas possíveis. Na área de pesquisa, participei de duas iniciações
+científicas diferentes, uma na área de hardware na UFSC e outra na área de
+ensino de Computação na USP. Assim, considero que este é um bom momento para 
+gerar uma mudança na minha vida profissional, ingressando na indústria de
+software.
+
+Pretendo continuar trabalhando com Redes e Computação, mas agora em um
+contexto mais prático. Uma das coisas que mais sinto falta na carreira acadêmica
+é ver alguma ideia desenvolvida ser utilizada rotineiramente por milhares
+(Milhões? Bilhões?) de pessoas. Ou seja, ir além do \emph{paper}, da dissertação
+e da tese. De qualquer forma, mantenho meu carinho especial pelos anos vividos
+na universidade, de onde levo conhecimento, contatos e amigos para o resto da
+vida.
+
+
