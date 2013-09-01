@@ -4,19 +4,360 @@
 
 \section{Computação em Nuvem}
 \label{sec:computacao_nuvem}
-Dentro desse contexto surgiu o conceito de computação em nuvem. Apesar de ainda haver controvérsias na sua definição precisa, esse paradigma preza pela noção de utilizar recursos computacionais como poder de processamento, armazenamento e comunicação como um serviço. O pagamento pelos serviços é feito apenas considerando o que foi utilizado, tal como acontece com o fornecimento de energia elétrica. O objetivo final da computação em nuvem é concentrar dados para prover um serviço ubíquo ao usuário, empresas ou pessoas físicas, que delegariam a gestão dessa informação a terceiros competentes para prover um serviço de qualidade e seguro. Grandes empresas da área de tecnologia possuem soluções de computação em nuvem, dentre as quais podemos citar Amazon, Google, Microsoft, IBM, EMC, etc.
+Computação em nuvem ou \emph{cloud computing} é um nicho de mercado que se tornou atrativo com o
+barateamento de insumos necessários à computação como energia, poder de 
+processamento, armazenamento e transmissão de dados, permitindo uma economia
+de escala. \cite{eecs:above-clouds} Através desse paradigma computacional, 
+surgiu a noção de computação como um serviço, elástico, virtualmente ilimitado e
+pago apenas pela porção realmente utilizada, muito similar ao sistema de
+distribuição elétrica.
 
-Uma importante vantagem da computação em nuvem é que com essa concentração de dados e serviços é possível desenvolver técnicas de otimização do uso de grandes data centers. Segundo estudo realizado por Barroso e Hölzle \cite{barroso:case_energy_proportional} em 5000 servidores do Google, raramente eles permanecem completamente ociosos e dificilmente operam próximos da sua utilização máxima. Na maior parte do tempo estão trabalhando entre 10\% e 50\% do nível máximo. Os autores mostram que justamente nessa faixa de utilização tais servidores são menos eficientes energeticamente. Computação em nuvem é uma candidata a ajudar a melhorar essa perspectiva. Através de virtualização e reposicionamento automático de máquinas virtuais no data center de maneira transparente, uma realidade em produtos pagos ou livres, é possível dimensionar qual parcela do data center estará ativa em um dado momento dependendo da demanda. Vários servidores com pouca utilização poderiam ser, por exemplo, virtualizados em um único servidor físico de modo que este trabalhe com uma utilização que seja mais eficiente.
+O objetivo final da computação em nuvem é concentrar dados para prover um 
+serviço ubíquo ao usuário, empresas ou pessoas físicas, que delegariam a gestão
+dessa informação a terceiros competentes para prover um serviço de qualidade e 
+seguro. Grandes empresas da área de tecnologia possuem soluções de computação em
+ nuvem, dentre as quais podemos citar Amazon, Google, Microsoft, IBM e EMC.
 
+Uma importante vantagem de \emph{cloud computing} é que com essa concentração de 
+dados e serviços é possível desenvolver técnicas de otimização do uso de grandes
+\emph{data centers}. Segundo estudo realizado por Barroso e Hölzle
+\cite{barroso:case_energy_proportional} em 5000 servidores do Google, raramente
+eles permanecem completamente ociosos e dificilmente operam próximos da sua
+utilização máxima. Na maior parte do tempo estão trabalhando entre 10\% e 50\% 
+do nível máximo. Os autores mostram que justamente nessa faixa de utilização
+tais servidores são menos eficientes energeticamente.
 
-\section{Escalonamento de Tarefas}
-\label{sec:escalonamento_tarefas}
+Computação em nuvem é uma
+candidata a ajudar a melhorar essa perspectiva. Através de virtualização e
+reposicionamento automático de máquinas virtuais no data center de maneira
+transparente, uma realidade em produtos pagos ou livres, é possível dimensionar
+qual parcela do data center estará ativa em um dado momento dependendo da
+demanda. Vários servidores com pouca utilização poderiam ser, por exemplo,
+virtualizados em um único servidor físico de modo que este trabalhe com uma
+utilização que seja mais eficiente.
+
+Vale ressaltar que em uma situação ideal, toda essa consolidação de servidores
+é transparente ao usuário final. Em caso de um pico na demanda por um determinado
+serviço, o provedor da nuvem deve garantir que haja uma resposta rápida da 
+infraestrutura para suportar a nova carga requisitada. Dessa forma, são 
+respeitados os acordos de nível de serviço (SLA - \emph{Service level agreement})
+estabelecidos entre o usuário e o fornecedor da nuvem.
 
 \section{Consumo Energético}
 \label{sec:consumo_energetico}
 
+Seguindo a tendência comentada na seção \ref{sec:motivacao}, os serviços de TI
+vem apresentando um forte crescimento devido à contínua migração de serviços,
+análise de dados (\emph{Big Data}, \emph{Business Intelligence}, etc.) e
+processamentos científicos para grandes data centers. Com isso, o consumo
+energético total também tem aumentado a níveis alarmantes. Em uma análise do custo
+total de posse de um \emph{data center} de alta disponibilidade, cada rack
+possui um custo de US\$120.000 ao longo de 10 anos. \cite{rasmussen:tco_data_center} 
+Este custo está dividido da seguinte forma:
+
+\newcommand{\slice}[4]{
+  \pgfmathparse{0.5*#1+0.5*#2}
+  \let\midangle\pgfmathresult
+
+  % slice
+  \draw[thick,fill=black!10] (0,0) -- (#1:1) arc (#1:#2:1) -- cycle;
+
+  % outer label
+  \node[label=\midangle:#4] at (\midangle:1) {};
+
+  % inner label
+  \pgfmathparse{min((#2-#1-10)/110*(-0.3),0)}
+  \let\temp\pgfmathresult
+  \pgfmathparse{max(\temp,-0.5) + 0.8}
+  \let\innerpos\pgfmathresult
+  \node at (\midangle:\innerpos) {#3};
+}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[scale=3]
+
+\newcounter{a}
+\newcounter{b}
+\foreach \p/\t in {1/Monitoramento de Sistemas, 5/Gerenciamento de Projetos, 18/Equipamentos Elétricos,
+                  6/Equipamentos de Refrigeração, 18/Engenharia e Instalações, 20/Eletricidade,
+                   15/Serviços, 2/Rack, 15/Espaço}
+  {
+    \setcounter{a}{\value{b}}
+    \addtocounter{b}{\p}
+    \slice{\thea/100*360}
+          {\theb/100*360}
+          {\p\%}{\t}
+  }
+\end{tikzpicture}
+\caption{Custo total de posse de um \emph{data center} típico de alta
+disponibilidade \cite{rasmussen:tco_data_center}} \label{fig:tco_data_center}
+\end{figure}
+
+Como é possível ver na figura \ref{fig:tco_data_center}, os custos relacionados
+à eletricidade mais os gastos com equipamentos que apenas cumprem o propósito de
+garantir que o servidor permaneça ligado e refrigerado totalizam 44\%. Portanto,
+uma redução nestes gastos gera um impacto tanto econômico quanto ambiental, com
+a redução dos recursos naturais necessários para sustentar um \emph{data center}.
+
+\subsection{Migração de Máquinas Virtuais}
+Uma das grandes vantagens de manipular máquinas virtuais em um ambiente como
+o de computação em nuvem é o fato que é relativamente simples fazer uma 
+realocação de máquinas virtuais de uma máquina hospedeira para outra. O objetivo
+desse processo é o de minimizar o número de nós físicos que estão atendendo a
+carga de trabalho atual. Enquanto isso, os nós ociosos ficam livres para serem
+desligados ou colocados em algum estado de hibernação profunda, com baixo consumo
+energético. \cite{beloglazov:energy_efficient_allocation_virtual_machines}.
+
+\subsection{Dimensionamento Dinâmico de Tensão e Frequência}
+\label{subsec:dvfs}
+A estratégia de dimensionamento dinâmico de tensão e frequência, do inglês 
+\emph{dynamic voltage and frequency scaling}, é uma tática 
+bastante difundida entre os fabricantes de processadores como uma forma pouco
+invasiva de economizar energia elétrica. Tecnologias como o \emph{Intel Speed Step}
+e o \emph{AMD Coll'n'Quiet}, que ajustam automaticamente, em hardware, a tensão
+e frequência dos processadores de acordo com suas cargas de trabalho. Se há
+altas cargas de trabalho, o processador aumenta os níveis de tensão e
+frequência, caso contrário diminui esses níveis. 
+\cite{lago:escalonamento_com_prioridade_eficiente}
+
+
+\section{Escalonamento de Tarefas}
+\label{sec:escalonamento_tarefas}
+Segundo \cite{lago:escalonamento_com_prioridade_eficiente}, o escalonamento de 
+tarefas pode ser visto através de duas óticas: A do usuário da nuvem, que deseja
+que sua tarefa execute o mais rapidamente possivel e com o menor custo e a 
+perspectiva do provedor da nuvem, interessado em reduzir os recursos utilizados,
+gerando economias na manutenção e energia elétrica. Esta monografia foca no
+escalonamento pelo ponto de vista do provedor. 
+
+
+\subsection{\emph{Heterogeneous Earliest Finish Time}}
+\label{subsec:heft}
+O algoritmo \emph{Heterogeneous Earliest Finish Time} -- HEFT é um algoritmo de
+escalonamento de fluxos de trabalho modelados utilizando um digrafo acíclico
+(Directed acyclic graph -- DAG) para um número limitado de computadores
+heterogêneos. \cite{kim:virtual_computing}
+
+O HEFT consiste de duas fases principais:
+
+\begin{description}
+	\item[Fase de priorização] Definição das prioridades das tarefas e a seleção
+	de tais tarefas baseado nas suas prioridades
+	\item[Fase de seleção] Mapeamento e escalonamento de cada tarefa selecionada
+	em um processador
+\end{description}
+
+\subsubsection{Fase de Priorização}
+Nesta fase do algoritmo HEFT, cada tarefa deve ser priorizada considerando
+o comprimento do caminho crítico (Ou seja, o maior caminho) de uma dada tarefa
+até a tarefa final no fluxo de trabalho. (Passos 1 a 5 no algoritmo 
+\proc{Heterogeneous-Earliest-Finish-Time}). A lista de tarefas a serem
+executadas são então ordenadas pela ordem decrescente do comprimento do caminho
+crítico. Com essa ordem, produzimos uma ordenação topológica das tarefas, 
+preservando as restrições de precedência do DAG.
+
+A prioridade de uma tarefa $n_i$ é definida recursivamente como:
+
+$$ rank_u(n_i) = \overline{w_i} + \max_{n_j \in succ(n_i)} (\overline{c_{i,j}} + rank_u(n_j)) $$
+
+onde $n_i$ representa a $i$-ésima tarefa, $\overline{w_i}$ é uma média
+do custo computacional da tarefa $i$ entre todos os processadores, $succ(n_i)$ 
+é o conjunto de todos as tarefas que dependem imediatamente da tarefa $n_i$
+e $\overline{c_{i,j}}$ é o custo de comunicação dos dados transferidos entre 
+as tarefas $n_i$ e $n_j$. %TODO ver no artigo original do HEFT
+
+Note que o cálculo de $rank_u(n_i)$ depende do cálculo do $rank$ de todas as
+suas tarefas filhas. A noção intuitiva por trás do $rank$ é que ele deve
+representar a distância esperada de qualquer tarefa até o fim da execução do
+\emph{workflow}.
+
+
+\begin{codebox}
+\Procname{$\proc{Heterogeneous-Earliest-Finish-Time}()$}
+\li	Defina os custos computacionais das tarefas e os custos de comunicação das
+	arestas \\com valores médios
+\li	Calcule $rank_u$ para todas as tarefas varrendo o grafo de ``baixo para cima'',
+	iniciando \\pela tarefa final.
+\li Ordene as tarefas em uma lista de escalonamento utilizando uma ordem não \\
+	crescente de valores de $rank_u$.
+\li 	\While há tarefas não escalonadas na lista
+\li 		\Do
+				Selecione a primeira tarefa, $n_i$ da lista de escalonamento.
+\li				\For cada processafor $p_k$ no conjunto de processadores $(p_k \in P)$
+\li 				\Do
+						Calcule o Earliest Execution Finish Time da tarefa $n_i$
+					\End
+\li				Defina a tarefa $n_i$ para executar no processador $p_j$ que
+				minimiza o\\ Earliest	Execution Finish Time da tarefa $n_i$.
+			\End
+\End
+\end{codebox}
+
+\subsubsection{Fase de Seleção}
+Para selecionar qual processador irá executar uma dada tarefa, calculamos o
+tempo mais cedo de conclusão (\emph{earliest finish time} -- EFT), de uma dada
+tarefa. Normalmente, o tempo mais cedo para um processador $p_j$ tornar-se
+disponível para executar uma tarefa é o momento que $p_j$ termina a execução
+da última tarefa designada a ele. (Caso não haja tarefa sendo executada, 
+o valor será zero.) Com o algoritmo HEFT, a busca por um espaço de tempo vago
+em um processador $p_j$ começa a partir do momento que o processador $p_j$ 
+torna-se vago. A busca continua até que seja possível encontrar 
+o primeiro \emph{slot} de tempo grande o suficiente para suportar a computação
+da tarefa $n_i$.
+
+\subsubsection{Análise de Complexidade do HEFT}
+No algoritmo \proc{Heterogeneous-Earliest-Finish-Time}, o passo 1 toma tempo
+$O(e \times p)$ para computar as médias enquanto o passo 2 toma tempo $O(e)$ para 
+computar o comprimento do caminho crítico, onde $e$ é o número de arestas no 
+DAG e $p$ o número de processadores. Para $n$ tarefas a serem escalonadas, 
+o passo 3 necessita de um tempo $O(n \log n)$ para ordenar as tarefas pelo
+comprimento de seus caminhos críticos. Seja $a$ o número de tarefas que tem
+$n_i$ como predecessora no DAG, então os passos 5-9 ocupam um tempo
+$O(a \times p)$ para uma tarefa $n_i$, assim, o laço enquanto necessita de um 
+tempo $O(e \times p)$. Portanto, a complexidade do algoritmo HEFT é  $O(e
+\times p)$.
+
 
 \section{Ambiente de Simulação}
 \label{sec:ambiente_simulacao}
+De forma a validar diferentes algoritmos e abordagens para problemas em computação
+em nuvem há algumas alternativas: Uma possibilidade seria a execução de instâncias
+reais dos problemas em provedores reais de \emph{cloud computing}. Essa alternativa
+possui como problema o custo monetário envolvido na instanciação de máquinas
+virtuais por um tempo prolongado. Ainda, não há o controle sobre o ambiente 
+de simulação, prejudicando a reproducibilidade dos experimentos. Outra opção
+seria a de instalar um ambiente próprio para experimentos, novamente esbarrando
+em problemas financeiros. 
+
+Uma alternativa mais factível é a utilização de ambientes de simulação virtual.
+Estas ferramentas abrem a possibilidade de avaliar uma hipótese em um ambiente
+totalmente controlado e facilmente reproduzível. Ainda, há um ganho na facilidade
+de simular diferentes variações de ambientes, facilitando a busca por gargalos
+na eficiência dos algoritmos utilizados. Esses benefícios vem ao custo da
+simplificação dos modelos utilizados para simular o ambiente proposto.
+
+Nesta seção serão apresentados os principais simuladores utilizados nos 
+experimentos descritos no capítulo \ref{cap:experimentos}: CloudSim, WorkflowSim
+e PowerWorkflowSim.
+
+\subsection{CloudSim}
+CloudSim \cite{calheiros:cloudsim} é um simulador para computação em nuvem,
+reconhecido academicamente com citações em mais de 300 de trabalhos indexados
+pelo Google Scholar \cite{google:cloudsim}. Ele provê as funcionalidades
+de simulação de máquinas virtuais, \emph{hosts}, \emph{data centers}, políticas
+de provisionamento de recursos, tarefas a serem executadas em máquinas virtuais
+(\emph{cloudlets}) além, de efetuar análises de duração de simulações e consumo
+de energia. Na figura \ref{fig:arquitetura_cloudsim} é possível ver a arquitetura projetada
+pelos desenvolvedores do CloudSim. 
+
+\begin{figure}
+\centering
+\includegraphics[draft,width=8cm,height=5cm]{graph.pdf}
+\caption{Arquitetura do CloudSim}
+\label{fig:arquitetura_cloudsim}
+\end{figure}
+
+A arquitetura em camadas do CloudSim permite uma separação clara das diferentes
+possibilidades de extensão e experimentação em um ambiente de computação em nuvem.
+Por exemplo, todo o código responsável pela simulação energética do CloudSim
+é na verdade uma especialização das classes originais do simulador. Assim,
+a classe \ttt{PowerDatacenter} e \ttt{PowerHost} são classes herdadas de
+\ttt{Datacenter} e \ttt{Host} respectivamente.
+
+Com a boa aceitação do CloudSim como uma ferramenta de simulação, passaram a 
+surgir simuladores mais especializados, como por exemplo o WorkflowSim, assunto
+da seção \ref{subsec:workflowsim}.
+
+\subsubsection{Modelagem de uma Nuvem Computacional}
+
+Os serviços de infraestrutura providos por nuvens podem ser simulados através 
+da extensão da classe \ttt{Datacenter} do CloudSim. Esta entidade gerencia
+diversos \ttt{Host}s. Cada \ttt{Host} possui uma capacidade de processamento 
+pré determinada, medida em milhões de instruções por segundo (MIPS) e podendo 
+ser com apenas um único ou vários núcleos de processamento, memória e
+armazenamento. Um \ttt{Host} pode incorporar uma ou mais \ttt{Vm}
+de acordo com as políticas de alocação definidas nele pelo administrador da nuvem.
+Uma política de alocação é definida como as operações relacionadas a uma
+\ttt{Vm} durante seu ciclo de vida: Escolha de um \ttt{Host}, criação, 
+migração e destruição.
+
+De maneira similar, cada \ttt{Vm} possui capacidades de processamento, memória,
+banda e número de processadores definidos no momento da sua criação. Ainda,
+pode executar uma ou mais tarefas, \ttt{Cloudlet}s, obedecendo-se as políticas
+de provisionamento de aplicações.
+
+\subsubsection{Modelagem do Consumo Energético}
+Como discutido anteriormente, o CloudSim possui uma extensão que incorpora 
+a modelagem do consumo energético das máquinas utilizadas na simulação. Nessa 
+extensão cada elemento de processamento (Tipicamente um \emph{core}) inclui um
+objeto que estende tipo abstrato \ttt{PowerModel}, responsável por gerenciar o
+consumo energético. Isso garante um desacoplamento entre o processamento e 
+a estratégia de economia de energia modelagem energéticas empregadas. Por exemplo,
+um PowerModel pode levar em conta a estratégia de DVFS descrita na seção 
+\ref{subsec:dvfs} enquanto outra não. O CloudSim apresenta algumas implementações
+concretas da classe \ttt{PowerModel}. A técnica de modelagem empregada é descrita
+em \cite{beloglazov:cloudsim_power}.
+
+
+\subsection{WorkflowSim}
+\label{subsec:workflowsim}
+Apesar de ser bem consolidado como ferramenta de simulação de computação em nuvem,
+o CloudSim não possui certas características necessárias à simulação de 
+\emph{workflows} científicos como por exemplo as ineficiências causadas pelo
+uso de sistemas heterogêneos e falhas. Ainda, percebe-se a falta de suporte a 
+técnicas de otimização de execução de \emph{workflows} amplamente utilizadas
+tais como o \emph{clustering} de tarefas. De forma a resolver essas demandas
+o WorkflowSim foi criado tendo como base o CloudSim \cite{chen:workflowsim}.
+
+Enquanto o CloudSim se concentra na execução de uma única carga de trabalho,
+o WorkflowSim foca no escalonamento do \emph{workflow} e sua execução. O último
+processa \emph{workflows} modelados como DAGs, realizando um escalonamento que 
+obedece a precedência imposta pelo DAG. Ainda, é simples implementar diferentes
+algoritmos de escalonamento e testar suas eficiências. Uma das atividades desse
+TCC foi implementar o algoritmo HEFT comentado na seção \ref{subsec:heft} no 
+WorkflowSim.
+
+Na parte de modelagem de falhas, os autores decidiram focar em falhas transientes,
+mais frequentes que falhas permanentes. O simulador permite ao projetista de
+algoritmos de escalonamento desenvolver algoritmos tolerantes a tais falhas 
+transientes.
+
+\begin{figure}
+\centering
+\includegraphics[draft,width=8cm,height=5cm]{graph.pdf}
+\caption{Arquitetura do WorkflowSim}
+\label{fig:arquitetura_workflowsim}
+\end{figure}
+
+Como é possível ver na figura \ref{fig:arquitetura_workflowsim}, há múltiplas 
+camadas de componentes envolvidos na preparação e execução do \emph{workflow}:
+Um \ttt{Workflow Mapper} que mapeia \emph{workflows} abstratos em
+\emph{workflows} concretos, dependentes do local de execução; uma \ttt{Workflow
+Engine} que gerencia a dependência de dados e um \ttt{Workflow Scheduler} para 
+associar tarefas aos processadores. Outros componentes incluem uma \ttt{Clustering
+Engine}, que é responsável tarefas menores em um pacote maior, um \ttt{Provenance
+Collector}, dedicado a registrar a história da execução de uma tarefa e um 
+\ttt{Workflow Partitioner}, que divide o \emph{workflow} em diversos
+\emph{sub-workflows}. 
+
+
+\subsection{PowerWorkflowSim}
+Durante a implementação do WorkflowSim os desenvolvedores não tomaram o cuidado
+de manter a API de simulação energética do CloudSim acessível ao usuário final.
+De maneira a resolver esse problema, o autor da monografia desenvolveu uma versão
+alternativa do WorkflowSim, o PowerWorkflowSim.
+
+Como tanto a API energética do CloudSim quanto o WorkflowSim são basicamente 
+\emph{wrappers} do CloudSim, o trabalho necessário foi o de garantir que 
+a funcionalidade de um não conflitasse com a do outro. O diagrama de classes
+resultante do PowerWorkflowSim está representado abaixo.
+
+\begin{figure}
+\centering
+\includegraphics[draft,width=8cm,height=5cm]{graph.pdf}
+\caption{Diagrama de Classes do PowerWorkflowSim}
+\label{fig:classes_powerworkflowsim}
+\end{figure}
 
 

@@ -24,11 +24,17 @@
 \usepackage{type1cm}                    % fontes realmente escaláveis
 \usepackage{listings}                   % para formatar código-fonte (ex. em Java)
 \usepackage{titletoc}
+\RequirePackage{graphics}               % necessário para o clrscode3e
+\usepackage{clrscode3e}                 % para formatar algoritmos como o CLRS
 %\usepackage[bf,small,compact]{titlesec} % cabeçalhos dos títulos: menores e compactos
 \usepackage[fixlanguage]{babelbib}
 \usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
 \usepackage[usenames,svgnames,dvipsnames]{xcolor}
 \usepackage[a4paper,top=2.54cm,bottom=2.0cm,left=2.0cm,right=2.54cm]{geometry} % margens
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{calc}
+
 %\usepackage[pdftex,plainpages=false,pdfpagelabels,pagebackref,colorlinks=true,citecolor=black,linkcolor=black,urlcolor=black,filecolor=black,bookmarksopen=true]{hyperref} % links em preto
 \usepackage[pdftex,plainpages=false,pdfpagelabels,pagebackref,colorlinks=true,citecolor=DarkGreen,linkcolor=NavyBlue,urlcolor=DarkRed,filecolor=green,bookmarksopen=true]{hyperref} % links coloridos
 \usepackage[all]{hypcap}                % soluciona o problema com o hyperref e capitulos
@@ -83,9 +89,14 @@ framexleftmargin=10pt,
 framexrightmargin=10pt
 }
 
+
+
+
 % ---------------------------------------------------------------------------- %
 % Corpo do texto
 \begin{document}
+\newcommand{\ttt}[1]{\texttt{#1}}
+
 \frontmatter 
 % cabeçalho para as páginas das seções anteriores ao capítulo 1 (frontmatter)
 \fancyhead[RO]{{\footnotesize\rightmark}\hspace{2em}\thepage}
@@ -273,6 +284,14 @@ framexrightmargin=10pt
 %
 %\noindent \textbf{Keywords:} keyword1, keyword2, keyword3.
 
+%------------------------------------------------------------------------------%
+%I'm the operator with my pocket calculator
+%I'm the operator with my pocket calculator
+%I am adding and subtracting
+%I'm controlling and composing
+%I'm the operator with my pocket calculator
+%I'm the operator with my pocket calculator
+%                              -- Kraftwerk
 % ---------------------------------------------------------------------------- %
 % Sumário
 \tableofcontents    % imprime o sumário
