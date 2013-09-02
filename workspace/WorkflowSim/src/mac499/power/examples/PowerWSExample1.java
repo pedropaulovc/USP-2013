@@ -31,6 +31,7 @@ import org.cloudbus.cloudsim.Storage;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicySimple;
 import org.cloudbus.cloudsim.VmSchedulerTimeShared;
+import org.cloudbus.cloudsim.VmSchedulerTimeSharedOverSubscription;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.examples.power.Constants;
 import org.cloudbus.cloudsim.examples.power.Helper;
@@ -39,6 +40,9 @@ import org.cloudbus.cloudsim.power.PowerHostUtilizationHistory;
 import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
+
+import com.sun.corba.se.impl.orbutil.closure.Constant;
+
 import mac499.power.ClusterStorage;
 import mac499.power.PowerCondorVM;
 import mac499.power.PowerDatacenterExtended;
@@ -185,30 +189,24 @@ public class PowerWSExample1 {
         //    create a list to store these PEs before creating
         //    a Machine.
         for (int i = 1; i <= 20; i++) {
+        	int hostType = i % Constants.HOST_TYPES;
             List<Pe> peList1 = new ArrayList<Pe>();
-            int mips = 2000;
             // 3. Create PEs and add these into the list.
             //for a quad-core machine, a list of 4 PEs is required:
-            peList1.add(new Pe(0, new PeProvisionerSimple(mips))); // need to store Pe id and MIPS Rating
-            peList1.add(new Pe(1, new PeProvisionerSimple(mips)));
-
-            int hostType = i % Constants.HOST_TYPES;
+            for(int j = 0; j < Constants.HOST_PES[hostType]; j++)
+            	peList1.add(new Pe(j, new PeProvisionerSimple(Constants.HOST_MIPS[hostType])));
             
             int hostId = 0;
-            int ram = 2048; //host memory (MB)
-            long storage = 1000000; //host storage
-            int bw = 10000;
             hostList.add(
                     new PowerHostUtilizationHistory(
                     hostId,
-                    new RamProvisionerSimple(ram),
-                    new BwProvisionerSimple(bw),
-                    storage,
+                    new RamProvisionerSimple(Constants.HOST_RAM[hostType]),
+                    new BwProvisionerSimple(Constants.HOST_BW),
+                    Constants.HOST_STORAGE,
                     peList1,
-                    new VmSchedulerTimeShared(peList1),
+                    new VmSchedulerTimeSharedOverSubscription(peList1),
                     Constants.HOST_POWER[hostType])); // This is our first machine
             hostId++;
-
         }
 
         // 5. Create a DatacenterCharacteristics object that stores the
@@ -218,7 +216,7 @@ public class PowerWSExample1 {
         String arch = "x86";      // system architecture
         String os = "Linux";          // operating system
         String vmm = "Xen";
-        double time_zone = 10.0;         // time zone this resource located
+        double time_zone = -3.0;         // time zone this resource located
         double cost = 3.0;              // the cost of using processing in this resource
         double costPerMem = 0.05;		// the cost of using memory in this resource
         double costPerStorage = 0.1;	// the cost of using storage in this resource

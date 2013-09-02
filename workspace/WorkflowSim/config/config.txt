@@ -58,14 +58,33 @@ scheduler.method= FCFS_SCH
 #Planning Related Parameters
 #Options: INVALID, RANDOM, HEFT
 planner.method= INVALID
-
 #Please replace it with your real physical path
-#dax.path       = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Inspiral_200.xml
-#dax.path	= /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Inspiral_400_weird.xml
-#dax.path 	= /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Epigenomics_500.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/CyberShake_30.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/CyberShake_50.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/CyberShake_100.xml
 #dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/CyberShake_1000.xml
-#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/fake-21-1.xml
-dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Montage_25.xml
-dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Montage_100.xml
+
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Epigenomics_24.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Epigenomics_46.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Epigenomics_100.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Epigenomics_997.xml
+
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/floodplain.xml
+
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Inspiral_30.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Inspiral_50.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Inspiral_100.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Inspiral_1000.xml
+
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Montage_25.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Montage_50.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Montage_100.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Montage_1000.xml
+
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Sipht_30.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Sipht_60.xml
+#dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Sipht_100.xml
+dax.path = /nfs/home/bcc/pedrovc/USP/2013/workspace/WorkflowSim/config/dax/Sipht_1000.xml
+
 #Reducer mode used to remove duplicate dependencies
 #reduce.method	= montage
