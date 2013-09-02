@@ -1,9 +1,177 @@
 %% ------------------------------------------------------------------------- %%
 \chapter{Experimentos}
 \label{cap:experimentos}
+Este capítulo é dividido em três momentos distintos dos experimentos realizados
+para esta monografia. Primeiramente, na seção \ref{sec:ambiente_simulado} são
+apresentadas as configurações do ambiente experimental; Resultados dos 
+experimentos de controle são exibidos na seção \ref{sec:experimentos-controle}.
+Em seguida, na seção
+\ref{sec:algoritmo_proposto} é feito um estudo detalhado sobre a heurística
+encontrada para minimizar o consumo energético e o algoritmo correspondente
+implementado; Por fim na seção \ref{sec:resultados_experimentais} são
+apresentados os resultados experimentais que mostram o granho energético com
+o uso do algoritmo proposto.
 
-\section{O Estado da Arte}
-\label{sec:estado_arte}
+
+\section{Ambiente Simulado}
+\label{sec:ambiente_simulado}
+%\subsection{Máquina Virtual}
+Esta seção apresenta os valores adotados para os diversos parâmetros disponíveis
+a uma simulação do PowerWorkflowSim. As configurações estão divididas
+por entidades: Na tabela \ref{tab:configuracao_vm} são apresentadas as
+configurações de uma máquina virtual. Já nas tabelas \ref{tab:configuracao_hp_g3}
+e \ref{tab:configuracao_hp_g5} estão presentes as configurações das máquinas
+físicas simuladas, duas versões de servidores HP ProLiant ML110, um da geração 3
+e outro da geração 5. Ainda, na tabela \ref{tab:configuracao_datacenter} são
+apresentadas as configurações que abrangem o Datacenter simulado. Por fim,
+na tabela \ref{tab:configuracao_powerworkflowsim} são vistas as configurações
+do simulador como um todo.
+
+\begin{savenotes}
+\begin{table}
+	\centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Parâmetro}     & \textbf{Valor}     \\ \hline
+    Número de máquinas     & 20        \\
+    Número de \emph{Cores} & 1         \\
+    Velocidade de um Core  & 1000 MIPS \\
+    Tamanho da Imagem      & 10 GB  \\
+    RAM                    & 512 MB    \\
+    Largura de Banda       & 1 Gbps \\
+    Gerenciamento de tarefas & Compartilhadas no espaço\footnote{Tarefas
+    compartilhadas no espaço possuem fatias do recurso desejado
+    reservadas a cada uma delas. Outra alternativa é o compartilhamento no tempo
+    no qual cada tarefa faz uso de dos recursos por uma fatia de tempo
+    determinada em esquema \emph{round-robin}, por exemplo.} \\
+    Gerenciador de VMs     & Xen       \\     \hline
+    \end{tabular}
+    \caption {Configurações das máquinas virtuais}
+    \label{tab:configuracao_vm}
+\end{table}
+\end{savenotes}
+
+%\subsection{\emph{Host}}
+\begin{table}
+	\centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Parâmetro}            & \textbf{Valor}     \\ \hline
+    Número de máquinas            & 10                            \\
+    Número de \emph{Cores}        & 2                             \\
+    Velocidade de um Core         & 1860 MIPS (Xeon 3040)         \\
+    RAM                           & 4 GiB                         \\
+    Largura de Banda              & 1 Gbps                        \\
+    Armazenamento                 & 1 GB                          \\
+    Modelo de consumo energético  & \cite{spec:proliant_ml110_g3} \\ \hline
+    \end{tabular}
+    \caption {Configuração de um host HP ProLiant ML110 G3}
+    \label{tab:configuracao_hp_g3}
+\end{table}
+
+
+
+\begin{table}
+	\centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Parâmetro}            & \textbf{Valor}     \\ \hline
+    Número de máquinas            & 10                            \\
+    Número de \emph{Cores}        & 2                             \\
+    Velocidade de um Core         & 2660 MIPS (Xeon 3075)         \\
+    RAM                           & 4 GiB                         \\
+    Largura de Banda              & 1 Gbps                        \\
+    Armazenamento                 & 1 GB                          \\
+    Modelo de consumo energético  & \cite{spec:proliant_ml110_g5} \\ \hline
+    \end{tabular}
+    \caption {Configuração de um host HP ProLiant ML110 G5}
+    \label{tab:configuracao_hp_g5}
+\end{table}
+
+%\subsection{\emph{Datacenter}}
+
+
+\begin{table}
+	\centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Parâmetro}     & \textbf{Valor}     \\ \hline
+    Arquitetura            & x86          \\
+    Sistema Operacional    & Linux        \\
+    Gerenciador de VMs     & Xen          \\
+    Fuso Horário           & -3           \\
+    Custo de Processamento & 3 unidades   \\
+    Custo da RAM           & 0.05 unidade \\
+    Custo do Armazenamento & 0.1 unidade  \\
+    Custo da Banda         & 0.1 unidade  \\ \hline
+    Largura de          & 0.1 unidade  \\ \hline
+    \end{tabular}
+    \caption {Configurações do \emph{datacenter}}
+    \label{tab:configuracao_datacenter}
+\end{table}
+
+
+
+%\subsection{Parâmetros do WorkflowSim}
+\begin{table}
+	\centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Parâmetro}                & \textbf{Valor}     \\ \hline
+    Escalonador                       & \emph{First Come First Served}    \\
+    Estratégia de Economia de Energia & DVFS (Vide seção \ref{subsec:dvfs}) \\ \hline
+    \end{tabular}
+    \caption {Configurações do PowerWorkflowSim}
+    \label{tab:configuracao_powerworkflowsim}
+\end{table}
+
+
+\section{Experimentos de controle}
+\label{sec:experimentos-controle}
+Para facilitar a análise de algoritmos que operam sobre fluxos de trabalho,
+tal como os algoritmos descritos nesta monografia, o projeto Pegasus Workflow
+Management System desenvolveu uma ferramenta geradora de \emph{workflows}
+científicos. Estes \emph{workflows} artificiais são gerados a partir de
+informações extraídas de instâncias reais das aplicações juntamente com
+conhecimentos prévios sobre seu funcionamento interno.
+\cite{pegasus:workflowgenerator}
+
+Os fluxos gerados pelo projeto Pegasus foram então executados no
+PowerWorkflowSim com as configurações apresentadas na seção 
+\ref{sec:ambiente_simulado}. Os resultados são apresentados na tabela 
+\ref{tab:resultados_dvfs}.
+
+\begin{table}
+	\centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{Experimento}           & \textbf{Número de tarefas} & \textbf{Tempo simulado (s)} & \textbf{Consumo energético (kWh)} \\ \hline
+    CyberShake                     & 30                & 246.65             & 0.13                     \\
+    CyberShake                     & 50                & 267.20             & 0.15                     \\
+    CyberShake                     & 100               & 306.94             & 0.17                     \\
+    CyberShake                     & 1000              & 1265.71            & 0.69                     \\ \hline
+    Epigenomics                    & 24                & 5596.59            & 3.04                     \\
+    Epigenomics                    & 46                & 7743.25            & 4.20                     \\
+    Epigenomics                    & 100               & 34975.01           & 18.99                    \\
+    Epigenomics                    & 997               & 207426.20          & 112.62                   \\ \hline
+    Inspiral                       & 30                & 1335.62            & 0.73                     \\
+    Inspiral                       & 50                & 1411.25            & 0.77                     \\
+    Inspiral                       & 100               & 1519.47            & 0.82                     \\
+    Inspiral                       & 1000              & 11712.90           & 6.36                     \\ \hline
+    Montage                        & 25                & 46.99              & 0.03                     \\
+    Montage                        & 50                & 66.76              & 0.04                     \\
+    Montage                        & 100               & 102.91             & 0.06                     \\
+    Montage                        & 1000              & 907.13             & 0.49                     \\ \hline
+    Sipht                          & 30                & 4412.76            & 2.40                     \\
+    Sipht                          & 60                & 4642.49            & 2.52                     \\
+    Sipht                          & 100               & 4479.34            & 2.43                     \\
+    Sipht                          & 1000              & 9646.45            & 5.24                     \\ \hline
+    \end{tabular}
+    \caption {Resultados dos experimentos de controle}
+    \label{tab:resultados_dvfs}
+\end{table}
+
+
 
 \section{Algoritmo Proposto}
 \label{sec:algoritmo_proposto}

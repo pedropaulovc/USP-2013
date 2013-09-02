@@ -10,7 +10,7 @@
 \backcite {chaves:scheduling_software_requirements}{{3}{1}{Item.1}}
 \backcite {batista:embedding_software_requirements}{{3}{1}{Item.1}}
 \backcite {chaves:scheduling_software_requirements}{{3}{4}{Item.4}}
-\backcite {chaves:scheduling_software_requirements}{{3}{2}{Item.8}}
+\backcite {chaves:scheduling_software_requirements}{{3}{2}{Item.9}}
 \backcite {patterson:computer_organization}{{5}{2.1}{section.2.1}}
 \backcite {chaves:scheduling_software_requirements}{{6}{2.1}{section.2.1}}
 \backcite {batista:embedding_software_requirements}{{6}{2.1}{section.2.1}}
@@ -30,3 +30,6 @@
 \backcite {google:cloudsim}{{10}{3.4.1}{subsection.3.4.1}}
 \backcite {beloglazov:cloudsim_power}{{11}{3.4.1}{section*.8}}
 \backcite {chen:workflowsim}{{11}{3.4.2}{subsection.3.4.2}}
+\backcite {spec:proliant_ml110_g3}{{14}{\caption@xref {??}{ on input line 66}}{table.caption.12}}
+\backcite {spec:proliant_ml110_g5}{{14}{\caption@xref {??}{ on input line 85}}{table.caption.13}}
+\backcite {pegasus:workflowgenerator}{{15}{4.2}{section.4.2}}
