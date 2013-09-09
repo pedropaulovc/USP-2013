@@ -16,8 +16,12 @@ O objetivo final da computação em nuvem é concentrar dados para prover um
 serviço ubíquo ao usuário, empresas ou pessoas físicas, que delegariam a gestão
 dessa informação a terceiros competentes para prover um serviço de qualidade e 
 seguro. Grandes empresas da área de tecnologia possuem soluções de computação em
- nuvem, dentre as quais podemos citar Amazon, Google, Microsoft, IBM e EMC.
-
+nuvem, dentre as quais podemos citar Amazon \footnote{Amazon Elastic Compute
+Cloud (Amazon EC2): \url{http://aws.amazon.com/ec2/}}, Google \footnote{Google
+Cloud Platform: \url{https://cloud.google.com/}}, Microsoft \footnote{Windows
+Azure: \url{http://www.windowsazure.com}} e IBM \footnote{IBM SmartCloud: 
+\url{http://www.ibm.com/cloud-computing/us/en/}}.
+ 
 Uma importante vantagem de \emph{cloud computing} é que com essa concentração de 
 dados e serviços é possível desenvolver técnicas de otimização do uso de grandes
 \emph{data centers}. Segundo estudo realizado por Barroso e Hölzle
@@ -30,7 +34,8 @@ tais servidores são menos eficientes energeticamente.
 Computação em nuvem é uma
 candidata a ajudar a melhorar essa perspectiva. Através de virtualização e
 reposicionamento automático de máquinas virtuais no data center de maneira
-transparente, uma realidade em produtos pagos ou livres, é possível dimensionar
+transparente, uma funcionalidade já disponível em produtos pagos
+\cite{vmware:vmotion} e livres \cite{clark:live_migration}, é possível dimensionar
 qual parcela do data center estará ativa em um dado momento dependendo da
 demanda. Vários servidores com pouca utilização poderiam ser, por exemplo,
 virtualizados em um único servidor físico de modo que este trabalhe com uma
@@ -53,7 +58,6 @@ processamentos científicos para grandes data centers. Com isso, o consumo
 energético total também tem aumentado a níveis alarmantes. Em uma análise do custo
 total de posse de um \emph{data center} de alta disponibilidade, cada \emph{rack}
 possui um custo de US\$120.000 ao longo de 10 anos. \cite{rasmussen:tco_data_center} 
-Este custo está dividido da seguinte forma:
 
 \newcommand{\slice}[4]{
   \pgfmathparse{0.5*#1+0.5*#2}
@@ -102,12 +106,18 @@ a redução dos recursos naturais necessários para sustentar um \emph{data cent
 
 \subsection{Migração de Máquinas Virtuais}
 Uma das grandes vantagens de manipular máquinas virtuais em um ambiente como
-o de computação em nuvem é o fato que é relativamente simples fazer uma 
-realocação de máquinas virtuais de uma máquina hospedeira para outra. O objetivo
-desse processo é o de minimizar o número de nós físicos que estão atendendo a
-carga de trabalho atual. Enquanto isso, os nós ociosos ficam livres para serem
+o de computação em nuvem é o fato que é relativamente simples realocá-las de uma
+máquina hospedeira para outra mesmo enquanto estão em funcionamento.
+\cite{vmware:vmotion} \cite{clark:live_migration} O objetivo
+desse processo é equalizar a quantidade de servidores utilizados no momento 
+com a demanda atual. Em um momento de pouca demanda é possível minimizar o
+número de nós físicos que estão atendendo a carga de trabalho atual. 
+Enquanto isso, os nós ociosos ficam livres para serem
 desligados ou colocados em algum estado de hibernação profunda, com baixo consumo
-energético. \cite{beloglazov:energy_efficient_allocation_virtual_machines}.
+energético. \cite{beloglazov:energy_efficient_allocation_virtual_machines} Já
+quando acontece um pico de acessos é possível realizar o processo inverso,
+distribuindo as máquinas virtuais em mais servidores, garantindo o SLA
+contratado.
 
 \subsection{Dimensionamento Dinâmico de Tensão e Frequência}
 \label{subsec:dvfs}
@@ -189,7 +199,7 @@ representar a distância esperada de qualquer tarefa até o fim da execução do
 						Calcule o Earliest Execution Finish Time da tarefa $n_i$
 					\End
 \li				Defina a tarefa $n_i$ para executar no processador $p_j$ que
-				minimiza o\\ Earliest	Execution Finish Time da tarefa $n_i$.
+				minimiza o \\Earliest Execution Finish Time da tarefa $n_i$.
 			\End
 \End
 \end{codebox}
@@ -314,7 +324,7 @@ Enquanto o CloudSim se concentra na execução de uma única carga de trabalho,
 o WorkflowSim foca no escalonamento do \emph{workflow} e sua execução. O último
 processa \emph{workflows} modelados como DAGs, realizando um escalonamento que 
 obedece a precedência imposta pelo DAG. Ainda, é simples implementar diferentes
-algoritmos de escalonamento e testar suas eficiências. Uma das atividades desse
+algoritmos de escalonamento e analisar suas eficiências. Uma das atividades desse
 TCC foi implementar o algoritmo HEFT comentado na seção \ref{subsec:heft} no 
 WorkflowSim.
 

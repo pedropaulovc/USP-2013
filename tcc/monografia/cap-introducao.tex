@@ -6,17 +6,18 @@ Trabalho de Formatura Supervisionado apresenta os trabalhos realizados no estudo
 e experimentação com técnicas de escalonamento de tarefas em ambientes de 
 computação em nuvem sob a orientação do professor Daniel Macêdo Batista.
 
-Em conjunto com a aluna de mestrado Elaine Watanabe, foi desenvolvido e testado
+Em conjunto com a aluna de mestrado Elaine Watanabe, foi desenvolvido e avaliado
 um novo algoritmo fosse energeticamente eficiente. Enquanto a aluna focou na
 concepção do algoritmo, o aluno dedicou-se a adaptar simuladores existentes para
-validar o algoritmo e realizar experimentos que atestem sua a qualidade.
+validar o algoritmo e realizar experimentos para estudar seu comportamento 
+diante de cargas de trabalho distintas.
 
 A parte objetiva deste trabalho está organizado da seguinte forma: No capítulo
 \ref{cap:conceitos} são apresentados brevemente os conceitos que fundamentam
 pesquisas na área e que são necessários para a compreensão dos capítulos
 seguintes. Posteriormente, no capítulo \ref{cap:experimentos} o foco é
-direcionado para a situação atual na área de estudo, é apresentado de maneira
-profunda o novo algoritmo desenvolvido juntamente com resultados experimentais
+direcionado para a situação atual na área de estudo, é apresentado o novo
+algoritmo desenvolvido juntamente com resultados experimentais
 comparativos. Conclusões e considerações finais são descritas em
 \ref{cap:conclusoes}.
 
@@ -63,7 +64,7 @@ que uma subtarefa anterior tenha sido concluída antes de poder ser executada. E
 possível modelar tais tarefas como digrafos acíclicos (DAGs) que incorporem as
 demandas de ambiente. Ainda, desenvolveram uma heurística para escalonar as
 subtarefas em computação em grade (\emph{grid computing}), similar à computação
-em nuvem, visando diminuir o tempo de conclusão da tarefa através da otimização
+em nuvem, visando diminuir o tempo de conclusão da tarefa através da redução
 do tráfego de rede necessário.
 
 
@@ -94,7 +95,7 @@ monografia foi justamente resolver tal problema.
 
 O outro desafio é uma questão computacional mais fundamental: O problema de 
 escalonar tarefas em diversos processadores (Num sentido mais amplo do que seria
-um processador) é NP-completo. \cite{sinnen:task_scheduling_parallel_systems}
+um processador) é NP-difícil. \cite{sinnen:task_scheduling_parallel_systems}
 Para contornar esse problema foram desenvolvidas diversas heurísticas, inclusive
 a apresentada nesta monografia. Um trecho do livro
 \emph{Task Scheduling for Parallel Systems} de Oliver Sinnen resume a relação
