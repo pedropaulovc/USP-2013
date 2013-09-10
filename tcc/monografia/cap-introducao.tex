@@ -6,23 +6,26 @@ Trabalho de Formatura Supervisionado apresenta os trabalhos realizados no estudo
 e experimentação com técnicas de escalonamento de tarefas em ambientes de 
 computação em nuvem sob a orientação do professor Daniel Macêdo Batista.
 
-Em conjunto com a aluna de mestrado Elaine Watanabe, foi desenvolvido e testado
-um novo algoritmo fosse energeticamente eficiente. Enquanto a aluna focou na
-concepção do algoritmo, o aluno dedicou-se a adaptar simuladores existentes para
-validar o algoritmo e realizar experimentos que atestem sua a qualidade.
+Em conjunto com a aluna de mestrado Elaine Watanabe, foi desenvolvido e avaliado
+um novo algoritmo que fosse energeticamente eficiente. O escalonador deve
+atender aos requisitos da aplicação e ao mesmo tempo buscar uma alocação
+de recursos próxima da ótima em termos de de economia de energia.
+Enquanto a aluna focou na concepção do algoritmo, o aluno dedicou-se a adaptar
+simuladores existentes para validar o algoritmo e realizar experimentos para 
+estudar seu comportamento diante de diferentes cargas de trabalho.
 
-A parte objetiva deste trabalho está organizado da seguinte forma: No capítulo
+A parte objetiva deste trabalho está organizado da seguinte forma: No Capítulo
 \ref{cap:conceitos} são apresentados brevemente os conceitos que fundamentam
 pesquisas na área e que são necessários para a compreensão dos capítulos
-seguintes. Posteriormente, no capítulo \ref{cap:experimentos} o foco é
-direcionado para a situação atual na área de estudo, é apresentado de maneira
-profunda o novo algoritmo desenvolvido juntamente com resultados experimentais
-comparativos. Conclusões e considerações finais são descritas em
+seguintes. Posteriormente, no Capítulo \ref{cap:experimentos} o foco é
+direcionado para os trabalhos desenvolvidos especificamente para este TCC. 
+O algoritmo desenvolvido é apresentado juntamente com resultados experimentais
+comparativos. Conclusões e considerações finais são descritas no Capítulo
 \ref{cap:conclusoes}.
 
-Já a parte subjetiva está organizada em dois tópicos principais: No capítulo 
+Já a parte subjetiva está organizada em dois tópicos principais: No Capítulo 
 \ref{cap:o_tcc} há uma reflexão acerca do processo de produção deste trabalho
-e sua aplicação. Já no capítulo \ref{cap:a_graduacao} há uma reflexão mais ampla
+e sua aplicação. Já no Capítulo \ref{cap:a_graduacao} há uma reflexão mais ampla
 sobre as experiências vividas em cinco anos de graduação em duas universidades
 distintas e uma previsão dos próximos passos a seguir.
 
@@ -35,25 +38,26 @@ década de 1990 essas necessidades vinham sendo supridas com aperfeiçoamentos n
 arquiteturas dos computadores e melhorias no processo produtivo. A Lei de Moore
 continuava se mostrando válida, duplicando o poder dos computadores e servidores
 a cada 18 meses e, junto com esse aumento, impondo uma necessidade energética
-cada vez maior para manter o computador funcionando e refrigerado. Porém, com a
-chegada dos anos 2000 percebeu-se que o projeto de processadores encontrou uma
+cada vez maior para manter o computador funcionando e refrigerado. Porém, 
+nos 2000 percebeu-se que o projeto de processadores encontrou uma
 barreira de potência. Processadores da época, tal como o Pentium 4, dissipavam
 100W de potência e sua eficiência energética era baixa. \cite{patterson:computer_organization}
 Assim, surgiu uma nova tendência, processadores mais simples e mais paralelos
 utilizando novas técnicas de economia de energia. Em suma, surgiu uma demanda
-por uma computação mais ``verde'' (\emph{green computing}).
+por uma computação mais ``verde'' (\emph{green computing}), que valoriza a
+sustentabilidade dos seus processos e a economia de recursos.
 
 Iniciou-se, assim, uma tendência de concentração do poder de computação e 
 armazenamento em torno dos grandes \emph{data centers} e \emph{data warehouses}.
 A computação em nuvem (\emph{cloud computing}) passou a ser apresentada como
 uma solução para a redução de custos e desperdícios através da
-racionalização de recursos computacionais. Na seção \ref{sec:computacao_nuvem}
+racionalização de recursos computacionais. Na Seção \ref{sec:computacao_nuvem}
 são apresentadas as inovações presentes nesse modelo de computação. Porém, o 
 sucesso dessa metodologia depende de estratégias inteligentes que permitam 
 gerenciar os recursos disponíveis permitindo realizar uma economia de escala
 sem afetar os usuários.
 
-Em um nível mais técnico, uma nuvem é desenhada para executar tarefas, estas
+Em um nível mais técnico, uma nuvem é projetada para executar tarefas, estas
 subdivididas em subtarefas. Cada subtarefa pode possuir uma demanda específica
 de ambiente para ser executada, sistema operacional, programas instalados, poder
 mínimo de processamento, armazenamento, etc. Ainda, subtarefas podem depender de
@@ -62,22 +66,22 @@ que uma subtarefa anterior tenha sido concluída antes de poder ser executada. E
 \cite{batista:embedding_software_requirements} Chaves e Batista mostraram que é 
 possível modelar tais tarefas como digrafos acíclicos (DAGs) que incorporem as
 demandas de ambiente. Ainda, desenvolveram uma heurística para escalonar as
-subtarefas em computação em grade (\emph{grid computing}), similar à computação
-em nuvem, visando diminuir o tempo de conclusão da tarefa através da otimização
-do tráfego de rede necessário.
+subtarefas em computação em grade, similar à computação
+em nuvem, visando diminuir o tempo de conclusão da tarefa através da redução
+do tráfego de rede.
 
 
 \section{Objetivos}
 \label{sec:objetivos}
-Este trabalho tem por intenção implementar e validar uma nova heurística para o
-problema apresentado que também otimize o consumo energético sem grandes prejuízos
+Este trabalho tem por objetivo implementar e validar uma nova heurística para o
+problema apresentado que reduza o consumo energético sem grandes prejuízos
 ao tempo de execução da tarefa. A heurística foi desenvolvida por Elaine Watanabe, 
 aluna de Mestrado em Computação do IME/USP. O desempenho desse algoritmo é
-ser comparado com a heurística proposta por Chaves e Batista em
+comparado com a heurística proposta por Chaves e Batista em
 \cite{chaves:scheduling_software_requirements} e
 \cite{batista:embedding_software_requirements} e com outros algoritmos com
 objetivos similares encontrados na literatura. Para isso será feito uso de um
-simulador de computação em nuvem, o WorkflowSim, a ser detalhado na seção
+simulador de computação em nuvem, o WorkflowSim, a ser detalhado na Seção
 \ref{sec:ambiente_simulacao}.
 
 
@@ -88,14 +92,14 @@ tecnológica, há diversos simuladores de computação em nuvem ou em grade, por
 o tópico de simulação energética é relativamente recente como atividade de 
 pesquisa. Sendo assim, de todos programas de simulação estudados, CloudSim, 
 GridSim, SimGrid e WorkflowSim, apenas o primeiro possui tal funcionalidade
-funcional. O simulador escolhido, WorkflowSim, apesar de ser baseado no CloudSim 
-não tem por padrão a API de simulação energética disponível. Uma das tarefas da
-monografia foi justamente resolver tal problema.
+disponível para ser utilizada no momento. O simulador escolhido, WorkflowSim,
+apesar de ser baseado no CloudSim  não tem por padrão a API de simulação energética
+disponível. Uma das tarefas da monografia foi justamente resolver tal problema.
 
 O outro desafio é uma questão computacional mais fundamental: O problema de 
 escalonar tarefas em diversos processadores (Num sentido mais amplo do que seria
-um processador) é NP-completo. \cite{sinnen:task_scheduling_parallel_systems}
-Para contornar esse problema foram desenvolvidas diversas heurísticas, inclusive
+um processador) é NP-difícil \cite{sinnen:task_scheduling_parallel_systems}.
+Para contornar esse problema diversas heurísticas já foram propostas, inclusive
 a apresentada nesta monografia. Um trecho do livro
 \emph{Task Scheduling for Parallel Systems} de Oliver Sinnen resume a relação
 custo-benefício que deve ser ponderada para a descoberta de um escalonamento

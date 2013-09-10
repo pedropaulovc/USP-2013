@@ -1,16 +1,37 @@
 %% ------------------------------------------------------------------------- %%
 \chapter{Experimentos}
 \label{cap:experimentos}
-Este capítulo é dividido em três momentos distintos dos experimentos realizados
-para esta monografia. Primeiramente, na seção \ref{sec:ambiente_simulado} são
+Este capítulo é dividido em quatro momentos distintos dos experimentos realizados
+para esta monografia. Primeiro, na Seção \ref{sec:powerworkflowsim} é
+apresentado o simulador desenvolvido para esta monografia, o PowerWorkflowSim;
+Depois, na Seção \ref{sec:ambiente_simulado} são
 apresentadas as configurações do ambiente experimental; Resultados dos 
-experimentos de controle são exibidos na seção \ref{sec:experimentos-controle}.
-Em seguida, na seção
+experimentos de controle são exibidos na Seção \ref{sec:experimentos-controle}.
+Em seguida, na Seção
 \ref{sec:algoritmo_proposto} é feito um estudo detalhado sobre a heurística
 encontrada para minimizar o consumo energético e o algoritmo correspondente
-implementado; Por fim na seção \ref{sec:resultados_experimentais} são
+implementado; Por fim na Seção \ref{sec:resultados_experimentais} são
 apresentados os resultados experimentais que mostram o ganho energético com
 o uso do algoritmo proposto.
+
+\section{PowerWorkflowSim}
+\label{sec:powerworkflowsim}
+Durante a implementação do WorkflowSim os desenvolvedores não tomaram o cuidado
+de manter a API de simulação energética do CloudSim acessível ao usuário final.
+De maneira a resolver esse problema, o autor da monografia desenvolveu uma versão
+alternativa do WorkflowSim, o PowerWorkflowSim.
+
+Como tanto a API energética do CloudSim quanto o WorkflowSim são basicamente 
+\emph{wrappers} do CloudSim, o trabalho necessário foi o de garantir que 
+a funcionalidade de um não conflitasse com a do outro. O diagrama de classes
+resultante do PowerWorkflowSim está representado abaixo.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[draft,width=8cm,height=5cm]{graph.pdf}
+\caption{Diagrama de Classes do PowerWorkflowSim}
+\label{fig:classes_powerworkflowsim}
+\end{figure}
 
 
 \section{Ambiente Simulado}
@@ -18,13 +39,13 @@ o uso do algoritmo proposto.
 %\subsection{Máquina Virtual}
 Esta seção apresenta os valores adotados para os diversos parâmetros disponíveis
 a uma simulação do PowerWorkflowSim. As configurações estão divididas
-por entidades: Na tabela \ref{tab:configuracao_vm} são apresentadas as
-configurações de uma máquina virtual. Já nas tabelas \ref{tab:configuracao_hp_g3}
+por entidades: Na Tabela \ref{tab:configuracao_vm} são apresentadas as
+configurações de uma máquina virtual. Já nas Tabelas \ref{tab:configuracao_hp_g3}
 e \ref{tab:configuracao_hp_g5} estão presentes as configurações das máquinas
 físicas simuladas, duas versões de servidores HP ProLiant ML110, um da geração 3
-e outro da geração 5. Ainda, na tabela \ref{tab:configuracao_datacenter} são
+e outro da geração 5. Ainda, na Tabela \ref{tab:configuracao_datacenter} são
 apresentadas as configurações que abrangem o Datacenter simulado. Por fim,
-na tabela \ref{tab:configuracao_powerworkflowsim} são vistas as configurações
+na Tabela \ref{tab:configuracao_powerworkflowsim} são vistas as configurações
 do simulador como um todo.
 
 \begin{savenotes}
@@ -119,7 +140,7 @@ do simulador como um todo.
     \hline
     \textbf{Parâmetro}                & \textbf{Valor}     \\ \hline
     Escalonador                       & \emph{First Come First Served}    \\
-    Estratégia de Economia de Energia & DVFS (Vide seção \ref{subsec:dvfs}) \\ \hline
+    Estratégia de Economia de Energia & DVFS (Vide Seção \ref{subsec:dvfs}) \\ \hline
     \end{tabular}
     \caption {Configurações do PowerWorkflowSim}
     \label{tab:configuracao_powerworkflowsim}
@@ -133,12 +154,12 @@ tal como os algoritmos descritos nesta monografia, o projeto Pegasus Workflow
 Management System desenvolveu uma ferramenta geradora de \emph{workflows}
 científicos. Estes \emph{workflows} artificiais são gerados a partir de
 informações extraídas de instâncias reais das aplicações juntamente com
-conhecimentos prévios sobre seu funcionamento interno.
-\cite{pegasus:workflowgenerator}
+conhecimentos prévios sobre seu funcionamento interno
+\cite{pegasus:workflowgenerator}.
 
 Os fluxos gerados pelo projeto Pegasus foram então executados no
-PowerWorkflowSim com as configurações apresentadas na seção 
-\ref{sec:ambiente_simulado}. Os resultados são apresentados na tabela 
+PowerWorkflowSim com as configurações apresentadas na Seção 
+\ref{sec:ambiente_simulado}. Os resultados são apresentados na Tabela 
 \ref{tab:resultados_dvfs}.
 
 \begin{table}
