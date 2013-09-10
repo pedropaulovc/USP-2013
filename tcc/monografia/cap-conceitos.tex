@@ -407,7 +407,9 @@ processa \emph{workflows} modelados como DAGs, realizando um escalonamento que
 obedece a precedência imposta pelo DAG. Ainda, é simples implementar diferentes
 algoritmos de escalonamento para avaliar suas eficiências. Uma das atividades desse
 TCC foi implementar o algoritmo HEFT comentado na Seção \ref{subsec:heft} no 
-WorkflowSim.
+WorkflowSim. \footnote{Outros algoritmos de escalonamento tais como FCFS, 
+MinMin, MaxMin, MCT e \emph{Data aware} já estão implementados na versão atual
+(1.0)}
 
 Na parte de modelagem de falhas, os autores decidiram focar em falhas transientes,
 mais frequentes que falhas permanentes. O simulador permite ao projetista de
@@ -427,11 +429,8 @@ Um \ttt{Workflow Mapper} que mapeia \emph{workflows} abstratos em
 \emph{workflows} concretos, dependentes do local de execução; uma \ttt{Workflow
 Engine} que gerencia a dependência de dados e um \ttt{Workflow Scheduler} para 
 associar tarefas aos processadores. Outros componentes incluem uma \ttt{Clustering
-Engine}, que é responsável tarefas menores em um pacote maior, um \ttt{Provenance
-Collector}, dedicado a registrar a história da execução de uma tarefa e um 
-\ttt{Workflow Partitioner}, que divide o \emph{workflow} em diversos
+Engine}, que é responsável por agrupar tarefas menores em um pacote maior, um
+\ttt{Provenance Collector}, dedicado a registrar a história da execução de uma
+tarefa e um \ttt{Workflow Partitioner}, que divide o \emph{workflow} em diversos
 \emph{sub-workflows}. 
-
-
-
 
