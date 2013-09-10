@@ -9,7 +9,7 @@ apresentadas as configurações do ambiente experimental; Resultados dos
 experimentos de controle são exibidos na Seção \ref{sec:experimentos-controle}.
 Em seguida, na Seção
 \ref{sec:algoritmo_proposto} é feito um estudo detalhado sobre a heurística
-encontrada para minimizar o consumo energético e o algoritmo correspondente
+proposta para minimizar o consumo energético e o algoritmo correspondente
 implementado; Por fim na Seção \ref{sec:resultados_experimentais} são
 apresentados os resultados experimentais que mostram o ganho energético com
 o uso do algoritmo proposto.
@@ -111,7 +111,7 @@ do simulador como um todo.
 
 %\subsection{\emph{Datacenter}}
 
-
+\begin{savenotes}
 \begin{table}
 	\centering
     \begin{tabular}{|c|c|}
@@ -121,16 +121,19 @@ do simulador como um todo.
     Sistema Operacional    & Linux        \\
     Gerenciador de VMs     & Xen          \\
     Fuso Horário           & -3           \\
-    Custo de Processamento & 3 unidades   \\
-    Custo da RAM           & 0.05 unidade \\
-    Custo do Armazenamento & 0.1 unidade  \\
-    Custo da Banda         & 0.1 unidade  \\ \hline
-    Largura de          & 0.1 unidade  \\ \hline
+    Custo de Processamento & 3 unidades\footnotemark[2]   \\
+    Custo da RAM           & 0.05 unidade\footnotemark[2]  \\
+    Custo do Armazenamento & 0.1 unidade\footnotemark[2]  \\
+    Custo da Banda         & 0.1 unidade\footnotemark[2]  \\ \hline
     \end{tabular}
     \caption {Configurações do \emph{datacenter}}
     \label{tab:configuracao_datacenter}
 \end{table}
-
+\end{savenotes}
+\footnotetext[2]{Custo medido em unidades monetárias, reais por exemplo, para
+alocar uma máquina com esta configuração. Com este valor é possível
+implementar políticas de alocação de máquinas virtuais mais ou menos baratas
+para executar uma determinada tarefa.}
 
 
 %\subsection{Parâmetros do WorkflowSim}
@@ -150,7 +153,7 @@ do simulador como um todo.
 \section{Experimentos de controle}
 \label{sec:experimentos-controle}
 Para facilitar a análise de algoritmos que operam sobre fluxos de trabalho,
-tal como os algoritmos descritos nesta monografia, o projeto Pegasus Workflow
+tais como os algoritmos descritos nesta monografia, o projeto Pegasus Workflow
 Management System desenvolveu uma ferramenta geradora de \emph{workflows}
 científicos. Estes \emph{workflows} artificiais são gerados a partir de
 informações extraídas de instâncias reais das aplicações juntamente com
