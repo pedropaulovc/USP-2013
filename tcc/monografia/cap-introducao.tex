@@ -9,31 +9,31 @@ computação em nuvem sob a orientação do professor Daniel Macêdo Batista.
 Em conjunto com a aluna de mestrado Elaine Watanabe, foi desenvolvido e avaliado
 um novo algoritmo que fosse energeticamente eficiente. O escalonador deve
 atender aos requisitos da aplicação e ao mesmo tempo buscar uma alocação
-de recursos próxima da ótima em termos de de economia de energia.
+de recursos próxima da ótima em termos de economia de energia.
 Enquanto a aluna focou na concepção do algoritmo, o aluno dedicou-se a adaptar
 simuladores existentes para validar o algoritmo e realizar experimentos para 
 estudar seu comportamento diante de diferentes cargas de trabalho.
 
-A parte objetiva deste trabalho está organizado da seguinte forma: No Capítulo
+A parte objetiva deste trabalho está organizada da seguinte forma: no Capítulo
 \ref{cap:conceitos} são apresentados brevemente os conceitos que fundamentam
 pesquisas na área e que são necessários para a compreensão dos capítulos
 seguintes. Posteriormente, no Capítulo \ref{cap:experimentos} o foco é
 direcionado para os trabalhos desenvolvidos especificamente para este TCC. 
-O algoritmo desenvolvido é apresentado juntamente com resultados experimentais
-comparativos. Conclusões e considerações finais são descritas no Capítulo
+O algoritmo desenvolvido é apresentado juntamente com resultados experimentais.
+Conclusões e considerações finais são descritas no Capítulo
 \ref{cap:conclusoes}.
 
-Já a parte subjetiva está organizada em dois tópicos principais: No Capítulo 
+Já a parte subjetiva está organizada em dois tópicos principais: no Capítulo 
 \ref{cap:o_tcc} há uma reflexão acerca do processo de produção deste trabalho
 e sua aplicação. Já no Capítulo \ref{cap:a_graduacao} há uma reflexão mais ampla
 sobre as experiências vividas em cinco anos de graduação em duas universidades
-distintas e uma previsão dos próximos passos a seguir.
+distintas e uma previsão dos próximos passos a seguir na vida profissional.
 
 
 \section{Motivação}
 \label{sec:motivacao}
 Desde a década de 1970 a oferta de poder computacional, armazenamento e
-comunicação vem crescendo em um ritmo exponencial com o tempo. Até o fim da
+comunicação vem crescendo em um ritmo exponencial em função do tempo. Até o fim da
 década de 1990 essas necessidades vinham sendo supridas com aperfeiçoamentos nas
 arquiteturas dos computadores e melhorias no processo produtivo. A Lei de Moore
 continuava se mostrando válida, duplicando o poder dos computadores e servidores
@@ -44,7 +44,7 @@ barreira de potência. Processadores da época, tal como o Pentium 4, dissipavam
 100W de potência e sua eficiência energética era baixa. \cite{patterson:computer_organization}
 Assim, surgiu uma nova tendência, processadores mais simples e mais paralelos
 utilizando novas técnicas de economia de energia. Em suma, surgiu uma demanda
-por uma computação mais ``verde'' (\emph{green computing}), que valoriza a
+por uma computação mais ``verde'' (\emph{green computing}), que valorizasse a
 sustentabilidade dos seus processos e a economia de recursos.
 
 Iniciou-se, assim, uma tendência de concentração do poder de computação e 
@@ -87,7 +87,7 @@ simulador de computação em nuvem, o WorkflowSim, a ser detalhado na Seção
 
 \section{Desafios}
 \label{sec:desafios}
-As dificuldades enfrentadas neste artigo vem de duas fontes: A primeira é
+As dificuldades enfrentadas neste artigo vem de duas fontes: a primeira é
 tecnológica, há diversos simuladores de computação em nuvem ou em grade, porém
 o tópico de simulação energética é relativamente recente como atividade de 
 pesquisa. Sendo assim, de todos programas de simulação estudados, CloudSim, 
@@ -96,7 +96,7 @@ disponível para ser utilizada no momento. O simulador escolhido, WorkflowSim,
 apesar de ser baseado no CloudSim  não tem por padrão a API de simulação energética
 disponível. Uma das tarefas da monografia foi justamente resolver tal problema.
 
-O outro desafio é uma questão computacional mais fundamental: O problema de 
+O outro desafio é uma questão computacional mais fundamental: o problema de 
 escalonar tarefas em diversos processadores (Num sentido mais amplo do que seria
 um processador) é NP-difícil \cite{sinnen:task_scheduling_parallel_systems}.
 Para contornar esse problema diversas heurísticas já foram propostas, inclusive

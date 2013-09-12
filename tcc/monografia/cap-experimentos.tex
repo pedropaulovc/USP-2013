@@ -24,7 +24,8 @@ alternativa do WorkflowSim, o PowerWorkflowSim.
 Como tanto a API energética do CloudSim quanto o WorkflowSim são basicamente 
 \emph{wrappers} do CloudSim, o trabalho necessário foi o de garantir que 
 a funcionalidade de um não conflitasse com a do outro. O diagrama de classes
-resultante do PowerWorkflowSim está representado abaixo.
+resultante do PowerWorkflowSim está representado na Figura
+\ref{fig:classes_powerworkflowsim}.
 
 \begin{figure}[ht]
 \centering
@@ -39,13 +40,17 @@ resultante do PowerWorkflowSim está representado abaixo.
 %\subsection{Máquina Virtual}
 Esta seção apresenta os valores adotados para os diversos parâmetros disponíveis
 a uma simulação do PowerWorkflowSim. As configurações estão divididas
-por entidades: Na Tabela \ref{tab:configuracao_vm} são apresentadas as
+por entidades: na Tabela \ref{tab:configuracao_vm} são apresentadas as
 configurações de uma máquina virtual. Já nas Tabelas \ref{tab:configuracao_hp_g3}
 e \ref{tab:configuracao_hp_g5} estão presentes as configurações das máquinas
 físicas simuladas, duas versões de servidores HP ProLiant ML110, um da geração 3
-e outro da geração 5. Ainda, na Tabela \ref{tab:configuracao_datacenter} são
-apresentadas as configurações que abrangem o Datacenter simulado. Por fim,
-na Tabela \ref{tab:configuracao_powerworkflowsim} são vistas as configurações
+e outro da geração 5\footnote{Estas configurações foram preferidas pelo fato que 
+seus desempenhos energéticos estão publicamente disponíveis como parte do
+projeto SPEC Power em \cite{spec:proliant_ml110_g3} e
+\cite{spec:proliant_ml110_g5} e já estão implementados no CloudSim.}. Ainda, na
+Tabela \ref{tab:configuracao_datacenter} são apresentadas as configurações que
+abrangem o Datacenter simulado. Por fim, na Tabela
+\ref{tab:configuracao_powerworkflowsim} são vistas as configurações
 do simulador como um todo.
 
 \begin{savenotes}
@@ -121,16 +126,16 @@ do simulador como um todo.
     Sistema Operacional    & Linux        \\
     Gerenciador de VMs     & Xen          \\
     Fuso Horário           & -3           \\
-    Custo de Processamento & 3 unidades\footnotemark[2]   \\
-    Custo da RAM           & 0.05 unidade\footnotemark[2]  \\
-    Custo do Armazenamento & 0.1 unidade\footnotemark[2]  \\
-    Custo da Banda         & 0.1 unidade\footnotemark[2]  \\ \hline
+    Custo de Processamento & 3 unidades\footnotemark[3]   \\
+    Custo da RAM           & 0.05 unidade\footnotemark[3]  \\
+    Custo do Armazenamento & 0.1 unidade\footnotemark[3]  \\
+    Custo da Banda         & 0.1 unidade\footnotemark[3]  \\ \hline
     \end{tabular}
     \caption {Configurações do \emph{datacenter}}
     \label{tab:configuracao_datacenter}
 \end{table}
 \end{savenotes}
-\footnotetext[2]{Custo medido em unidades monetárias, reais por exemplo, para
+\footnotetext[3]{Custo medido em unidades monetárias, reais por exemplo, para
 alocar uma máquina com esta configuração. Com este valor é possível
 implementar políticas de alocação de máquinas virtuais mais ou menos baratas
 para executar uma determinada tarefa.}

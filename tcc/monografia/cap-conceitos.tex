@@ -4,15 +4,21 @@
 
 \section{Computação em Nuvem}
 \label{sec:computacao_nuvem}
-Computação em nuvem é um nicho de mercado que se tornou atrativo com o
-barateamento de insumos necessários à computação, como energia, poder de 
-processamento, armazenamento e transmissão de dados, permitindo uma economia
-de escala. \cite{eecs:above-clouds} Através desse paradigma computacional, 
-surgiu a noção de computação como um serviço, elástico, virtualmente ilimitado e
-pago apenas pela porção realmente utilizada, muito similar ao sistema de
-distribuição elétrica.
+Computação em nuvem é uma expressão utilizada para definir o conceito de uso de
+serviços de computação como um serviço. Apesar do termo ainda não possuir uma
+definição precisa, o conceito fundamental é que computação em nuvem pressupõe
+um serviço\footnote{Neste momento, um serviço pode ser a alocação de
+uma infraestrutura de servidores (\emph{Infrastructure as a Service} -- IaaS),
+uma plataforma para desenvolver aplicações (\emph{Platform as a Service} -- 
+PaaS) ou um \emph{software} pronto (\emph{Software as a Service} -- SaaS).}
+elástico, virtualmente ilimitado e pago apenas pela porção realmente
+utilizada, muito similar ao sistema de distribuição elétrica 
+\cite{eecs:above-clouds}. Computação em nuvem tornou-se um negócio atrativo
+a fornecedores e clientes graças ao barateamento de insumos necessários à
+computação, como energia, poder de processamento, armazenamento e transmissão de
+dados, permitindo uma economia de escala.
 
-O objetivo final da computação em nuvem é concentrar dados para prover um 
+O objetivo final da computação em nuvem é prover um 
 serviço ubíquo ao usuário, empresas ou pessoas físicas, que delegariam a gestão
 dessa informação a terceiros competentes para prover um serviço de qualidade e 
 seguro. Grandes empresas da área de tecnologia possuem soluções de computação em
@@ -112,7 +118,7 @@ a redução dos recursos naturais necessários para sustentar um \emph{data cent
 
 \subsection{Migração de Máquinas Virtuais}
 Uma das grandes vantagens de manipular máquinas virtuais em um ambiente como
-o de computação em nuvem é o fato que é relativamente simples fazer uma 
+o de computação em nuvem é o fato de que é relativamente simples fazer uma 
 realocação de máquinas virtuais de uma máquina hospedeira para outra, mesmo
 enquanto a máquina virtual está funcionando \cite{vmware:vmotion}
 \cite{alkmin:migracao_maquinas_virtuais}.
@@ -132,18 +138,16 @@ do SLA definido entre o provedor da nuvem e o usuário.
 A estratégia de dimensionamento dinâmico de tensão e frequência, do inglês 
 \emph{dynamic voltage and frequency scaling}, é uma tática 
 bastante difundida entre os fabricantes de processadores como uma forma pouco
-invasiva de economizar energia elétrica. Tecnologias como o \emph{Intel Speed Step}
-e o \emph{AMD Coll'n'Quiet}, que ajustam automaticamente, em hardware, a tensão
-e frequência dos processadores de acordo com suas cargas de trabalho. Se há
-altas cargas de trabalho, o processador aumenta os níveis de tensão e
-frequência, caso contrário diminui esses níveis. 
-\cite{lago:escalonamento_com_prioridade_eficiente}
+invasiva de economizar energia elétrica. Tecnologias como o Intel Speed Step
+e o AMD Coll'n'Quiet ajustam automaticamente em hardware a tensão
+e frequência dos processadores proporcionalmente com suas cargas de trabalho
+atuais \cite{lago:escalonamento_com_prioridade_eficiente}.
 
 
 \section{Escalonamento de Tarefas}
 \label{sec:escalonamento_tarefas}
 Segundo \cite{lago:escalonamento_com_prioridade_eficiente}, o escalonamento de 
-tarefas pode ser visto através de duas óticas: A do usuário da nuvem, que deseja
+tarefas pode ser visto através de duas óticas: a do usuário da nuvem, que deseja
 que sua tarefa execute o mais rapidamente possivel e com o menor custo e a 
 perspectiva do provedor da nuvem, interessado em reduzir os recursos utilizados,
 gerando economias na manutenção e energia elétrica. Esta monografia foca no
@@ -154,7 +158,7 @@ escalonamento pelo ponto de vista do provedor.
 \label{subsec:heft}
 O algoritmo \emph{Heterogeneous Earliest Finish Time} -- HEFT é um algoritmo de
 escalonamento de fluxos de trabalho modelados utilizando um digrafo acíclico
-(Directed acyclic graph -- DAG) para um número limitado de computadores
+(\emph{Directed acyclic graph} -- DAG) para um número limitado de computadores
 heterogêneos \cite{kim:virtual_computing}. Como o problema de escalonamento de
 tarefas é NP-difícil, ele é frequentemente utilizado como
 referência na literatura para comparar o desempenho de novas propostas, 
@@ -191,7 +195,7 @@ $$ rank_u(n_i) = \overline{w_i} + \max_{n_j \in succ(n_i)} (\overline{c_{i,j}} +
 
 onde $n_i$ representa a $i$-ésima tarefa, $\overline{w_i}$ é uma média
 do custo computacional da tarefa $i$ entre todos os processadores, $succ(n_i)$ 
-é o conjunto de todos as tarefas que dependem imediatamente da tarefa $n_i$
+é o conjunto de todas as tarefas que dependem imediatamente da tarefa $n_i$
 e $\overline{c_{i,j}}$ é o custo de comunicação dos dados transferidos entre 
 as tarefas $n_i$ e $n_j$. %TODO ver no artigo original do HEFT
 
@@ -251,31 +255,34 @@ tempo $O(e \times p)$. Portanto, a complexidade do algoritmo HEFT é  $O(e
 
 \subsection{Embutindo Requisitos de Software no Escalonamento}
 Notamos neste momento que tarefas a serem executadas em um ambiente de
-computação em nuvem ou em grade pode requisitar algum software específicos para
+computação em nuvem ou em grade podem requisitar algum software específico para
 sua execução. Em \cite{batista:embedding_software_requirements} é apresentada
 uma técnica a ser descrita nesta seção para modificar o DAG de dependências
-entre as tarefas para incorporar tais requisitos de software.
+entre as tarefas a fim de incorporar tais requisitos de software.
 
-Trivialmente há duas possibilidades para resolver o problema: A primeira
+Trivialmente há duas possibilidades para resolver o problema: a primeira
 possibilidade é alocar apenas uma máquina virtual para cada software distinto a
 ser executado no fluxo de trabalho. Esta ideia tem o problema de gerar falsas
 dependências entre as tarefas, já que apenas uma tarefa pode executar por vez 
-em uma máquina e, assim, coisas que poderiam executar em paralelo passam a ter
-que ser processadas sequencialmente. Outra alternativa é alocar uma máquina virtual
-para cada tarefa. Esta abordagem além de ser custosa em recursos alocados não
-necessariamente garante o menor tempo de execução possível pois o tráfego de
-rede entre os nós de processamento pode não ser o ótimo.
+em uma máquina e, assim, processos computacionais que poderiam executar em 
+paralelo passam a ter que ser processadas sequencialmente. Outra alternativa é
+alocar uma máquina virtual para cada tarefa. Esta abordagem além de ser custosa 
+em recursos alocados não necessariamente garante o menor tempo de execução
+possível pois o tráfego de rede entre os nós de processamento pode não ser o
+ótimo.
 
 Há uma quantidade exponencial de diferentes formas de alocar máquinas para 
 executar um dado fluxo de trabalho. Esse número vem do fato que alocar tarefas
 em máquinas é equivalente a encontrar o número de partições de um conjunto, 
-modelado pelo número de Bell. Assim, os autores apresentam uma heurística para
-o problema.
+modelado pelo número de Bell, conforme visto nas equações \ref{eq:numero_bell_1}
+e \ref{eq:numero_bell_2}. O número de Bell é definido como uma recorrência,
+com $B_n$ sendo o número o número de partições de um conjunto de tamanho $n$.
+Assim, os autores apresentam uma heurística para o problema.
 
-\begin{align*} \label{eq:numero_bell}
-	B_0 &= 1\\
+\begin{align} \label{eq:numero_bell_1}
+	B_0 &= 1\\ \label{eq:numero_bell_2}
 	B_{n+1} &= \sum_{k=0}^{n}{{n \choose k}B_k}
-\end{align*}
+\end{align}
 
 O objetivo da heurística proposta é reduzir o tráfego de rede necessário e, 
 ao mesmo tempo, evitar aumentar o caminho crítico dos fluxos de trabalho.
@@ -313,7 +320,7 @@ VM para cada dependência de software em um caminho.
 \section{Simuladores de computação em nuvem e fluxos de trabalho}
 \label{sec:ambiente_simulacao}
 Para diferentes algoritmos e abordagens para problemas em computação
-em nuvem há algumas alternativas: Uma possibilidade seria a execução de instâncias
+em nuvem há algumas alternativas: uma possibilidade seria a execução de instâncias
 reais dos problemas em provedores reais de \emph{cloud computing}. Essa alternativa
 possui como problema o custo monetário envolvido na instanciação de máquinas
 virtuais por um tempo prolongado. Ainda, não há o controle sobre o ambiente 
@@ -334,13 +341,14 @@ e PowerWorkflowSim.
 
 \subsection{CloudSim}
 CloudSim \cite{calheiros:cloudsim} é um simulador para computação em nuvem,
-reconhecido academicamente com citações em mais de 300 de trabalhos indexados
+reconhecido academicamente com citações em mais de 300 trabalhos indexados
 pelo Google Scholar \cite{google:cloudsim}. Ele provê as funcionalidades
 de simulação de máquinas virtuais, \emph{hosts}, \emph{data centers}, políticas
 de provisionamento de recursos, tarefas a serem executadas em máquinas virtuais
 (\emph{cloudlets}) além de efetuar análises de duração de simulações e consumo
-de energia. Na Figura \ref{fig:arquitetura_cloudsim} é possível ver a arquitetura projetada
-pelos desenvolvedores do CloudSim. 
+de energia. Ainda, é software livre, disponibilizado sob a licença GNU LGPL
+\cite{cloudsim:site}. Na Figura \ref{fig:arquitetura_cloudsim} é possível ver a
+arquitetura projetada pelos desenvolvedores do CloudSim. 
 
 \begin{figure}[ht]
 \centering
@@ -370,7 +378,7 @@ ser com apenas um único ou vários núcleos de processamento, memória e
 armazenamento. Um \ttt{Host} pode incorporar uma ou mais \ttt{Vm} (Máquina virtual)
 de acordo com as políticas de alocação definidas nele pelo administrador da nuvem.
 Uma política de alocação é definida como as operações relacionadas a uma
-\ttt{Vm} durante seu ciclo de vida: Escolha de um \ttt{Host}, criação, 
+\ttt{Vm} durante seu ciclo de vida: escolha de um \ttt{Host}, criação, 
 migração e destruição.
 
 De maneira similar, cada \ttt{Vm} possui capacidades de processamento, memória,
@@ -400,21 +408,20 @@ uso de sistemas heterogêneos e falhas. Ainda, percebe-se a falta de suporte a
 técnicas de otimização de execução de \emph{workflows} amplamente utilizadas
 tais como o \emph{clustering} de tarefas. De forma a resolver essas demandas
 o WorkflowSim foi criado tendo como base o CloudSim \cite{chen:workflowsim}.
+A licença do WorkflowSim foi levemente alterada, sua licença é a Globus Toolkit
+Public License\footnote{Informações sobre a licença disponíveis em 
+\url{http://www.globus.org/toolkit/download/license.html}}
+\cite{workflowsim:license}.
 
 Enquanto o CloudSim se concentra na execução de uma única carga de trabalho,
 o WorkflowSim foca no escalonamento do \emph{workflow} e sua execução. O último
 processa \emph{workflows} modelados como DAGs, realizando um escalonamento que 
-obedece a precedência imposta pelo DAG. Ainda, é simples implementar diferentes
+obedece a precedência imposta pelo DAG. Ainda, é possível implementar diferentes
 algoritmos de escalonamento para avaliar suas eficiências. Uma das atividades desse
 TCC foi implementar o algoritmo HEFT comentado na Seção \ref{subsec:heft} no 
 WorkflowSim. \footnote{Outros algoritmos de escalonamento tais como FCFS, 
 MinMin, MaxMin, MCT e \emph{Data aware} já estão implementados na versão atual
 (1.0)}
-
-Na parte de modelagem de falhas, os autores decidiram focar em falhas transientes,
-mais frequentes que falhas permanentes. O simulador permite ao projetista de
-algoritmos de escalonamento desenvolver algoritmos tolerantes a tais falhas 
-transientes.
 
 \begin{figure}[ht]
 \centering
