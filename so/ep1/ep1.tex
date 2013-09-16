@@ -1,0 +1,241 @@
+\documentclass[brazil, a4paper]{scrartcl}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{babel}
+\usepackage{url}
+\usepackage[usenames,svgnames,dvipsnames]{xcolor}
+\usepackage{listings}                   % para formatar código-fonte (ex. em Java)
+
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\lstdefinelanguage{diff}{
+  morecomment=[f][\color{blue}]{@@},     % group identifier
+  morecomment=[f][\color{red}]<,         % deleted lines 
+  morecomment=[f][\color{ForestGreen}]>,       % added lines
+  morecomment=[f][\color{magenta}]{---}, % Diff header lines (must appear after +,-)
+  morecomment=[f][\color{magenta}]{+++},
+}
+
+\lstset{ %
+language=C,                  % choose the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it's 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,	                % adds a frame around the code
+framerule=0.6pt,
+tabsize=2,	                    % sets default tabsize to 2 spaces
+captionpos=b,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+escapeinside={\%*}{*)},         % if you want to add a comment within your code
+backgroundcolor=\color[rgb]{1.0,1.0,1.0}, % choose the background color.
+rulecolor=\color[rgb]{0.8,0.8,0.8},
+extendedchars=true,
+xleftmargin=10pt,
+xrightmargin=10pt,
+framexleftmargin=10pt,
+framexrightmargin=10pt
+}
+
+\begin{document}
+
+
+\title{Exercício Programa 1 -- Relatório}
+\subtitle{MAC0422 -- Sistemas Operacionais}
+\author{André Spanguero Kanayama \hfill 7156873\\
+		Pedro Paulo Vezzá Campos \hfill 7538743}
+\date{\today}
+
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+\section{Enunciado}
+Para este primeiro exercício-programa de MAC0422 -- Sistemas Operacionais, o 
+professor requisitou que os alunos alterassem o comportamento do comando
+\texttt{F5} no Minix. Após pressionar esta tecla deveria ser exibido
+na tela um resumo da tabela de processos:
+
+\begin{enumerate}
+	\item \emph{Process ID}
+	\item Tempo de CPU
+	\item Tempo de sistema
+	\item Tempo dos filhos
+	\item Endereço do ponteiro da pilha
+	\item Endereço dos segmentos \texttt{data}, \texttt{bss}, \texttt{text} 
+\end{enumerate}
+
+\section{Descoberta do comportamento do comando \texttt{F5}}
+Após uma busca na Internet por ``\emph{Minix function keys}'', o primeiro
+resultado indicou o primeiro arquivo importante para o EP: 
+\texttt{/usr/src/servers/is/dmp.c}. Nele, havia uma estrutura bastante
+intuitiva, um mapeamento de cada tecla para sua respectiva função. Aqui foi
+feita a primeira modificação:
+
+\begin{lstlisting}[language=diff]
+struct hook_entry {
+	int key;
+	void (*function)(void);
+	char *name;
+} hooks[] = {
+	{ F1, 	proctab_dmp, "Kernel process table" },
+	{ F2,   memmap_dmp, "Process memory maps" },
+	{ F3,	image_dmp, "System image" },
+	{ F4,	privileges_dmp, "Process privileges" },
+< 	{ F5,	monparams_dmp, "Boot monitor parameters" },
+---
+>     /*????????????????????????????????????????????????????????*/
+>     /*????????????????????????????????????????????????????????*/
+> 	{ F5,	pt_dmp, "Print process table" },
+>     /*????????????????????????????????????????????????????????*/
+>     /*????????????????????????????????????????????????????????*/
+	{ F6,	irqtab_dmp, "IRQ hooks and policies" },
+	{ F7,	kmessages_dmp, "Kernel messages" },
+	{ F8,	vm_dmp, "VM status and process maps" },
+	{ F10,	kenv_dmp, "Kernel parameters" },
+	{ F11,	timing_dmp, "Timing details (if enabled)" },
+	{ SF1,	mproc_dmp, "Process manager process table" },
+	{ SF2,	sigaction_dmp, "Signals" },
+	{ SF3,	fproc_dmp, "Filesystem process table" },
+	{ SF4,	dtab_dmp, "Device/Driver mapping" },
+	{ SF5,	mapping_dmp, "Print key mappings" },
+	{ SF6,	rproc_dmp, "Reincarnation server process table" },
+	{ SF8,  data_store_dmp, "Data store contents" },
+	{ SF9,  procstack_dmp, "Processes with stack traces" },
+};
+\end{lstlisting}
+
+Vasculhando o diretório \texttt{/usr/src/servers/is} verificamos que todo o EP
+pode ser feito através de modificações no \emph{Information Server} (IS).
+
+\section{Desenvolvimento da função \texttt{pt\_dmp}}
+A função \texttt{pt\_dmp}, de \emph{process table dump}, é o trecho de código
+principal do EP. Ela foi derivada da função \texttt{mproc\_dmp}, que já estava
+implementada no Minix e é responsável por exibir a tabela de processos do
+\emph{Process Manager} (PM).
+
+Passamos a estudar as diferentes tabelas de processos existentes no Minix. A
+primeira relevante para este trabalho é a tabela de processos do PM, definida
+no arquivo \texttt{/usr/src/servers/pm/mproc.h}. Nela, encontramos parte das
+informações necessárias ao EP:
+
+\begin{description}
+	\item[\emph{Process ID}] Definido no campo \texttt{pid\_t mp\_pid};
+	\item[Tempo dos filhos] Definido no campo \texttt{clock\_t mp\_child\_utime;}
+\end{description}
+
+Ao perceber que as outras informações necessárias não estavam disponíveis neste
+local passamos a vasculhar o código em busca de outras tabelas úteis. Após ver o
+código de impressão da tabela de processos do kernel que está no arquivo
+\texttt{/usr/src/servers/is/kernel\_dmp.c} encontramos o arquivo \emph{header}
+da tabela de processos em \texttt{/usr/src/kernel/proc.h}. Neste arquivo estavam
+presentes as outras informações necessárias:
+
+\begin{description}
+	\item[Tempo de CPU] Disponível no campo \texttt{clock\_t p\_user\_time;}
+	\item[Tempo de sistema] Disponível no campo \texttt{clock\_t p\_sys\_time;}
+	\item[Endereço do ponteiro da pilha] Disponível no campo \texttt{p\_memmap[S].mem\_phys;}
+	\item[Endereço do segmento \texttt{data}] Disponível no campo \texttt{p\_memmap[D].mem\_phys;}
+	\item[Endereço do segmento \texttt{text}] Disponível no campo \texttt{p\_memmap[T].mem\_phys;}
+	\item[Endereço do segmento \texttt{bss}] O endereço do segmento \texttt{bss} 
+		é definido para arquivos executáveis ELF como sendo o primeiro endereço
+		de memória após o segmento \texttt{data}. Assim, ele pode ser calculado
+		como sendo \texttt{p\_memmap[D].mem\_phys + p\_memmap[D].mem\_len;}
+\end{description}
+
+É importante ressaltar que apesar de representarem os mesmos processos, as
+entradas de ambas tabelas não estão na mesma ordem. Para resolver este problema
+o próprio Minix apresenta um mapeamento na tabela de processos do \emph{kernel}
+de uma entrada nesta tabela para a tabela de processos do PM.
+
+%TODO: Senha root
+%TODO: Ordem de escalonamento.
+%TODO: Terminar de escrever mapeamento proc - mproc
+
+
+O código final para a função \texttt{pt\_dmp} foi inserido no arquivo
+\texttt{/usr/src/servers/is/dmp\_pm.c} e está descrito abaixo:
+
+\begin{lstlisting}[style=customc]
+/*?????????????????????????????????????????????????????????????????*/
+/*?????????????????????????????????????????????????????????????????*/
+
+PUBLIC void pt_dmp()
+{
+  struct mproc *mp;
+  int i, n=0;
+  int result;
+  phys_bytes p;
+  static int prev_i = 0;
+
+  struct proc *pr;
+
+  printf("Process table\n");
+
+  getsysinfo(PM_PROC_NR, SI_PROC_TAB, mproc);
+  sys_getproctab(lproc);
+
+  printf("-pid- -cpu_t- -sys_t- -chld_t- ---stackpointer ---data--- ---bss---  ---text---\n");
+  for (i=prev_i; i<NR_PROCS; i++) {
+    pr = &lproc[i];
+    if(pr->p_nr < 0)
+        continue;
+    mp = &mproc[pr->p_nr];
+  	if (mp->mp_pid == 0 && i != PM_PROC_NR) continue;
+  	if (++n > 22) break;
+
+  	printf("%4d  %6d %7d %8d      0x%08X  0x%08X 0x%08X 0x%08X", 
+  		mp->mp_pid,
+  		pr->p_user_time,
+  		pr->p_sys_time,
+  		mp->mp_child_utime,
+  		pr->p_memmap[S].mem_phys,
+  		pr->p_memmap[D].mem_phys,
+  		pr->p_memmap[D].mem_vir + pr->p_memmap[D].mem_len,
+  		pr->p_memmap[T].mem_phys);
+  	printf("\n");
+  }
+  if (i >= NR_PROCS) i = 0;
+  else printf("--more--\r");
+  prev_i = i;
+}
+/*?????????????????????????????????????????????????????????????????*/
+/*?????????????????????????????????????????????????????????????????*/
+\end{lstlisting}
+
+Por fim, foi necessário editar o arquivo de protótipos de funções do IS
+para incluir a nova função criada. A edição foi feita no arquivo 
+\texttt{/usr/src/servers/is/proto.h} e está reproduzida abaixo:
+\begin{lstlisting}[language=diff]
+/* dmp_pm.c */
+_PROTOTYPE( void mproc_dmp, (void)					);
+_PROTOTYPE( void sigaction_dmp, (void)					);
+> /*?????????????????????????????????????????????????????????????*/
+> /*?????????????????????????????????????????????????????????????*/
+> _PROTOTYPE( void pt_dmp, (void)					);
+> /*?????????????????????????????????????????????????????????????*/
+> /*?????????????????????????????????????????????????????????????*/
+\end{lstlisting}
+
+\end{document}
+
