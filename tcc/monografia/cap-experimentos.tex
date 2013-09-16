@@ -54,21 +54,21 @@ abrangem o Datacenter simulado. Por fim, na Tabela
 do simulador como um todo.
 
 \begin{savenotes}
-\begin{table}
+\begin{table}[ht]
 	\centering
     \begin{tabular}{|c|c|}
     \hline
     \textbf{Parâmetro}     & \textbf{Valor}     \\ \hline
     Número de máquinas     & 20        \\
-    Número de \emph{Cores} & 1         \\
-    Velocidade de um Core  & 1000 MIPS \\
-    Tamanho da Imagem      & 10 GB  \\
+    Número de \emph{cores} & 1         \\
+    Capacidade de processamento  & 1000 MIPS/\emph{Core} \\
+    Tamanho da imagem      & 10 GB  \\
     RAM                    & 512 MB    \\
-    Largura de Banda       & 1 Gbps \\
+    Largura de banda       & 1 Gbps \\
     Gerenciamento de tarefas & Compartilhadas no espaço\footnote{Tarefas
     compartilhadas no espaço possuem fatias do recurso desejado
     reservadas a cada uma delas. Outra alternativa é o compartilhamento no tempo
-    no qual cada tarefa faz uso de dos recursos por uma fatia de tempo
+    no qual cada tarefa faz uso dos recursos por uma fatia de tempo
     determinada em esquema \emph{round-robin}, por exemplo.} \\
     Gerenciador de VMs     & Xen       \\     \hline
     \end{tabular}
@@ -78,16 +78,16 @@ do simulador como um todo.
 \end{savenotes}
 
 %\subsection{\emph{Host}}
-\begin{table}
+\begin{table}[ht]
 	\centering
     \begin{tabular}{|c|c|}
     \hline
     \textbf{Parâmetro}            & \textbf{Valor}     \\ \hline
     Número de máquinas            & 10                            \\
-    Número de \emph{Cores}        & 2                             \\
-    Velocidade de um Core         & 1860 MIPS (Xeon 3040)         \\
+    Número de \emph{cores}        & 2                             \\
+    Capacidade de processamento   & 1860 MIPS/\emph{Core} (Xeon 3040)         \\
     RAM                           & 4 GiB                         \\
-    Largura de Banda              & 1 Gbps                        \\
+    Largura de banda              & 1 Gbps                        \\
     Armazenamento                 & 1 GB                          \\
     Modelo de consumo energético  & \cite{spec:proliant_ml110_g3} \\ \hline
     \end{tabular}
@@ -97,16 +97,16 @@ do simulador como um todo.
 
 
 
-\begin{table}
+\begin{table}[ht]
 	\centering
     \begin{tabular}{|c|c|}
     \hline
     \textbf{Parâmetro}            & \textbf{Valor}     \\ \hline
     Número de máquinas            & 10                            \\
-    Número de \emph{Cores}        & 2                             \\
-    Velocidade de um Core         & 2660 MIPS (Xeon 3075)         \\
+    Número de \emph{cores}        & 2                             \\
+    Capacidade de processamento   & 2660 MIPS/\emph{Core} (Xeon 3075)         \\
     RAM                           & 4 GiB                         \\
-    Largura de Banda              & 1 Gbps                        \\
+    Largura de banda              & 1 Gbps                        \\
     Armazenamento                 & 1 GB                          \\
     Modelo de consumo energético  & \cite{spec:proliant_ml110_g5} \\ \hline
     \end{tabular}
@@ -117,19 +117,19 @@ do simulador como um todo.
 %\subsection{\emph{Datacenter}}
 
 \begin{savenotes}
-\begin{table}
+\begin{table}[ht]
 	\centering
     \begin{tabular}{|c|c|}
     \hline
-    \textbf{Parâmetro}     & \textbf{Valor}     \\ \hline
-    Arquitetura            & x86          \\
-    Sistema Operacional    & Linux        \\
-    Gerenciador de VMs     & Xen          \\
-    Fuso Horário           & -3           \\
-    Custo de Processamento & 3 unidades\footnotemark[3]   \\
-    Custo da RAM           & 0.05 unidade\footnotemark[3]  \\
-    Custo do Armazenamento & 0.1 unidade\footnotemark[3]  \\
-    Custo da Banda         & 0.1 unidade\footnotemark[3]  \\ \hline
+    \textbf{Parâmetro}        & \textbf{Valor}     \\ \hline
+    Arquitetura               & x86          \\
+    Sistema operacional       & Linux        \\
+    Gerenciador de VMs        & Xen          \\
+    Fuso Horário              & -3           \\
+    Custo de processamento    & 3 unidades\footnotemark[3]   \\
+    Custo da RAM              & 0.05 unidade\footnotemark[3]  \\
+    Custo do armazenamento    & 0.1 unidade\footnotemark[3]  \\
+    Custo da largura de banda & 0.1 unidade\footnotemark[3]  \\ \hline
     \end{tabular}
     \caption {Configurações do \emph{datacenter}}
     \label{tab:configuracao_datacenter}
@@ -142,13 +142,13 @@ para executar uma determinada tarefa.}
 
 
 %\subsection{Parâmetros do WorkflowSim}
-\begin{table}
+\begin{table}[ht]
 	\centering
     \begin{tabular}{|c|c|}
     \hline
     \textbf{Parâmetro}                & \textbf{Valor}     \\ \hline
     Escalonador                       & \emph{First Come First Served}    \\
-    Estratégia de Economia de Energia & DVFS (Vide Seção \ref{subsec:dvfs}) \\ \hline
+    Estratégia de economia de energia & DVFS (Vide Seção \ref{subsec:dvfs}) \\ \hline
     \end{tabular}
     \caption {Configurações do PowerWorkflowSim}
     \label{tab:configuracao_powerworkflowsim}
@@ -199,6 +199,15 @@ PowerWorkflowSim com as configurações apresentadas na Seção
     \caption {Resultados dos experimentos de controle}
     \label{tab:resultados_dvfs}
 \end{table}
+
+É importante verificar como fluxos de trabalho distintos induzem um consumo
+energético diferente. No ambiente experimental a simulação incluía 20 máquinas
+disponíveis para a computação de cada experimento independentemente
+do tamanho da instância do problema. Fluxos de trabalho que são
+mais paralelos tendem a fazer um uso mais intenso das máquinas durante o tempo
+de simulação. Isso afetou a potência média de cada experimento. Por exemplo,
+enquanto a aplicação Montage com 25 tarefas consumiu em média $2298,36W$ de
+potência, os experimentos consumiram em média $1992,05W$.
 
 
 

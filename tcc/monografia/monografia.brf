@@ -39,7 +39,7 @@
 \backcite {chen:workflowsim}{{12}{2.4.2}{subsection.2.4.2}}
 \backcite {workflowsim:license}{{12}{2.4.2}{subsection.2.4.2}}
 \backcite {spec:proliant_ml110_g3}{{16}{\caption@xref {??}{ on input line 92}}{table.caption.15}}
-\backcite {pegasus:workflowgenerator}{{16}{3.3}{section.3.3}}
 \backcite {spec:proliant_ml110_g5}{{16}{\caption@xref {??}{ on input line 111}}{table.caption.16}}
 \backcite {spec:proliant_ml110_g3}{{16}{1}{Hfootnote.9}}
 \backcite {spec:proliant_ml110_g5}{{16}{1}{Hfootnote.9}}
+\backcite {pegasus:workflowgenerator}{{17}{3.3}{section.3.3}}

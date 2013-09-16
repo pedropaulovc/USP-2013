@@ -4,8 +4,8 @@
 
 \section{Computação em Nuvem}
 \label{sec:computacao_nuvem}
-Computação em nuvem é uma expressão utilizada para definir o conceito de uso de
-serviços de computação como um serviço. Apesar do termo ainda não possuir uma
+Computação em nuvem é uma expressão utilizada para definir o fornecimento e uso de
+insumos de computação como um serviço. Apesar do termo ainda não possuir uma
 definição precisa, o conceito fundamental é que computação em nuvem pressupõe
 um serviço\footnote{Neste momento, um serviço pode ser a alocação de
 uma infraestrutura de servidores (\emph{Infrastructure as a Service} -- IaaS),
@@ -39,8 +39,8 @@ tais servidores são menos eficientes energeticamente.
 
 Computação em nuvem é uma
 candidata a ajudar a melhorar essa perspectiva. Através de virtualização e
-reposicionamento automático de máquinas virtuais no data center de maneira
-transparente, uma funcionalidade disponível em produtos pagos como o VMware
+reposicionamento automático de máquinas virtuais no data center,
+uma funcionalidade disponível em produtos pagos como o VMware
 vSphere \cite{vmware:vmotion} e softwares livres como o Xen 
 \cite{alkmin:migracao_maquinas_virtuais}, é possível dimensionar
 qual parcela do data center estará ativa em um dado momento dependendo da
@@ -112,7 +112,8 @@ de alta disponibilidade \cite{rasmussen:tco_data_center}} \label{fig:tco_data_ce
 
 Como é possível ver na Figura \ref{fig:tco_data_center}, os custos relacionados
 à eletricidade mais os gastos com equipamentos que apenas cumprem o propósito de
-garantir que o servidor permaneça ligado e refrigerado totalizam 44\%. Portanto,
+garantir que o servidor permaneça ligado e refrigerado totalizam 44\% 
+(Eletricidade, Equipamentos de Refrigeração e Equipamentos Elétricos). Portanto,
 uma redução nestes gastos gera um impacto tanto econômico quanto ambiental, com
 a redução dos recursos naturais necessários para sustentar um \emph{data center}.
 
@@ -186,7 +187,7 @@ o comprimento do caminho crítico (Ou seja, o maior caminho) de uma dada tarefa
 até a tarefa final no fluxo de trabalho. (Passos 1 a 5 no algoritmo 
 \proc{Heterogeneous-Earliest-Finish-Time}). A lista de tarefas a serem
 executadas é então ordenada pela ordem decrescente do comprimento do caminho
-crítico. Com essa ordem, produzimos uma ordenação topológica das tarefas, 
+crítico. Com essa ordem, é produzida uma ordenação topológica das tarefas, 
 preservando as restrições de precedência do DAG.
 
 A prioridade de uma tarefa $n_i$ é definida recursivamente como:
@@ -218,7 +219,8 @@ representar a distância esperada de qualquer tarefa até o fim da execução do
 				Selecione a primeira tarefa, $n_i$ da lista de escalonamento.
 \li				\For cada processafor $p_k$ no conjunto de processadores $(p_k \in P)$
 \li 				\Do
-						Calcule o tempo mais cedo de conclusão da tarefa $n_i$
+						Calcule o tempo mais cedo de conclusão da tarefa  $n_i$,
+						considerando que ela execute \\em $p_k$
 					\End
 \li				Defina a tarefa $n_i$ para executar no processador $p_j$ que
 					minimiza o tempo mais\\ cedo de conclusão da tarefa $n_i$.
@@ -245,7 +247,7 @@ computar o comprimento do caminho crítico, onde $e$ é o número de arestas no
 DAG e $p$ o número de processadores. Para $n$ tarefas a serem escalonadas, 
 o passo 3 necessita de um tempo $O(n \log n)$ para ordenar as tarefas pelo
 comprimento de seus caminhos críticos. Seja $a$ o número de tarefas que tem
-$n_i$ como predecessora no DAG, então os passos 5-9 ocupam um tempo
+$n_i$ como predecessora no DAG, então os passos 5-8 ocupam um tempo
 $O(a \times p)$ para uma tarefa $n_i$, assim, o laço enquanto necessita de um 
 tempo $O(e \times p)$. Portanto, a complexidade do algoritmo HEFT é  $O(e
 \times p)$.
@@ -276,7 +278,7 @@ executar um dado fluxo de trabalho. Esse número vem do fato que alocar tarefas
 em máquinas é equivalente a encontrar o número de partições de um conjunto, 
 modelado pelo número de Bell, conforme visto nas equações \ref{eq:numero_bell_1}
 e \ref{eq:numero_bell_2}. O número de Bell é definido como uma recorrência,
-com $B_n$ sendo o número o número de partições de um conjunto de tamanho $n$.
+com $B_n$ sendo o número de partições de um conjunto de tamanho $n$.
 Assim, os autores apresentam uma heurística para o problema.
 
 \begin{align} \label{eq:numero_bell_1}
@@ -319,8 +321,9 @@ VM para cada dependência de software em um caminho.
 
 \section{Simuladores de computação em nuvem e fluxos de trabalho}
 \label{sec:ambiente_simulacao}
-Para diferentes algoritmos e abordagens para problemas em computação
-em nuvem há algumas alternativas: uma possibilidade seria a execução de instâncias
+Uma vez concebidos novos algoritmos ou abordagens para problemas em computação
+em nuvem há algumas maneiras de realizar experimentos para estudar o desempenho
+de tais mudanças: uma possibilidade seria a execução de instâncias
 reais dos problemas em provedores reais de \emph{cloud computing}. Essa alternativa
 possui como problema o custo monetário envolvido na instanciação de máquinas
 virtuais por um tempo prolongado. Ainda, não há o controle sobre o ambiente 
