@@ -85,6 +85,17 @@ na tela um resumo da tabela de processos:
 	\item Endereço dos segmentos \texttt{data}, \texttt{bss}, \texttt{text} 
 \end{enumerate}
 
+\section{Observações}
+\begin{itemize}
+	\item O professor informou verbalmente aos alunos na aula do dia 16/09 que
+	não era mais necessário imprimir a tabela de processos segundo a ordem de
+	escalonamento.
+	\item A versão do Minix escolhida para este EP foi a versão 3.1.7 devido à
+	sua melhor compatibilidade com o VirtualBox e maior semelhança com a versão 
+	3.1.0, a utilizada pelo livro-texto da disciplina.
+	\item A senha de root escolhida foi \texttt{1234}.
+\end{itemize}
+
 \section{Descoberta do comportamento do comando \texttt{F5}}
 Após uma busca na Internet por ``\emph{Minix function keys}'', o primeiro
 resultado indicou o primeiro arquivo importante para o EP: 
@@ -163,14 +174,19 @@ presentes as outras informações necessárias:
 		como sendo \texttt{p\_memmap[D].mem\_phys + p\_memmap[D].mem\_len;}
 \end{description}
 
-É importante ressaltar que apesar de representarem os mesmos processos, as
+É importante ressaltar que apesar de representarem os mesmos processos
+(salvo algumas exceções), as
 entradas de ambas tabelas não estão na mesma ordem. Para resolver este problema
 o próprio Minix apresenta um mapeamento na tabela de processos do \emph{kernel}
-de uma entrada nesta tabela para a tabela de processos do PM.
-
-%TODO: Senha root
-%TODO: Ordem de escalonamento.
-%TODO: Terminar de escrever mapeamento proc - mproc
+de uma entrada nesta tabela para a tabela de processos do PM. Esta informação 
+foi descoberta após vasculhar o código do programa \texttt{top}. O campo
+relevante é o campo \texttt{p\_nr}. Processos gerenciados pelo \emph{kernel}
+mas não pelo PM possuem o campo \texttt{p\_nr} $< 0$. Dessa forma, definimos a 
+regra que para um dado processo \texttt{proc[i]} com \texttt{proc[i].p\_nr} $\ge
+0$ e $0 \le$ \texttt{i} $<$ \texttt{NR\_PROCS} é equivalente ao processo
+\texttt{mproc[proc[i].p\_nr]}. Para garantir que esse mapeamento é
+válido, fizemos um teste imprimindo o nome dos processos equivalentes em ambas
+tabelas. O experimento foi bem sucedido.
 
 
 O código final para a função \texttt{pt\_dmp} foi inserido no arquivo
@@ -211,7 +227,7 @@ PUBLIC void pt_dmp()
   		mp->mp_child_utime,
   		pr->p_memmap[S].mem_phys,
   		pr->p_memmap[D].mem_phys,
-  		pr->p_memmap[D].mem_vir + pr->p_memmap[D].mem_len,
+  		pr->p_memmap[D].mem_phys + pr->p_memmap[D].mem_len,
   		pr->p_memmap[T].mem_phys);
   	printf("\n");
   }
