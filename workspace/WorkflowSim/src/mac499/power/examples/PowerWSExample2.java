@@ -44,6 +44,7 @@ import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
 import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 import mac499.power.ClusterStorage;
+import mac499.power.PowerDatacenterExtended;
 import mac499.power.PowerCondorVM;
 import mac499.power.PowerDatacenterExtended;
 import mac499.power.Job;
@@ -66,7 +67,7 @@ import mac499.power.utils.Parameters;
  * @since WorkflowSim Toolkit 1.0
  * @date Apr 9, 2013
  */
-public class PowerWSExample1 {
+public class PowerWSExample2 {
 
     private static List<Vm> createVM(int userId, int vms) {
 
@@ -74,9 +75,9 @@ public class PowerWSExample1 {
         LinkedList<Vm> list = new LinkedList<Vm>();
 
         //VM Parameters
-        long size = 10000; //image size (MB)
-        int ram = 512; //vm memory (MB)
-        int mips = 1000;
+        long size = 500000; //image size (MB)
+        int ram = 256; //vm memory (MB)
+        int mips = 250;
         long bw = 1000;
         int pesNumber = 1; //number of cpus
         String vmm = "Xen"; //VMM name
@@ -123,7 +124,7 @@ public class PowerWSExample1 {
              * the data center or the host doesn't have sufficient resources the
              * exact vmNum would be smaller than that. Take care.
              */
-            int vmNum = 20;//number of vms;
+            int vmNum = 0;//number of vms;
             Parameters.setVmNum(vmNum);
 
             // Initialize the CloudSim library
@@ -188,25 +189,23 @@ public class PowerWSExample1 {
         // 2. A Machine contains one or more PEs or CPUs/Cores. Therefore, should
         //    create a list to store these PEs before creating
         //    a Machine.
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 0; i < 2; i++) {
         	int hostType = i % Constants.HOST_TYPES;
             List<Pe> peList1 = new ArrayList<Pe>();
             // 3. Create PEs and add these into the list.
             //for a quad-core machine, a list of 4 PEs is required:
-            for(int j = 0; j < Constants.HOST_PES[hostType]; j++)
-            	peList1.add(new Pe(j, new PeProvisionerSimple(Constants.HOST_MIPS[hostType])));
+            for(int j = 0; j < 1; j++)
+            	peList1.add(new Pe(j, new PeProvisionerSimple(1000)));
             
-            int hostId = 0;
             hostList.add(
                     new PowerHostUtilizationHistory(
-                    hostId,
-                    new RamProvisionerSimple(Constants.HOST_RAM[hostType]),
+                    i,
+                    new RamProvisionerSimple(1024),
                     new BwProvisionerSimple(Constants.HOST_BW),
                     Constants.HOST_STORAGE,
                     peList1,
                     new VmSchedulerTimeSharedOverSubscription(peList1),
-                    Constants.HOST_POWER[hostType])); // This is our first machine
-            hostId++;
+                    Constants.HOST_POWER[0])); // This is our first machine
         }
 
         // 5. Create a DatacenterCharacteristics object that stores the

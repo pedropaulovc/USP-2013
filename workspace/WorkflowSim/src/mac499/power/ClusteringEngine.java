@@ -74,7 +74,7 @@ public final class ClusteringEngine extends SimEntity {
     /**
      * The WorkflowEngine used in this ClusteringEngine
      */
-    private WorkflowEngine workflowEngine;
+    private PowerWorkflowEngine workflowEngine;
 
     /**
      * Created a new ClusteringEngine object.
@@ -94,7 +94,7 @@ public final class ClusteringEngine extends SimEntity {
         setTaskReceivedList(new ArrayList<Task>());
 
         cloudletsSubmitted = 0;
-        this.workflowEngine = new WorkflowEngine(name + "_Engine_0", schedulers);
+        this.workflowEngine = new PowerWorkflowEngine(name + "_Engine_0", schedulers);
         this.workflowEngineId = this.workflowEngine.getId();
 
     }
@@ -109,7 +109,7 @@ public final class ClusteringEngine extends SimEntity {
     /**
      * returns the WorkflowEngine
      */
-    public WorkflowEngine getWorkflowEngine() {
+    public PowerWorkflowEngine getWorkflowEngine() {
         return this.workflowEngine;
     }
 

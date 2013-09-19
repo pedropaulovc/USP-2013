@@ -119,7 +119,7 @@ public class WorkflowPlanner extends SimEntity {
      *
      * @return the workflow engine
      */
-    public WorkflowEngine getWorkflowEngine() {
+    public PowerWorkflowEngine getWorkflowEngine() {
         return getClusteringEngine().getWorkflowEngine();
     }
 
