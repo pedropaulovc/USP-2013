@@ -93,7 +93,6 @@ na tela um resumo da tabela de processos:
 	\item A versão do Minix escolhida para este EP foi a versão 3.1.7 devido à
 	sua melhor compatibilidade com o VirtualBox e maior semelhança com a versão 
 	3.1.0, a utilizada pelo livro-texto da disciplina.
-	\item A senha de root escolhida foi \texttt{1234}.
 \end{itemize}
 
 \section{Descoberta do comportamento do comando \texttt{F5}}
@@ -163,15 +162,31 @@ da tabela de processos em \texttt{/usr/src/kernel/proc.h}. Neste arquivo estavam
 presentes as outras informações necessárias:
 
 \begin{description}
-	\item[Tempo de CPU] Disponível no campo \texttt{clock\_t p\_user\_time;}
-	\item[Tempo de sistema] Disponível no campo \texttt{clock\_t p\_sys\_time;}
-	\item[Endereço do ponteiro da pilha] Disponível no campo \texttt{p\_memmap[S].mem\_phys;}
-	\item[Endereço do segmento \texttt{data}] Disponível no campo \texttt{p\_memmap[D].mem\_phys;}
-	\item[Endereço do segmento \texttt{text}] Disponível no campo \texttt{p\_memmap[T].mem\_phys;}
+	\item[Tempo de CPU] Disponível no campo \texttt{clock\_t p\_user\_time}
+	\item[Tempo de sistema] Disponível no campo \texttt{clock\_t p\_sys\_time}
+	\item[Endereço do ponteiro da pilha] Disponível no campo \texttt{p\_memmap[S].mem\_phys}
+	\item[Endereço do segmento \texttt{data}] Disponível no campo \texttt{p\_memmap[D].mem\_phys}
+	\item[Endereço do segmento \texttt{text}] Disponível no campo \texttt{p\_memmap[T].mem\_phys}
 	\item[Endereço do segmento \texttt{bss}] O endereço do segmento \texttt{bss} 
-		é definido para arquivos executáveis ELF como sendo o primeiro endereço
-		de memória após o segmento \texttt{data}. Assim, ele pode ser calculado
-		como sendo \texttt{p\_memmap[D].mem\_phys + p\_memmap[D].mem\_len;}
+		é definido como sendo o primeiro endereço
+		de memória após o segmento \texttt{data}. Tentamos calcular este endereço
+		usando endereços virtuais com a seguinte fórmula:
+		
+		\texttt{p\_memmap[D].mem\_vir + p\_memmap[D].mem\_len}
+		
+		Em seguida mapeando-o para o seu
+		respectivo endereço físico através da função \texttt{sys\_umap}.
+		Porém, a execução chamada de sistema foi negada. O \emph{kernel}
+		informava o seguinte erro: 
+		
+		\texttt{SYSTEM: denied request 14 from 73137.}
+		
+		Assim, contornamos este problema realizando o cálculo através da
+		seguinte fórmula:
+		
+		\texttt{p\_memmap[D].mem\_phys + p\_memmap[D].mem\_len}
+		
+		
 \end{description}
 
 É importante ressaltar que apesar de representarem os mesmos processos
