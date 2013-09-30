@@ -187,12 +187,13 @@ o comprimento do caminho crítico (Ou seja, o maior caminho) de uma dada tarefa
 até a tarefa final no fluxo de trabalho. (Passos 1 a 5 no algoritmo 
 \proc{Heterogeneous-Earliest-Finish-Time}). A lista de tarefas a serem
 executadas é então ordenada pela ordem decrescente do comprimento do caminho
-crítico. Com essa ordem, é produzida uma ordenação topológica das tarefas, 
+crítico, com empates sendo decididos aleatoriamente.
+Com essa ordem, é produzida uma ordenação topológica das tarefas, 
 preservando as restrições de precedência do DAG.
 
 A prioridade de uma tarefa $n_i$ é definida recursivamente como:
 
-$$ rank_u(n_i) = \overline{w_i} + \max_{n_j \in succ(n_i)} (\overline{c_{i,j}} + rank_u(n_j)) $$
+$$ \label{eq:rank} rank_u(n_i) = \overline{w_i} + \max_{n_j \in succ(n_i)} (\overline{c_{i,j}} + rank_u(n_j)) $$
 
 onde $n_i$ representa a $i$-ésima tarefa, $\overline{w_i}$ é uma média
 do custo computacional da tarefa $i$ entre todos os processadores, $succ(n_i)$ 
@@ -229,16 +230,32 @@ representar a distância esperada de qualquer tarefa até o fim da execução do
 \end{codebox}
 
 \subsubsection{Fase de Seleção}
-Para selecionar qual processador irá executar uma dada tarefa, calculamos o
-tempo mais cedo de conclusão (\emph{earliest finish time} -- EFT), de uma dada
-tarefa. Normalmente, o tempo mais cedo para um processador $p_j$ tornar-se
-disponível para executar uma tarefa é o momento que $p_j$ termina a execução
-da última tarefa designada a ele. (Caso não haja tarefa sendo executada, 
-o valor será zero.) Com o algoritmo HEFT, a busca por um espaço de tempo vago
-em um processador $p_j$ começa a partir do momento que o processador $p_j$ 
-torna-se vago. A busca continua até que seja possível encontrar 
-o primeiro \emph{slot} de tempo grande o suficiente para suportar a computação
-da tarefa $n_i$.
+Na maioria dos algoritmos de escalonamento, o tempo mais cedo de
+conclusão (\emph{earliest finish time} -- EFT) de um dado
+processador $p_j$ para a execução de uma tarefa é o momento quando
+$p_j$ completa a execução da última tarefa que foi designada a
+ele. No entanto, o algoritmo HEFT possui uma política de inserção
+que considera a possibilidade de inserir uma tarefa em um espaço
+vago entre duas tarefas já escalonadas em um processador
+\cite{topcoglu:heft}.
+%O comprimento de um intervalo de tempo vago, ou seja, 
+%a diferença entre o tempo de início e término de duas tarefas
+%que já foram escalonadas em um mesmo processador, deve ser
+%maior ou igual ao tempo necessário para a computação da tarefa,
+%possivelmente descontado o tempo de comunicação entre
+%processadores.
+Note que o escalonamento neste intervalo deve obedecer às
+restrições de precedência.
+
+No algoritmo HEFT, a busca por um \emph{slot} de tempo vago
+para uma tarefa $n_i$ em um processador $p_j$ começa no
+momento igual ao tempo que a tarefa $n_i$ estará pronta para
+executar em $p_j$, ou seja, o momento quando todos os dados
+de entrada de $n_i$ foram enviados pelos predecessores imediatos
+de $n_i$ ao processador $p_j$. A busca continua até que seja
+encontrado um intervalo de tempo capaz de suportar o custo
+computacional de $n_i$.topcoglu:heft
+
 
 \subsubsection{Análise de Complexidade do HEFT}
 No algoritmo \proc{Heterogeneous-Earliest-Finish-Time}, o passo 1 toma tempo
@@ -253,7 +270,59 @@ tempo $O(e \times p)$. Portanto, a complexidade do algoritmo HEFT é  $O(e
 \times p)$.
 
 \subsubsection{Exemplo de Execução}
-%TODO
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.5\linewidth]{dag_heft.pdf}
+\caption{Fluxo de trabalho simulado, contendo os custos médios de
+transmissão de dados entre um nó de processamento e outro}
+\label{fig:dag_heft}
+\end{figure}
+
+Para uma execução simulada do algoritmo HEFT, consideramos o
+fluxo de trabalho apresentado no artigo original do algoritmo,
+\cite{topcoglu:heft}, descrito na Figura \ref{fig:dag_heft}. Cada
+vértice do DAG é uma tarefa a ser executada em um dos três
+processadores disponíveis: P1, P2 e P3. Os rótulos nas arestas
+indicam o tempo necessário para transferir os resultados de uma
+tarefa entre dois processadores \emph{distintos}. 
+
+Para uma dada tarefa, o tempo para processá-la em cada um dos
+processadores está descrito na Tabela
+\ref{tab:custos_computacionais}. Com os valores apresentados é
+possível calcular o valor de $rank_u$, seguindo a fórmula
+apresentada anteriormente. O valor resultado está também na
+Tabela \ref{tab:custos_computacionais}.
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.3\linewidth]{escalonamento_heft.pdf}
+\caption{Escalonamento produzido pelo algoritmo HEFT}
+\label{fig:dag_heft}
+\end{figure}
+
+
+\begin{table}[ht]
+	\centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{Tarefa} & \textbf{P1} & \textbf{P2} & \textbf{P3} & $rank_u(n_i)$ \\ \hline
+	1               & 14          & 16          & 9           & 108.000       \\
+	2               & 13          & 19          & 18          & 77.000        \\
+	3               & 11          & 13          & 19          & 80.000        \\
+	4               & 13          & 8           & 17          & 80.000        \\
+	5               & 12          & 13          & 10          & 69.000        \\
+	6               & 13          & 16          & 9           & 63.333        \\
+	7               & 7           & 15          & 11          & 42.667        \\
+	8               & 5           & 11          & 14          & 35.667        \\
+	9               & 18          & 12          & 20          & 44.333        \\
+	10              & 21          & 7           & 16          & 14.667        \\ \hline
+    \end{tabular}
+    \caption {Custos computacionais de uma tarefa em um dado
+    computador}
+    \label{tab:custos_computacionais}
+\end{table}
+
 
 \subsection{Embutindo Requisitos de Software no Escalonamento}
 Notamos neste momento que tarefas a serem executadas em um ambiente de
@@ -310,7 +379,7 @@ VM para cada dependência de software em um caminho.
 %\li 		\Do
 %				\For cada software $s \in \mathcal{S} | \exists$ pelo menos um conjunto $P_{h,s}$
 %\li 				\Do
-%						Faça $P_s$ ser igual à
+%						Faça $P_\begin{savenotes}
 %					\End
 %\li				Defina a tarefa $n_i$ para executar no processador $p_j$ que
 %				minimiza o\\ Earliest	Execution Finish Time da tarefa $n_i$.
