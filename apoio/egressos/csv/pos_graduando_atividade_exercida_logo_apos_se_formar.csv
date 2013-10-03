@@ -1,0 +1,17 @@
+grupo,[pos_graduando]_atividade_exercida_logo_apos_se_formar,COUNT(*)
+-1,Não,4
+1,Não,8
+1,Sim,3
+2,Não,19
+3,Não,16
+3,Sim,2
+4,Não,28
+4,Sim,8
+5,Não,29
+5,Sim,4
+6,Não,46
+6,Sim,22
+7,Não,33
+7,Sim,17
+8,Não,20
+8,Sim,6

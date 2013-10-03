@@ -1,0 +1,36 @@
+grupo,utilidade_probabilidade_ou_estatistica,COUNT(*)
+-1,Mais ou menos,1
+-1,Pouco,1
+-1,,2
+1,Mais ou menos,4
+1,Muito,4
+1,Nada,1
+1,Pouco,2
+2,Mais ou menos,5
+2,Muito,7
+2,Pouco,7
+3,Mais ou menos,6
+3,Muito,6
+3,Nada,2
+3,Pouco,4
+4,Mais ou menos,16
+4,Muito,7
+4,Nada,3
+4,Pouco,9
+4,,1
+5,Mais ou menos,9
+5,Muito,14
+5,Nada,3
+5,Pouco,7
+6,Mais ou menos,25
+6,Muito,20
+6,Nada,3
+6,Pouco,20
+7,Mais ou menos,20
+7,Muito,16
+7,Nada,2
+7,Pouco,12
+8,Mais ou menos,11
+8,Muito,6
+8,Nada,2
+8,Pouco,7

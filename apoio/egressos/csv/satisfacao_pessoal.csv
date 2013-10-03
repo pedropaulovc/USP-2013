@@ -1,0 +1,26 @@
+grupo,satisfacao_pessoal,COUNT(*)
+-1,Pouco satisfatório,1
+-1,Satisfatório,1
+-1,,2
+1,Satisfatório,10
+1,,1
+2,Pouco satisfatório,2
+2,Satisfatório,17
+3,Pouco satisfatório,3
+3,Satisfatório,15
+4,Pouco satisfatório,4
+4,Satisfatório,32
+5,Insatisfatório,1
+5,Pouco satisfatório,4
+5,Satisfatório,28
+6,Insatisfatório,2
+6,Pouco satisfatório,11
+6,Satisfatório,54
+6,,1
+7,Insatisfatório,1
+7,Não sei,1
+7,Pouco satisfatório,8
+7,Satisfatório,40
+8,Insatisfatório,2
+8,Pouco satisfatório,5
+8,Satisfatório,19

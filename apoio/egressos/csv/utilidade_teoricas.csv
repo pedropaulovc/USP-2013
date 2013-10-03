@@ -1,0 +1,28 @@
+grupo,utilidade_teoricas,COUNT(*)
+-1,Mais ou menos,2
+-1,,2
+1,Mais ou menos,3
+1,Muito,7
+1,Pouco,1
+2,Mais ou menos,5
+2,Muito,12
+2,Pouco,2
+3,Mais ou menos,6
+3,Muito,11
+3,Pouco,1
+4,Mais ou menos,8
+4,Muito,22
+4,Pouco,6
+5,Mais ou menos,9
+5,Muito,20
+5,Pouco,4
+6,Mais ou menos,24
+6,Muito,38
+6,Pouco,6
+7,Mais ou menos,10
+7,Muito,32
+7,Pouco,7
+7,,1
+8,Mais ou menos,8
+8,Muito,16
+8,Pouco,2

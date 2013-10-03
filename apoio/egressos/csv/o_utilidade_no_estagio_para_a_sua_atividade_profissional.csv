@@ -1,0 +1,35 @@
+grupo,o_utilidade_no_estagio_para_a_sua_atividade_profissional,COUNT(*)
+-1,Pouco,1
+-1,,3
+1,Mais ou menos,2
+1,Muito,7
+1,Pouco,1
+1,,1
+2,Mais ou menos,7
+2,Muito,7
+2,Pouco,1
+2,,4
+3,Mais ou menos,7
+3,Muito,10
+3,,1
+4,Mais ou menos,9
+4,Muito,10
+4,Nada,1
+4,Pouco,5
+4,,11
+5,Mais ou menos,3
+5,Muito,16
+5,Pouco,4
+5,,10
+6,Mais ou menos,14
+6,Muito,28
+6,Nada,1
+6,Pouco,7
+6,,18
+7,Mais ou menos,8
+7,Muito,20
+7,Pouco,3
+7,,19
+8,Mais ou menos,7
+8,Muito,12
+8,,7

@@ -1,0 +1,17 @@
+grupo,[comercio_qual_setor_se_encaixa_a_empresa_que_trabalha,COUNT(*)
+-1,Não,4
+1,Não,11
+2,Não,17
+2,Sim,2
+3,Não,17
+3,Sim,1
+4,Não,32
+4,Sim,4
+5,Não,31
+5,Sim,2
+6,Não,66
+6,Sim,2
+7,Não,46
+7,Sim,4
+8,Não,24
+8,Sim,2

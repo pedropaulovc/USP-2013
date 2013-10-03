@@ -1,0 +1,30 @@
+grupo,situacao_financeira,COUNT(*)
+-1,Pouco satisfatório,1
+-1,Satisfatório,1
+-1,,2
+1,Satisfatório,10
+1,,1
+2,Insatisfatório,2
+2,Pouco satisfatório,4
+2,Satisfatório,13
+3,Insatisfatório,1
+3,Pouco satisfatório,1
+3,Satisfatório,16
+4,Insatisfatório,1
+4,Pouco satisfatório,5
+4,Satisfatório,29
+4,,1
+5,Não sei,1
+5,Pouco satisfatório,5
+5,Satisfatório,27
+6,Pouco satisfatório,11
+6,Satisfatório,56
+6,,1
+7,Insatisfatório,2
+7,Não sei,1
+7,Pouco satisfatório,9
+7,Satisfatório,38
+8,Insatisfatório,1
+8,Não sei,1
+8,Pouco satisfatório,8
+8,Satisfatório,16

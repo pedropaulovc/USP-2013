@@ -1,0 +1,35 @@
+grupo,utilidade_matematica,COUNT(*)
+-1,Mais ou menos,1
+-1,Pouco,1
+-1,,2
+1,Mais ou menos,3
+1,Muito,5
+1,Pouco,3
+2,Mais ou menos,8
+2,Muito,6
+2,Nada,1
+2,Pouco,4
+3,Mais ou menos,7
+3,Muito,7
+3,Nada,1
+3,Pouco,3
+4,Mais ou menos,13
+4,Muito,13
+4,Nada,1
+4,Pouco,9
+5,Mais ou menos,13
+5,Muito,10
+5,Nada,1
+5,Pouco,9
+6,Mais ou menos,26
+6,Muito,21
+6,Nada,1
+6,Pouco,20
+7,Mais ou menos,17
+7,Muito,19
+7,Nada,2
+7,Pouco,12
+8,Mais ou menos,12
+8,Muito,4
+8,Nada,2
+8,Pouco,8

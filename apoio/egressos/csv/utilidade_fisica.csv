@@ -1,0 +1,33 @@
+grupo,utilidade_fisica,COUNT(*)
+-1,Nada,1
+-1,Pouco,1
+-1,,2
+1,Mais ou menos,4
+1,Nada,3
+1,Pouco,4
+2,Mais ou menos,5
+2,Muito,1
+2,Nada,7
+2,Pouco,6
+3,Mais ou menos,4
+3,Nada,8
+3,Pouco,6
+4,Mais ou menos,5
+4,Muito,2
+4,Nada,15
+4,Pouco,14
+5,Mais ou menos,4
+5,Muito,3
+5,Nada,12
+5,Pouco,14
+6,Mais ou menos,12
+6,Nada,32
+6,Pouco,24
+7,Mais ou menos,10
+7,Muito,5
+7,Nada,16
+7,Pouco,17
+7,,2
+8,Mais ou menos,4
+8,Nada,13
+8,Pouco,9

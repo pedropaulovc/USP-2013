@@ -1,0 +1,35 @@
+grupo,apos_o_bcc_sentiu_se_estimulado_a_continuar_os_seus_estudos,COUNT(*)
+-1,Parcialmente estimulado,1
+-1,Pouco estimulado,1
+-1,,2
+1,Muito estimulado,5
+1,Parcialmente estimulado,2
+1,Pouco estimulado,4
+2,Muito estimulado,5
+2,Nada estimulado,3
+2,Parcialmente estimulado,8
+2,Pouco estimulado,3
+3,Muito estimulado,6
+3,Nada estimulado,3
+3,Parcialmente estimulado,3
+3,Pouco estimulado,6
+4,Muito estimulado,17
+4,Nada estimulado,3
+4,Parcialmente estimulado,9
+4,Pouco estimulado,7
+5,Muito estimulado,8
+5,Nada estimulado,5
+5,Parcialmente estimulado,13
+5,Pouco estimulado,7
+6,Muito estimulado,25
+6,Nada estimulado,7
+6,Parcialmente estimulado,23
+6,Pouco estimulado,13
+7,Muito estimulado,17
+7,Nada estimulado,7
+7,Parcialmente estimulado,14
+7,Pouco estimulado,12
+8,Muito estimulado,5
+8,Nada estimulado,3
+8,Parcialmente estimulado,10
+8,Pouco estimulado,8

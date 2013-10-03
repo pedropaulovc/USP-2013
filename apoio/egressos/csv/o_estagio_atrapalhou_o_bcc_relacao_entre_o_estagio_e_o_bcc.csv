@@ -1,0 +1,17 @@
+grupo,[o_estagio_atrapalhou_o_bcc]_relacao_entre_o_estagio_e_o_bcc,COUNT(*)
+-1,Não,4
+1,Não,10
+1,Sim,1
+2,Não,19
+3,Não,16
+3,Sim,2
+4,Não,34
+4,Sim,2
+5,Não,30
+5,Sim,3
+6,Não,62
+6,Sim,6
+7,Não,47
+7,Sim,3
+8,Não,22
+8,Sim,4

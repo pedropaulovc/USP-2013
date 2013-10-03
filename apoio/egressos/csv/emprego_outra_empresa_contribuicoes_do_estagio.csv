@@ -1,0 +1,17 @@
+grupo,[emprego_outra_empresa]_contribuicoes_do_estagio,COUNT(*)
+-1,Não,4
+1,Não,9
+1,Sim,2
+2,Não,19
+3,Não,16
+3,Sim,2
+4,Não,32
+4,Sim,4
+5,Não,28
+5,Sim,5
+6,Não,61
+6,Sim,7
+7,Não,44
+7,Sim,6
+8,Não,22
+8,Sim,4

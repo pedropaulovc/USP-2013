@@ -1,0 +1,26 @@
+grupo,satisfacao_profissional,COUNT(*)
+-1,Pouco satisfatório,1
+-1,Satisfatório,1
+-1,,2
+1,Pouco satisfatório,1
+1,Satisfatório,9
+1,,1
+2,Pouco satisfatório,2
+2,Satisfatório,17
+3,Pouco satisfatório,3
+3,Satisfatório,15
+4,Insatisfatório,1
+4,Pouco satisfatório,3
+4,Satisfatório,32
+5,Insatisfatório,3
+5,Pouco satisfatório,4
+5,Satisfatório,26
+6,Insatisfatório,1
+6,Pouco satisfatório,10
+6,Satisfatório,56
+6,,1
+7,Insatisfatório,2
+7,Pouco satisfatório,9
+7,Satisfatório,39
+8,Pouco satisfatório,6
+8,Satisfatório,20

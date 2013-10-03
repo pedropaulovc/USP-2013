@@ -1,0 +1,32 @@
+grupo,satisfacao_social,COUNT(*)
+-1,Pouco satisfatório,1
+-1,Satisfatório,1
+-1,,2
+1,Pouco satisfatório,1
+1,Satisfatório,9
+1,,1
+2,Não sei,1
+2,Pouco satisfatório,2
+2,Satisfatório,16
+3,Pouco satisfatório,2
+3,Satisfatório,16
+4,Insatisfatório,2
+4,Pouco satisfatório,4
+4,Satisfatório,29
+4,,1
+5,Insatisfatório,1
+5,Não sei,1
+5,Pouco satisfatório,6
+5,Satisfatório,25
+6,Insatisfatório,2
+6,Pouco satisfatório,11
+6,Satisfatório,53
+6,,2
+7,Insatisfatório,1
+7,Não sei,1
+7,Pouco satisfatório,3
+7,Satisfatório,43
+7,,2
+8,Insatisfatório,1
+8,Pouco satisfatório,3
+8,Satisfatório,22

@@ -1,0 +1,16 @@
+grupo,[nao_houve_contribuicao]_contribuicoes_do_trabalho,COUNT(*)
+-1,Não,3
+-1,Sim,1
+1,Não,9
+1,Sim,2
+2,Não,19
+3,Não,18
+4,Não,34
+4,Sim,2
+5,Não,32
+5,Sim,1
+6,Não,66
+6,Sim,2
+7,Não,49
+7,Sim,1
+8,Não,26

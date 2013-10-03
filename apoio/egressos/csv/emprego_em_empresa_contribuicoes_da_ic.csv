@@ -1,0 +1,15 @@
+grupo,[emprego_em_empresa]_contribuicoes_da_ic,COUNT(*)
+-1,Não,4
+1,Não,11
+2,Não,19
+3,Não,17
+3,Sim,1
+4,Não,35
+4,Sim,1
+5,Não,33
+6,Não,66
+6,Sim,2
+7,Não,47
+7,Sim,3
+8,Não,24
+8,Sim,2

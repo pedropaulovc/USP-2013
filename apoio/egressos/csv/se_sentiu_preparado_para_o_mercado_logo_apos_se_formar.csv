@@ -1,0 +1,43 @@
+grupo,se_sentiu_preparado_para_o_mercado_logo_apos_se_formar,COUNT(*)
+-1,Pouco,1
+-1,Razoavelmente,1
+-1,,2
+1,Muito,3
+1,Razoavelmente,5
+1,Totalmente,3
+2,Muito,7
+2,Pouco,1
+2,Razoavelmente,8
+2,Totalmente,3
+3,Muito,6
+3,Nada,1
+3,Não me inseri no mercado de trabalho,1
+3,Pouco,1
+3,Razoavelmente,7
+3,Totalmente,2
+4,Muito,8
+4,Não me inseri no mercado de trabalho,7
+4,Pouco,3
+4,Razoavelmente,7
+4,Totalmente,11
+5,Muito,11
+5,Nada,1
+5,Não me inseri no mercado de trabalho,1
+5,Pouco,3
+5,Razoavelmente,12
+5,Totalmente,5
+6,Muito,30
+6,Não me inseri no mercado de trabalho,6
+6,Pouco,3
+6,Razoavelmente,25
+6,Totalmente,4
+7,Muito,14
+7,Não me inseri no mercado de trabalho,7
+7,Pouco,7
+7,Razoavelmente,15
+7,Totalmente,7
+8,Muito,10
+8,Não me inseri no mercado de trabalho,1
+8,Pouco,5
+8,Razoavelmente,7
+8,Totalmente,3

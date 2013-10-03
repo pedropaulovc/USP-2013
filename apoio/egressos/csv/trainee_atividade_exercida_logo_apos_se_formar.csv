@@ -1,0 +1,15 @@
+grupo,[trainee]_atividade_exercida_logo_apos_se_formar,COUNT(*)
+-1,Não,4
+1,Não,11
+2,Não,17
+2,Sim,2
+3,Não,17
+3,Sim,1
+4,Não,35
+4,Sim,1
+5,Não,33
+6,Não,67
+6,Sim,1
+7,Não,49
+7,Sim,1
+8,Não,26

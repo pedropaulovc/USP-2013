@@ -1,0 +1,31 @@
+grupo,utilidade_sistemas,COUNT(*)
+-1,Muito,1
+-1,Pouco,1
+-1,,2
+1,Mais ou menos,1
+1,Muito,10
+2,Mais ou menos,4
+2,Muito,13
+2,Nada,1
+2,Pouco,1
+3,Mais ou menos,4
+3,Muito,14
+4,Mais ou menos,11
+4,Muito,20
+4,Nada,1
+4,Pouco,3
+4,,1
+5,Mais ou menos,9
+5,Muito,22
+5,Pouco,2
+6,Mais ou menos,17
+6,Muito,46
+6,Nada,1
+6,Pouco,3
+6,,1
+7,Mais ou menos,8
+7,Muito,34
+7,Pouco,8
+8,Mais ou menos,3
+8,Muito,22
+8,Pouco,1
