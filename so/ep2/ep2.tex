@@ -1,0 +1,628 @@
+\documentclass[brazil, a4paper]{scrartcl}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{babel}
+\usepackage{url}
+\usepackage[usenames,svgnames,dvipsnames]{xcolor}
+\usepackage{listings}                   % para formatar código-fonte (ex. em Java)
+
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\lstdefinelanguage{diff}{
+  morecomment=[f][\color{blue}]{@@},     % group identifier
+  morecomment=[f][\color{red}]<,         % deleted lines 
+  morecomment=[f][\color{ForestGreen}]>,       % added lines
+  morecomment=[f][\color{magenta}]{---}, % Diff header lines (must appear after +,-)
+  morecomment=[f][\color{magenta}]{+++},
+}
+
+\lstset{ %
+language=C,                  % choose the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it's 1 each line will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,	                % adds a frame around the code
+framerule=0.6pt,
+tabsize=2,	                    % sets default tabsize to 2 spaces
+captionpos=b,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+escapeinside={\%*}{*)},         % if you want to add a comment within your code
+backgroundcolor=\color[rgb]{1.0,1.0,1.0}, % choose the background color.
+rulecolor=\color[rgb]{0.8,0.8,0.8},
+extendedchars=true,
+xleftmargin=10pt,
+xrightmargin=10pt,
+framexleftmargin=10pt,
+framexrightmargin=10pt
+}
+
+\begin{document}
+
+
+\title{Exercício Programa 2 -- Relatório}
+\subtitle{MAC0422 -- Sistemas Operacionais}
+\author{André Spanguero Kanayama \hfill 7156873\\
+		Pedro Paulo Vezzá Campos \hfill 7538743}
+\date{\today}
+
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+\section{Enunciado}
+Para este segundo exercício-programa de MAC0422 -- Sistemas Operacionais, o 
+professor requisitou que os alunos alterassem o \emph{Process Manager} (PM)
+para implementar uma biblioteca de semáforos. 
+
+
+\section{Desenvolvimento da implementação}
+Após consultas a tutoriais na Internet, encontramos os principais arquivos
+necessários para a implementação de uma biblioteca C que se comunique com o PM:
+
+\begin{description}
+	\item[/usr/src/servers/pm/semaphore.c] Local da implementação efetiva dos
+	semáforos no PM
+	\item[/usr/src/lib/libc/posix/\_semaphore.c] Local do código da biblioteca
+	de usuário responsável por abstrair as chamadas de sistema feitas através
+	de mensagens no Minix.
+	\item[/usr/src/include/minix/callnr.h] Arquivo de macros para os códigos
+	definidos para cada uma das chamadas de sistema do Minix.
+	\item[/usr/src/servers/pm/table.c] Define a tabela que mapeia um código de
+	chamada de sistema definido no arquivo \texttt{callnr.h} para uma função a
+	ser executada pelo PM.
+	\item[/usr/src/servers/pm/proto.h] Arquivo de protótipos das funções do PM.
+\end{description}
+
+\subsection{Código da biblioteca}
+O código da biblioteca de usuário é bastante simples. Se resume a montar uma
+mensagem a ser enviada para o PM contendo os parâmetros necessários, realizar
+a chamada à função \texttt{\_syscall()} e aguardar uma mensagem de retorno 
+contendo o resultado da chamada.
+
+É neste ponto que o processo de usuário pode ser terminado e um código de erro
+-1 é enviado no caso de um usuário tentar criar um semáforo no momento que o
+sistema está com todos os 128 semáforos alocados. Isto foi implementado
+na função \texttt{get\_sem()} analisando o código de retorno da chamada de sistema.
+Em caso de erro a biblioteca chama a função \texttt{exit()}.
+
+É importante ressaltar que o bloqueio dos processos que fizerem uma operação
+``P'' em um semáforo que está com valor atual 0 é feita através do sistema de
+troca de mensagens do Minix. O bloqueio acontece na chamada à função
+\texttt{\_syscall()} dentro da função  \texttt{p\_sem()} 
+
+\begin{lstlisting}[style=customc]
+#include <sys/cdefs.h>
+#include "../other/namespace.h"
+#include <lib.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <minix/callnr.h>
+
+PUBLIC int get_sem (int valor) {
+   message m;
+   int result;
+   m.m1_i1= valor;
+   result = _syscall (PM_PROC_NR, GETSEM, &m);
+   if(result == 0){
+      exit(-1);
+   }
+   return result;
+}
+
+PUBLIC int v_sem (int indice_sem) {
+   message m;
+   m.m1_i1 = indice_sem;
+   return (_syscall (PM_PROC_NR, VSEM, &m));
+}
+
+PUBLIC int p_sem (int indice_sem) {
+   message m;
+   m.m1_i1 = indice_sem;
+   return (_syscall (PM_PROC_NR, PSEM, &m));
+}
+
+PUBLIC int free_sem (int indice_sem) {
+   message m;
+   m.m1_i1 = indice_sem;
+   return (_syscall (PM_PROC_NR, FREESEM, &m));
+}
+\end{lstlisting}
+
+\subsection{Modelagem de um semáforo}
+O arquivo \texttt{/usr/src/servers/pm/semaphore.c} contém a implementação
+verdadeira das funções requisitadas no enunciado.
+
+Um semáforo foi modelado como uma \texttt{struct} C com a seguinte definção:
+\begin{lstlisting}[style=customc]
+struct semaforo {
+   int id, valor; 
+   int fila_pid[TAM_FILA]; 
+   int begin;
+   int end; 
+   int pcount;
+   int dono;
+} semaforos[NR_SEMS];
+\end{lstlisting}
+
+A macro \texttt{NR\_SEMS} foi definida como 128, conforme enunciado.
+A utilidade de cada componente está descrita a seguir:
+
+\begin{description}
+	\item[id] É uma ID criada aleatoriamente pela biblioteca e na faixa $[1, 1000000]$
+	\item[valor] Indica quantos processos podem entrar na região crítica no momento
+	\item[fila\_pid] É uma fila implementada usando um vetor C que indica quais
+		processos (Representados pelas suas posições na tabela de processos do
+		PM) estão bloqueados aguardando liberação para entrar na região
+		crítica.
+	\item[begin, end] Apontam respectivamente o início e o fim da fila no vetor
+		\texttt{fila\_pid}.
+	\item[pcount] Número de processos que estão aguardando liberação para entrar
+		na região crítica.
+	\item[dono] Posição na tabela de processos do processo criador do semáforo.
+\end{description}
+
+\subsection{Implementação das operações de manipulação de um semáforo}
+O arquivo \texttt{semaphore.c} contém as seguintes funções implementadas:
+
+\begin{description}
+	\item[void init\_sems (void)] Invocada na primeira vez que é requisitado um
+		semáforo.
+	\item[void desaloca\_pid (int who\_p)] Recebe como parâmetro a posição na tabela
+		de processos de um processo	que terminou a sua execução. Varre toda a
+		tabela de semáforos e desaloca qualquer semáforo que tenha sido alocado
+		a este processo.
+	\item[int sem\_exists (int sem)] Varre a tabela de semáforos e retorna 1 caso
+		a ID passada esteja presente e 0 caso contrário.
+	\item[int authorized (int sem\_index)] Dada uma posição na tabela de semáforos,
+		retorna 1 caso o processo que fez a requisição à biblioteca ou algum de
+		seus ancestrais seja dono do semáforo referenciado.
+	\item[int do\_getsem (void)] Tenta criar um novo semáforo para o processo
+		chamador. Retorna a ID do novo semáforo na mensagem de retorno ou -1
+		em caso de erro. O código que é responsável por terminar um processo
+		que requisitou um semáforo quando todos já estavam alocados é
+		responsabilidade da biblioteca de usuário, como explicado anteriormente.
+	\item[int do\_vsem (void)] Aplica a operação ``V'' no semáforo passado como
+		parâmetro via o primeiro campo da mensagem do Minix. Caso haja algum
+		processo bloqueado, libera-o, caso contrário, incrementa o valor atual
+		do semáforo. Retorna -1 via mensagem caso a ID do semáforo seja inválida ou o usuário
+		não esteja autorizado de acordo com a função \texttt{authorized()}.
+	\item[int do\_psem (void)] Aplica a operação ``P'' no semáforo passado como
+		parâmetro via o primeiro campo da mensagem do Minix. Caso o valor atual
+		do semáforo seja 0, bloqueia-o, caso contrário, decrementa o valor atual
+		do semáforo e libera o processo. Retorna -1 via mensagem caso a ID do semáforo seja
+		inválida ou o usuário não esteja autorizado de acordo com a função \texttt{authorized()}.
+	\item[int do\_freesem (void)] Libera o semáforo passado como parâmetro no
+		primeiro campo da mensagem do Minix apenas se o remetente da
+		mensagem for o dono do semáforo. Retorna 0 em caso de sucesso e -1
+		caso o rementente não esteja autorizado a realizar a operação ou a ID do
+		semáforo não seja válida.
+\end{description}
+
+\subsection{Desalocação de semáforos após o fim de um processo}
+Para satisfazer à restrição de desalocar todos os semáforos de um processo quando
+ele terminar a sua execução, vasculhamos o código fonte do PM até encontrar a
+função \texttt{exit\_proc()} dentro do arquivo
+\texttt{/usr/src/servers/pm/forkexit.c}. Esta função é responsável por desalocar
+todas as estruturas utilizadas pelo PM no controle da execução de um processo.
+
+A edição feita foi incluir mais uma linha nesta função. Nela, é feita uma
+chamada à função \texttt{desaloca\_pid()}, responsável por desalocar todos os
+semáforos de um processo, como descrito anteriormente. O \texttt{diff} resultante
+é:
+
+\begin{lstlisting}[language=diff]
+  if (dump_core && (rmp->mp_flags & PRIV_PROC))
+	dump_core = FALSE;
+
+  proc_nr = (int) (rmp - mproc);	/* get process slot number */
+  proc_nr_e = rmp->mp_endpoint;
+> /*??????????????????????????????????????????????????*/
+> /*??????????????????????????????????????????????????*/
+>   desaloca_pid(proc_nr);
+> /*??????????????????????????????????????????????????*/
+> /*??????????????????????????????????????????????????*/
+
+  /* Remember a session leader's process group. */
+  procgrp = (rmp->mp_pid == mp->mp_procgrp) ? mp->mp_procgrp : 0;
+\end{lstlisting}
+
+\section{Dificuldades enfrentadas}
+Perdemos bastante tempo tentando entender o porquê de mesmo após alterarmos
+e recompilarmos o código da biblioteca de usuário, o comportamento do nosso
+programa de teste não mudava para o esperado. Concluímos que a ``culpada'' foi
+a ligação estática de bibliotecas ao binário de teste compilado. A implementação
+da biblioteca de usuário é copiada para o binário final apenas durante a
+compilação do binário do usuário. Quando recompilamos nosso código de teste
+o comportamento passou a ser o esperado.
+
+Na implementação da biblioteca de semáforos, vimos o PM utilizar a variável
+global \texttt{who\_p} para referenciar o remetente da mensagem que está sendo
+processada. Acreditamos que essa variável fosse o PID do processo chamador mas
+na verdade \texttt{who\_p} é a posição na tabela de processos referente ao
+remetente.
+
+
+\appendix 
+\section{Implementação final da biblioteca}
+
+\begin{lstlisting}[style=customc]
+/************************************
+ * 
+ * semaphore.c
+ * 
+ ************************************/ 
+#include "pm.h"
+#include "param.h"
+#include "glo.h"
+#include "mproc.h"
+#include <sys/wait.h>
+#include <assert.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <signal.h>
+
+/* Numero maximo de semaforos */
+#define NR_SEMS      128        
+#define TAM_FILA     1000       
+#define NO_SEM      -1          
+#define INIT_SEMVAL  1000       
+#define MAX_SEMVAL   1000000    
+#define INT_LIMIT    0x7fffffff 
+#define ESEMVAL      0x8000000
+/*Ultrapassou o limite de semaforos*/  
+#define EFULL        0xDEADDEAD
+#define NADA   0
+/*Erro, retorna 0*/          
+#define RETERR       -1          
+
+
+FORWARD _PROTOTYPE( int sem_exists, (int sem)                            );
+FORWARD _PROTOTYPE( void init_sems, (void)                              );
+
+/*Definicao da estrutura do semaforo*/
+struct semaforo {
+   int id, valor; 
+   int fila_pid[TAM_FILA]; 
+   int begin;
+   int end; 
+   int pcount;
+   int dono;
+} semaforos[NR_SEMS];
+int qtd_semaforos_ativos = 0;
+
+/*Funcao executada uma vez, quando ainda nao existe nenhum semaforo*/
+PRIVATE void init_sems (void) {
+   int i;
+
+   for (i = 0; i < NR_SEMS; i++) {
+      semaforos[i].id = NO_SEM;
+      semaforos[i].valor = 0;
+      semaforos[i].pcount = 0; 
+      semaforos[i].fila_pid[0] = NADA;  
+      semaforos[i].begin = 0;
+      semaforos[i].end = 0;
+   }
+   qtd_semaforos_ativos = 0;
+}
+
+/*Funcao usada pelo PM, para que quando um processo morra, todos os seus semaforos sejam liberados*/
+PUBLIC void desaloca_pid (who_p)
+    int who_p;
+{
+    int i;
+    for (i = 0; i < NR_SEMS; i++) {
+      if (semaforos[i].dono == who_p){
+          qtd_semaforos_ativos--;
+
+          semaforos[i].id = NO_SEM;
+          semaforos[i].valor = 0;
+
+          semaforos[i].pcount = 0;
+          semaforos[i].fila_pid[0] = NADA;
+          semaforos[i].begin = 0;
+          semaforos[i].pcount = 0;
+
+      }
+   }
+
+    
+}
+
+/*Funcao que verifica se um semaforo ja existe*/
+PRIVATE int sem_exists (sem)
+   int sem;
+{
+   int i;
+   if (sem <= 0 || sem > INT_LIMIT - 1) return 0;
+
+   if (qtd_semaforos_ativos < 1) return 0;
+   for (i = 0; i < NR_SEMS; i++) {
+      /*Se encontrar uma id igual a passada, retorna 1*/
+      if (semaforos[i].id == sem) return 1;  
+   }
+   return 0;
+}
+
+/*Funcao que verifica se o processo pode fazer uma operacao com o semaforo*/
+PRIVATE int authorized (sem_index) 
+   int sem_index;
+{
+   int i;
+   int mproc_index = -1;
+   int pid_atual = who_p;
+   register struct mproc *atual;
+   atual = &mproc[pid_atual];
+  
+   while(atual->mp_parent != pid_atual && pid_atual > 0 && semaforos[sem_index].dono != pid_atual){
+      /*Verifica se os processos "pais" sao donos do semaforo, e se um deles for, o processo eh autorizado*/
+      pid_atual = atual->mp_parent;
+      atual = &mproc[pid_atual];
+      
+   }
+
+   if(semaforos[sem_index].dono == pid_atual)
+      return 1;
+   return 0;
+}
+
+/*************************************************GET SEM****************************************************************/
+PUBLIC int do_getsem (void) {
+   int resultado = RETERR;
+   int id_semaforo;
+   /*mensagem*/
+   int valor = m_in.m1_i1;
+   int i;
+
+   if (qtd_semaforos_ativos == 0) init_sems ();
+
+
+   if (qtd_semaforos_ativos >= NR_SEMS) {
+      m_in.m_type = EFULL;
+      return RETERR;
+   }
+
+   for (i = 0; i < NR_SEMS && resultado == RETERR; ++i) {
+      if (semaforos[i].id == NO_SEM) {
+         /*Gera um id aleatorio para o semaforo*/
+         id_semaforo = rand() % MAX_SEMVAL + 1;
+         /*Se semaforo ja existe, soma 100 no id ateh achar um numero que nao exista*/ 
+         while (sem_exists (id_semaforo)) id_semaforo += 100;
+         qtd_semaforos_ativos++;  
+         resultado = id_semaforo;  
+          
+         semaforos[i].id = id_semaforo;  
+         semaforos[i].valor = valor;  
+          
+         semaforos[i].pcount = 0;  
+         semaforos[i].fila_pid[0] = NADA;  
+         semaforos[i].begin = 0;
+         semaforos[i].end = 0;
+         semaforos[i].dono = who_p;
+      }
+   }
+  
+   return resultado;
+}
+
+
+/*************************************************V SEM***************************************************/
+PUBLIC int do_vsem (void) {
+    
+   int resultado = RETERR;  
+    
+   int sem = m_in.m1_i1;
+
+   int i;
+   int index;
+    
+   if (sem <= 0 || sem > INT_LIMIT - 1 || qtd_semaforos_ativos < 1) {
+      m_in.m_type = EINVAL;
+      return RETERR;
+   }
+    
+   index = -1;
+   /*Procura o indice que corresponde ao semaforo no vetor de semaforos*/
+   for (i = 0; i < NR_SEMS; i++){
+      if(semaforos[i].id == sem){
+          index = i;
+          break;
+      }
+   }
+
+   /*Nao achou o semaforo*/
+   if(index == -1)
+      return RETERR;    
+
+   /*Se nao for dono ou filho do dono nao pode fazer a operacao*/
+   if(!authorized(index))
+      return RETERR;
+
+   if (semaforos[index].valor == MAX_SEMVAL) {
+      m_in.m_type = EBUSY;
+      return RETERR;
+   }
+    
+   (semaforos[index].valor)++;
+    
+   if (semaforos[index].pcount != 0) {
+      int next = semaforos[index].begin;
+      int proc_nr = semaforos[index].fila_pid[next];
+       
+      if (proc_nr <= NADA || proc_nr >= NR_PROCS) return RETERR;
+      
+       
+      if (next == semaforos[index].end) {
+         semaforos[index].fila_pid[next] = NADA;  
+         semaforos[index].begin = 0;  
+         semaforos[index].end = 0;  
+      }else if (next == (TAM_FILA - 1)) {
+         semaforos[index].fila_pid[TAM_FILA - 1] = NADA;
+         semaforos[index].begin = 0;  
+      }else {
+         semaforos[index].fila_pid[next] = NADA;
+         next++;  
+         semaforos[index].begin = next;
+      }
+       
+      (semaforos[index].pcount)--;  
+      resultado = 0;
+       
+      setreply (proc_nr, resultado);
+   }
+   
+   return resultado;
+}
+
+/******************************************************P SEM**********************************************************/
+PUBLIC int do_psem (void) {
+    
+   int resultado = RETERR;  
+    
+   int sem = m_in.m1_i1;
+
+   int index;
+    
+   int i;
+    
+   if (sem <= 0 || sem > INT_LIMIT - 1 || qtd_semaforos_ativos < 1) {
+      m_in.m_type = EINVAL;
+      return RETERR;
+   }
+   
+   index = -1;
+   /*Procura o indice do semaforo no vetor de semaforos*/
+   for (i = 0; i < NR_SEMS; i++){
+      if(semaforos[i].id == sem){
+          index = i;
+          break;
+      }
+   }
+   
+   /*Semaforo nao existe, retorna -1*/
+   if(index == -1)
+      return RETERR;    
+
+   /*Verifica se o proccesso pode fazer a operacao*/
+   if(!authorized(index))
+      return RETERR;
+    
+   if (semaforos[index].valor == -MAX_SEMVAL) {
+      m_in.m_type = EBUSY;
+      return RETERR;
+   }
+    
+   if (semaforos[index].pcount == TAM_FILA) {
+      m_in.m_type = EBUSY;
+      return RETERR;
+   }
+   
+    
+   (semaforos[index].valor)--;
+    
+    if (semaforos[index].valor < 0) {
+      int last = semaforos[index].end;
+      int proc_nr = who_p;
+
+      resultado = 0;
+      if (semaforos[index].pcount == 0) {
+         semaforos[index].fila_pid[last] = proc_nr;
+      }else if (last == (TAM_FILA - 1)) {
+         last = 0;
+         semaforos[index].end = last;
+         semaforos[index].fila_pid[last] = proc_nr;
+      }else {
+         ++last;
+         semaforos[index].end = last;
+         semaforos[index].fila_pid[last] = proc_nr;
+      }
+       
+      (semaforos[index].pcount)++;  
+      
+       
+      return (SUSPEND);
+   }
+
+   return resultado;
+}
+
+/**************************************************FREE SEM**************************************************************/
+PUBLIC int do_freesem (void) {
+    
+   int resultado = RETERR;  
+    
+   int sem = m_in.m1_i1;
+   int i;
+    
+    
+   int index;
+   
+   /*Passou valor errado*/
+   if (sem <= 0 || sem > INT_LIMIT - 1) {
+      m_in.m_type = EINVAL;
+      return RETERR;
+   }
+   
+   /*Procura indice do semaforo no vetor de semaforos*/
+   for (i = 0; i < NR_SEMS; i++){
+      if(semaforos[i].id == sem){
+          index = i;
+          break;
+      }
+   }
+
+   /*Semaforo nao existe*/
+   if(index == -1)
+      return RETERR;    
+   
+   /*Verifica se o processo eh dono para poder libera-lo*/ 
+   if(semaforos[index].dono != who_p)
+      return RETERR;
+   
+   if (semaforos[index].pcount != 0) {
+      m_in.m_type = EBUSY;
+      return RETERR;
+   }
+
+   resultado = 0; 
+   qtd_semaforos_ativos--;
+    
+   semaforos[index].id = NO_SEM;
+   semaforos[index].valor = 0;
+    
+   semaforos[index].pcount = 0;  
+   semaforos[index].fila_pid[0] = NADA;  
+   semaforos[index].begin = 0;
+   semaforos[index].pcount = 0;
+   
+   return resultado;
+}
+\end{lstlisting}
+
+
+\end{document}
+
