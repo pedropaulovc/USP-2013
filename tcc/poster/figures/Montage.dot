@@ -1,0 +1,55 @@
+digraph g{
+a1 -> b1
+a1 -> e1
+a1 -> b2
+a2 -> b1
+a2 -> b2
+a2 -> e2
+a2 -> b3
+a2 -> b5
+a3 -> b3
+a3 -> b4
+a3 -> e3
+a4 -> b4
+a4 -> b5
+a4 -> e4
+a4 -> b6
+b1 -> c1
+b2 -> c1
+b3 -> c1
+b4 -> c1
+b5 -> c1
+b6 -> c1
+c1 -> d1
+d1 -> e1
+d1 -> e2
+d1 -> e3
+d1 -> e4
+e1 -> f1
+e2 -> f1
+e3 -> f1
+e4 -> f1
+f1 -> g1
+g1 -> h1
+h1 -> i1
+a1 [label="",shape=ellipse,fillcolor="yellow",style="filled"];
+a2 [label="",shape=ellipse,fillcolor="yellow",style="filled"];
+a3 [label="",shape=ellipse,fillcolor="yellow",style="filled"];
+a4 [label="",shape=ellipse,fillcolor="yellow",style="filled"];
+b1 [label="",shape=ellipse,fillcolor="blue",style="filled"];
+b2 [label="",shape=ellipse,fillcolor="blue",style="filled"];
+b3 [label="",shape=ellipse,fillcolor="blue",style="filled"];
+b4 [label="",shape=ellipse,fillcolor="blue",style="filled"];
+b5 [label="",shape=ellipse,fillcolor="blue",style="filled"];
+b6 [label="",shape=ellipse,fillcolor="blue",style="filled"];
+c1 [label="",shape=ellipse,fillcolor="red",style="filled"];
+d1 [label="",shape=ellipse,fillcolor="orange",style="filled"];
+e1 [label="",shape=ellipse,fillcolor="green",style="filled"];
+e2 [label="",shape=ellipse,fillcolor="green",style="filled"];
+e3 [label="",shape=ellipse,fillcolor="green",style="filled"];
+e4 [label="",shape=ellipse,fillcolor="green",style="filled"];
+f1 [label="",shape=ellipse,fillcolor="palegreen",style="filled"];
+g1 [label="",shape=ellipse,fillcolor="violet",style="filled"];
+h1 [label="",shape=ellipse,fillcolor="gray",style="filled"];
+i1 [label="",shape=ellipse,fillcolor="olive",style="filled"];
+}
