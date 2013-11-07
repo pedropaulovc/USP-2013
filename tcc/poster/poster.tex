@@ -59,7 +59,7 @@
 %==Titel, date and authors of the poster=======================================
 \title{Um Algoritmo de Escalonamento para Redução do Consumo de Energia em
 Computação em Nuvem}
-\author{Pedro Paulo Vezzá Campos \and \\  Orientador: Prof. Dr. Daniel Macêdo Batista}
+\author{\hskip 10.9cm Pedro Paulo Vezzá Campos \hskip 1cm \url{pedrovc@ime.usp.br} \and \\  Orientador: Prof. Dr. Daniel Macêdo Batista \hskip 1cm \url{batista@ime.usp.br}}
 \institute{Departamento de Ciência da Computação --- Instituto de Matemática e 
 Estatística --- Universidade de São Paulo}
 
@@ -77,9 +77,11 @@ Estatística --- Universidade de São Paulo}
 \begin{column}{0.35\paperwidth}% the right size for a 3-column layout
 
 	\begin{alertblock}{Introdução}
-		A \colorize{RawSienna}{Lei de Moore}, que profetiza que o poder computacional de dispositivos
+		TI é responsável por aproximadamente
+		2\% das emissões anuais de $CO_2$, próximo do nível gerado pela aviação
+		\cite{gartner:co2}. Ao mesmo tempo, a \colorize{RawSienna}{Lei de Moore}, que profetiza que o poder computacional de dispositivos
 		dobra a cada 18 meses, está chegando ao fim da sua vida \cite{patterson:computer_organization}.
-		Processadores atuais atingiram uma barreira de potência mas no entanto
+		Processadores modernos atingiram uma barreira de potência mas no entanto
 		não eram eficientes no \colorize{olive}{consumo energético} \cite{barroso:case_energy_proportional}. Assim, novas
 		tendências surgiram na indústria: processadores mais simples, mais 
 		paralelos e mais eficientes.
@@ -95,34 +97,51 @@ Estatística --- Universidade de São Paulo}
 		
 		\vskip2ex
 		
-		O desenvolvimento dos estudos contou com a contribuição da aluna de 
-		mestrado \colorize{RawSienna}{Elaine Naomi Watanabe}. Como resultado, este TCC apresenta
-		um \colorize{black}{novo algoritmo} de escalonamento de fluxos de
+		Aplicações de processamento paralelo podem ser modeladas como
+		\colorize{RawSienna}{digrafos acíclicos} (DAGs). O problema de decidir
+		qual o melhor \colorize{n_blue}{escalonamento} de uma tarefa (vértice do DAG) em uma máquina
+		de forma a otimizar o uso de algum recurso é um problema \colorize{n_red}{NP-difícil}.
+		Assim, heurísticas são necessárias para encontrar soluções aproximadas.
+	\end{alertblock}
+		
+		\vskip2ex
+		
+	\begin{alertblock}{Resultados}
+		Este TCC apresenta
+		um \colorize{n_red}{novo algoritmo} de escalonamento de fluxos de
 		trabalho em computação em nuvem voltado para a eficiência energética.
 		O desempenho foi comparado com o trabalho ``\emph{Energy-aware
 		simulation with DVFS}'' \cite{guerout:energy_aware_simulation} 
 		e com um algoritmo de escalonamento clássico mas sem um foco na
-		eficiência energética.
-				
+		eficiência energética. Os estudos contaram com a
+		contribuição da aluna de mestrado \colorize{RawSienna}{Elaine Naomi Watanabe}
+		(\url{elainew@ime.usp.br}).
+
+		\vskip2ex
+
+		Como resultados secundários, foram feitas \colorize{olive}{contribuições}
+		a projetos de \colorize{n_violet}{software livre} na forma de divulgação de código fonte,
+		incrementos e notificações de falhas nos simuladores de computação em
+		nuvem utilizados pelo autor.
 	\end{alertblock}
 
-	\begin{block}{Modelagem}
-	\begin{columns}[totalwidth=0.34\paperwidth]
-		\begin{column}{0.17\paperwidth}
-			Podemos modelar algum processamento paralelo a ser computado como um
-			\colorize{RawSienna}{digrafo acíclico} (DAG). Um exemplo, é a aplicação Montage da figura
-			ao lado, que produz mosaicos astronômicos. Dúvida: como associar uma
-			tarefa a uma máquina de forma a diminuir o tempo de processamento ou
-			energia consumida? O problema de achar um
-			\colorize{n_blue}{escalonamento} ótimo é \colorize{n_red}{NP-difícil}!
-		\end{column}
-		\begin{column}{0.17\paperwidth}
-			\begin{center}
-				\includegraphics[width=0.9\columnwidth]{Montage_PP.png}
-			\end{center}
-		\end{column}
-	\end{columns}
-	\end{block}
+%	\begin{block}{Modelagem}
+%	\begin{columns}[totalwidth=0.34\paperwidth]
+%		\begin{column}{0.17\paperwidth}
+%			Podemos modelar aplicações de processamento paralelo a serem computadas como um
+%			\colorize{RawSienna}{digrafo acíclico} (DAG). Um exemplo, é a aplicação Montage da figura
+%			ao lado, que produz mosaicos astronômicos. Dúvida: como associar uma
+%			tarefa a uma máquina de forma a diminuir o tempo de processamento ou
+%			energia consumida? O problema de encontrar um
+%			\colorize{n_blue}{escalonamento} ótimo é \colorize{n_red}{NP-difícil}!
+%		\end{column}
+%		\begin{column}{0.17\paperwidth}
+%			\begin{center}
+%				\includegraphics[width=0.9\columnwidth]{Montage_PP.png}
+%			\end{center}
+%		\end{column}
+%	\end{columns}
+%	\end{block}
 \end{column}
 
 % ---------------------------------------------------------------------------- %
@@ -133,15 +152,16 @@ Estatística --- Universidade de São Paulo}
 			O \emph{Heterogeneous Earliest Finish Time} (\colorize{black}{HEFT})
 			\cite{topcoglu:heft} é uma boa heurística para o
 			problema de escalonamento. Ele recebe como parâmetros um DAG a ser
-			escalonado, um conjunto possivelmente heterogêneos de máquinas que
+			escalonado, um conjunto possivelmente heterogêneo de máquinas que
 			realizarão o processamento, os tempos de processamento de cada tarefa
 			em cada máquina e o tempo de transmissão entre duas tarefas. Ele
 			é dividido em duas fases: \colorize{olive}{priorização} e 
 			\colorize{n_violet}{seleção}. 
-
+	
+			\vskip2ex
 
 			\begin{block}{Priorização}
-			\colorize{n_red}{Qual tarefa escalonar primeiro}? 
+			\colorize{n_red}{Qual tarefa escalonar primeiro?} 
 			A fórmula abaixo é o critério de priorização do HEFT. Além de gerar
 			uma \colorize{n_violet}{ordem topológica}, dá prioridade a tarefas
 			mais críticas do DAG.
@@ -155,7 +175,7 @@ Estatística --- Universidade de São Paulo}
 			\end{block}
 
 			\begin{block}{Seleção}
-				\colorize{n_red}{Em qual máquina escalonar uma tarefa}? O HEFT
+				\colorize{n_red}{Em qual máquina escalonar uma tarefa?} O HEFT
 				tenta minimizar o \colorize{n_blue}{tempo mais cedo de conclusão}
 				de cada tarefa na esperança que isso minimize a conclusão do
 				fluxo de trabalho como um todo.
@@ -183,7 +203,7 @@ Estatística --- Universidade de São Paulo}
 			\li 		\Do
 							Selecione a primeira tarefa, $n_i$ da lista de escalonamento.
 
-			\li				\For cada processafor $p_k$ no conjunto de processadores
+			\li				\For cada processador $p_k$ no conjunto de processadores
 			\li 				\Do
 									Calcule o tempo mais cedo de conclusão da tarefa  $n_i$,
 			\zi						considerando que ela execute em $p_k$
@@ -197,13 +217,15 @@ Estatística --- Universidade de São Paulo}
 
 		\end{column}
 		\begin{column}{0.28\paperwidth}
-
+		\begin{block}{Exemplo}
+		Os dados abaixo foram adaptados de \cite{topcoglu:heft}.
+			
 			\begin{center}
-				\includegraphics[width=0.70\columnwidth]{dag_heft.pdf}
+				\includegraphics[width=0.68\columnwidth]{dag_heft.pdf}
 			\end{center}	
 
 			\begin{table}[ht]
-%			\small
+			\small
 			\centering
 			\begin{tabular}{|c|c|c|c|c|}
 			\hline
@@ -223,7 +245,8 @@ Estatística --- Universidade de São Paulo}
 
 			\begin{center}
 				\includegraphics[width=0.42\columnwidth]{escalonamento_heft.pdf}
-			\end{center}	
+			\end{center}
+		\end{block}	
 		\end{column}
 		\end{columns}
 
@@ -250,11 +273,15 @@ Estatística --- Universidade de São Paulo}
 		\li $F \gets \text{filhos diretos da } tarefa \text{ no DAG}$
 	    \li Escalone $tarefa$ em $VM$
     	\li Escalone $F$ utilizando o algoritmo \textsc{HEFT}
+    	\li \Comment A modelagem energética utilizada está descrita em
+	    	\cite{guerout:energy_aware_simulation}
     	\li $energia \gets$ \proc{EstimarEnergiaConsumida()}
   		\li Volte para o escalonamento do começo do laço
     	\li \Return $energia$
 	\end{codebox}
 	\end{shaded}
+	
+	
 	
 	\definecolor{shadecolor}{named}{n_green_bg}
 	\begin{shaded}
@@ -272,7 +299,7 @@ Estatística --- Universidade de São Paulo}
 			    \li \Do	$\proc{EscalonarPowerHEFT}(t, v)$
 		    \End
 		    
-		    \zi
+%		    \zi
 		    \li \Comment Vamos tentar escalonar t em uma nova VM
 		    \li \For cada $o$ em $O$:
 			    \li \Do	$V \gets V \cup \{o\}$
@@ -331,48 +358,101 @@ Estatística --- Universidade de São Paulo}
 \end{column}
 \end{columns}
 
+\begin{block}{Referências}
 \begin{columns}[t] 
 	\begin{column}{0.35\columnwidth}
 
-		\begin{block}{Agradecimentos}
-			O autor gostaria de agradecer os valiosos comentários fornecidos
-			pelo orientador e por Elaine Watanabe, sem os quais este trabalho
-			não teria chegado a este ponto.
-		\end{block}
-		
-	\end{column}
-
-	\begin{column}{0.61\columnwidth}
-		\begin{block}{Referências}
 			\footnotesize{\begin{thebibliography}{99}
-			\bibitem[PH12]{patterson:computer_organization}
-			D.A. Patterson e J.L. Hennessy. {\em Computer Organization and Design: The Hardware/software
-			  Interface}. Morgan Kaufmann Series in Computer Graphics. Morgan Kaufmann, 2012.
-
 			\bibitem[BH07]{barroso:case_energy_proportional}
 			L.A. Barroso e U.~H\"olzle.
 			The case for energy-proportional computing.
 			{\em Computer}, 40(12):33--37, 2007.
 
+			\bibitem[Gar07]{gartner:co2}
+			Gartner.
+			{Gartner Estimates ICT Industry Accounts for 2 Percent of Global CO2
+			  Emissions}, 2007. \url{http://www.gartner.com/newsroom/id/503867}
+			[Online; acessado em 7 de dezembro de 2013].
+
+			\end{thebibliography}}
+
+%		\begin{block}{Agradecimentos}
+%			O autor gostaria de agradecer os valiosos comentários fornecidos
+%			pelo orientador e por Elaine Watanabe, sem os quais este trabalho
+%			não teria chegado a este ponto.
+%		\end{block}
+		
+	\end{column}
+
+	\begin{column}{0.30\columnwidth}
+
+			\footnotesize{\begin{thebibliography}{99}
+%			\bibitem[PH12]{patterson:computer_organization}
+%			D.A. Patterson e J.L. Hennessy. {\em Computer Organization and Design: The Hardware/software
+%			  Interface}. Morgan Kaufmann Series in Computer Graphics. Morgan Kaufmann, 2012.
+
+%			\bibitem[BH07]{barroso:case_energy_proportional}
+%			L.A. Barroso e U.~H\"olzle.
+%			The case for energy-proportional computing.
+%			{\em Computer}, 40(12):33--37, 2007.
+
 			\bibitem[GMDC+13]{guerout:energy_aware_simulation}
 			Tom Gu{\'e}rout, Thierry Monteil, Georges Da~Costa, Rodrigo Neves~Calheiros,
 			  Rajkumar Buyya e Mihai Alexandru.
 			Energy-aware simulation with dvfs.
-			{\em Simulation Modelling Practice and Theory}, 2013.
+			{\em Simulation Modelling Practice and Theory}, v.39, i.1, p.76-91, 2013.
+
+%			\bibitem[THW02]{topcoglu:heft}
+%			H.~Topcuoglu, S.~Hariri e Min-You Wu.
+%			Performance-effective and low-complexity task scheduling for
+%			  heterogeneous computing.
+%			{\em IEEE Transactions on Parallel and Distributed Systems},
+%			  13(3):260--274, 2002.
+
+%			\bibitem[Gar07]{gartner:co2}
+%			Gartner.
+%			{Gartner Estimates ICT Industry Accounts for 2 Percent of Global CO2
+%			  Emissions}, 2007.
+%			[Online; acessado em 7 de dezembro de 2013].
+
+			\end{thebibliography}}
+
+	\end{column}
+
+	\begin{column}{0.30\columnwidth}
+
+			\footnotesize{\begin{thebibliography}{99}
+%			\bibitem[PH12]{patterson:computer_organization}
+%			D.A. Patterson e J.L. Hennessy. {\em Computer Organization and Design: The Hardware/software
+%			  Interface}. Morgan Kaufmann Series in Computer Graphics. Morgan Kaufmann, 2012.
+
+%			\bibitem[BH07]{barroso:case_energy_proportional}
+%			L.A. Barroso e U.~H\"olzle.
+%			The case for energy-proportional computing.
+%			{\em Computer}, 40(12):33--37, 2007.
+
+%			\bibitem[GMDC+13]{guerout:energy_aware_simulation}
+%			Tom Gu{\'e}rout, Thierry Monteil, Georges Da~Costa, Rodrigo Neves~Calheiros,
+%			  Rajkumar Buyya e Mihai Alexandru.
+%			Energy-aware simulation with dvfs.
+%			{\em Simulation Modelling Practice and Theory}, v.39, i.1, p.76-91, 2013.
+
+			\bibitem[PH12]{patterson:computer_organization}
+			D.A. Patterson e J.L. Hennessy. {\em Computer Organization and Design: The Hardware/software
+			  Interface}. Morgan Kaufmann Series in Computer Graphics. Morgan Kaufmann, 2012.
 
 			\bibitem[THW02]{topcoglu:heft}
 			H.~Topcuoglu, S.~Hariri e Min-You Wu.
 			Performance-effective and low-complexity task scheduling for
 			  heterogeneous computing.
-			{\em Parallel and Distributed Systems, IEEE Transactions on},
+			{\em IEEE Transactions on Parallel and Distributed Systems},
 			  13(3):260--274, 2002.
 
 			\end{thebibliography}}
-
-		\end{block}
+	
 	\end{column}
 \end{columns}
-
+\end{block}
 
 % ---------------------------------------------------------------------------- %
 \end{frame}
