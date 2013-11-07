@@ -13,7 +13,7 @@
 %
 
 \documentclass[final]{beamer} 
-\usepackage[size=b1, orientation=portrait, scale=1.2]{beamerposter} % font scale factor=1.0
+\usepackage[size=b1, orientation=portrait]{beamerposter} % font scale factor=1.0
 
 \usepackage[brazilian]{babel}
 \usepackage[utf8]{inputenc}
@@ -40,10 +40,10 @@
 \graphicspath{{./figures/}}  
 \urlstyle{same}
 
-\pgfplotsset{every axis/.append style={
-	font=\large,
-	line width=1pt,
-	tick style={line width=1pt}}}
+%\pgfplotsset{every axis/.append style={
+%	font=\large,
+%	line width=1pt,
+%	tick style={line width=1pt}}}
 
 
 %==The poster style============================================================
@@ -299,157 +299,27 @@ Estatística --- Universidade de São Paulo}
 
 \begin{columns}[t] 
 	\begin{column}{0.45\columnwidth}
-	\begin{center}
-		\begin{tikzpicture}
-			\begin{axis}[
-%				height=9cm,
-				width=0.75\columnwidth,
-				grid=major,
-				title={Lorem}
-			]
-			
-			\addplot coordinates {
-				(-4.77778,2027.60977)
-				(-3.55556,347.84069)
-				(-2.33333,22.58953)
-				(-1.11111,-493.50066)
-				(0.11111,46.66082)
-				(1.33333,-205.56286)
-				(2.55556,-341.40638)
-				(3.77778,-1169.24780)
-				(5.00000,-3269.56775)
-			};
-			\addlegendentry{lorem}
+		\begin{center}
+			\includegraphics[width=\columnwidth]{Montage.png}
+		\end{center}	
 
-			\addplot coordinates {
-				(-4.77778,20.60977)
-				(-3.55556,34.84069)
-				(-2.33333,2.58953)
-				(-1.11111,-93.50066)
-				(0.11111,4.66082)
-				(1.33333,-05.56286)
-				(2.55556,-41.40638)
-				(3.77778,-119.24780)
-				(5.00000,-369.56775)
-			};
-			\addlegendentry{estimate}
-			\end{axis}
-		\end{tikzpicture}
-		
 		\vskip4ex
-		\begin{tikzpicture}
-			\begin{axis}[
-%				height=9cm,
-				width=0.75\columnwidth,
-				grid=major,
-				title={Energia}
-			]
-			
-			\addplot coordinates {
-				(-4.77778,2027.60977)
-				(-3.55556,347.84069)
-				(-2.33333,22.58953)
-				(-1.11111,-493.50066)
-				(0.11111,46.66082)
-				(1.33333,-205.56286)
-				(2.55556,-341.40638)
-				(3.77778,-1169.24780)
-				(5.00000,-3269.56775)
-			};
-			\addlegendentry{lorem}
 
-			\addplot coordinates {
-				(-4.77778,20.60977)
-				(-3.55556,34.84069)
-				(-2.33333,2.58953)
-				(-1.11111,-93.50066)
-				(0.11111,4.66082)
-				(1.33333,-05.56286)
-				(2.55556,-41.40638)
-				(3.77778,-119.24780)
-				(5.00000,-369.56775)
-			};
-			\addlegendentry{estimate}
-			\end{axis}
-		\end{tikzpicture}
-	\end{center}
+		\begin{center}
+			\includegraphics[width=\columnwidth]{Sipht.png}
+		\end{center}
 	\end{column}
 
 	\begin{column}{0.45\columnwidth}
-	\begin{center}
-		\begin{tikzpicture}
-			\begin{axis}[
-%				height=9cm,
-				width=0.75\columnwidth,
-				grid=major,
-				title={Lorem}
-			]
-			
-			\addplot coordinates {
-				(-4.77778,2027.60977)
-				(-3.55556,347.84069)
-				(-2.33333,22.58953)
-				(-1.11111,-493.50066)
-				(0.11111,46.66082)
-				(1.33333,-205.56286)
-				(2.55556,-341.40638)
-				(3.77778,-1169.24780)
-				(5.00000,-3269.56775)
-			};
-			\addlegendentry{lorem}
+		\begin{center}
+			\includegraphics[width=\columnwidth]{CyberShake.png}
+		\end{center}	
 
-			\addplot coordinates {
-				(-4.77778,20.60977)
-				(-3.55556,34.84069)
-				(-2.33333,2.58953)
-				(-1.11111,-93.50066)
-				(0.11111,4.66082)
-				(1.33333,-05.56286)
-				(2.55556,-41.40638)
-				(3.77778,-119.24780)
-				(5.00000,-369.56775)
-			};
-			\addlegendentry{estimate}
-			\end{axis}
-		\end{tikzpicture}
-		
 		\vskip4ex
-		\begin{tikzpicture}
-			\begin{axis}[
-%				height=9cm,
-				width=0.75\columnwidth,
-				grid=major,
-				title={Energia}
-			]
-			
-			\addplot coordinates {
-				(-4.77778,2027.60977)
-				(-3.55556,347.84069)
-				(-2.33333,22.58953)
-				(-1.11111,-493.50066)
-				(0.11111,46.66082)
-				(1.33333,-205.56286)
-				(2.55556,-341.40638)
-				(3.77778,-1169.24780)
-				(5.00000,-3269.56775)
-			};
-			\addlegendentry{lorem}
 
-			\addplot coordinates {
-				(-4.77778,20.60977)
-				(-3.55556,34.84069)
-				(-2.33333,2.58953)
-				(-1.11111,-93.50066)
-				(0.11111,4.66082)
-				(1.33333,-05.56286)
-				(2.55556,-41.40638)
-				(3.77778,-119.24780)
-				(5.00000,-369.56775)
-			};
-			\addlegendentry{estimate}
-			\end{axis}
-		\end{tikzpicture}
-	\end{center}
+		\begin{center}
+			\includegraphics[width=\columnwidth]{Inspiral.png}
+		\end{center}
 	\end{column}
 \end{columns}
 
