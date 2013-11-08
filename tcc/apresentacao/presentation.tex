@@ -34,6 +34,7 @@
 \usepackage{colortbl}
 \usepackage{xcolor}
 \usepackage{pgf-pie}
+\usepackage{clrscode3e}
 \pgfplotsset{compat=1.7}
 
 \definecolor{n_red}{HTML}{D7191C}
@@ -62,12 +63,12 @@
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
 %\author{F.~Author\inst{1} \and S.~Another\inst{2}}
-\author[shortname]{Pedro Paulo Vezzá Campos}
+\author[shortname]{Pedro Paulo Vezzá Campos \\ \and Orientador: Prof. Dr. Daniel Macêdo Batista}
 \institute[shortinst]{
 	MAC\oldstylenums{0499} -- Trabalho de Formatura Supervisionado \\
 	Instituto de Matemática e Estatística \\
 		Universidade de São Paulo, São Paulo, Brasil \\
-	\url{pedro@vezza.com.br}
+	\url{[pedrovc, batista]@ime.usp.br}
 	}
 
 \date{\today}
@@ -193,10 +194,8 @@
 
 \begin{figure}[htp]
 \begin{center}
-  \includegraphics[height=7cm]{Montage.jpg}
-  \caption[map]{Montage: Gerador de mosaicos astronômicos \footnote{\tiny
-  Fonte: Projeto Pegasus, \url{https://confluence.pegasus.isi.edu/display/pegasus/WorkflowGenerator},
-  sob a licença Apache V2}}
+  \includegraphics[height=7cm]{Montage_PP.png}
+  \caption[map]{Montage: Gerador de mosaicos astronômicos}
 \end{center}
 \end{figure}
 
@@ -264,6 +263,37 @@
 \end{itemize}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Algoritmo}
+	\begin{codebox}
+	\Procname{$\proc{Heterogeneous-Earliest-Finish-Time}()$}
+	\li	Defina os custos computacionais das tarefas e os cus-
+	\zi tos de de comunicação das arestas com valores médios
+
+	\li	Calcule $rank_u$ para todas as tarefas varrendo o grafo
+	\zi de ``baixo para cima'',	iniciando pela tarefa final.
+
+	\li Ordene as tarefas em uma lista de escalonamento utilizando
+	\zi uma ordem não crescente de valores de $rank_u$.
+
+	\li 	\While há tarefas não escalonadas na lista
+	\li 		\Do
+					Selecione a primeira tarefa, $n_i$ da lista de escalonamento.
+
+	\li				\For cada processador $p_k$ no conjunto de processadores
+	\li 				\Do
+							Calcule o tempo mais cedo de conclusão da tarefa  $n_i$,
+	\zi						considerando que ela execute em $p_k$
+						\End
+	\li				Defina a tarefa $n_i$ para executar no processador $p_j$ que
+	\zi					minimiza o tempo mais cedo de conclusão da tarefa $n_i$.
+				\End
+	\End
+	\end{codebox}
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -295,6 +325,8 @@
 	\begin{column}[c]{.4\textwidth} % alternative top-align that's better for graphics
 		\includegraphics[height=6.5cm]{escalonamento_heft.pdf}
 	\end{column}
+	
+	\footnote{Este exemplo foi adaptado de \cite{topcoglu:heft}}
 \end{columns}
 \end{frame}
 
@@ -305,11 +337,76 @@
 \section{Experimentos}
 \subsection{}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{PowerHEFT}
+\begin{itemize}
+	\item \colorize{n_orange}{Variante} do HEFT, faz uso de uma estratégia de \colorize{n_blue}{lookahead}
+	\item \colorize{n_green}{Motivação}: Otimizar o consumo energético de uma
+		\colorize{n_yellow}{tarefa sozinha} \colorize{n_violet}{não é eficiente}
+	\item Desenvolvido em conjunto com a mestranda \colorize{olive}{Elaine Naomi Watanabe}
+	(\url{elainew@ime.usp.br})
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Algoritmo}
+	\small
+	\begin{codebox}
+	\Procname{$\proc{PowerHEFTLookahead}()$}
+		\li $V \gets \{VmMaisRapida\}$ \Comment VMs usadas ao escalonar
+		\li $O \gets \text{os tipos de VMs que podem ser instanciadas}$
+		\li Ordene o conjunto de tarefas segundo o critério $rank_u$
+	   
+		\li \While há tarefas não escalonadas
+			\li \Do $t \gets \text{a tarefa não escalonada de maior } rank_u$
+		    \li \Comment Vamos tentar escalonar t em uma VM existente
+		    \li \For cada $v$ em $V$:
+			    \li \Do	$\proc{EscalonarPowerHEFT}(t, v)$
+		    \End
+		    
+%		    \zi
+		    \li \Comment Vamos tentar escalonar t em uma nova VM
+		    \li \For cada $o$ em $O$:
+			    \li \Do	$V \gets V \cup \{o\}$
+			    \li Atualize os valores de $rank_u$
+			    \li $t \gets \text{a tarefa não escalonada de maior } rank_u$
+			    \li $\proc{EscalonarPowerHEFT}(t, o)$
+		    \End
+		    
+		    \li Escalone $t$ na VM que minimiza a energia consumida
+		    \li Atualize $V$ e $rank_u$ caso necessário
+		\End
+	\End
+	\end{codebox}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Algoritmo}
+	\small
+	\begin{codebox}
+	\Procname{$\proc{EscalonarPowerHEFT}(tarefa, VM)$}
+		\li $F \gets \text{filhos diretos da } tarefa \text{ no DAG}$
+	    \li Escalone $tarefa$ em $VM$
+    	\li Escalone $F$ utilizando o algoritmo \textsc{HEFT}
+    	\li \Comment A modelagem energética utilizada está descrita em
+	    	\cite{guerout:energy_aware_simulation}
+    	\li $energia \gets$ \proc{EstimarEnergiaConsumida()}
+  		\li Volte para o escalonamento do começo do laço
+    	\li \Return $energia$
+	\end{codebox}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Simuladores}
 \begin{description}
-	\item[CloudSim] lançado em \colorize{n_violet}{2010}, já na versão 3, quase 300 citações
+	\item[CloudSim v3] lançado em \colorize{n_violet}{2010}, quase 300 citações
 	\item[WorkflowSim] lançado em \colorize{n_green}{abril de 2013}
 	\item[\textbf{CloudSim\_DVFS}] lançado em \colorize{n_red}{junho de 2013} (!!)
 \end{description}
@@ -318,12 +415,153 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{PowerHEFT: Algoritmo proposto}
+\frametitle{Modelagem energética}
+
+\begin{table}
+    \begin{tabular}{c|cllll}
+    \hline
+    \textbf{Velocidades (GHz)} & \textbf{0.8} & \textbf{1.0} & \textbf{1.2} & \textbf{1.5} & \textbf{1.7} \\ \hline
+    \textbf{Nível ocioso (W)}       & 140          & 146          & 153          & 159          & 167          \\
+    \textbf{Nível máximo (W)}  & 228          & 238          & 249          & 260          & 272          \\ \hline
+    \end{tabular}
+    \caption{Frequências do Grid'5000 Reims com as medidas de potência durante
+    cargas mínima e máxima (0\% e 100\% de uso dos 24 cores de um nó de processamento
+    \cite{guerout:energy_aware_simulation}}
+\end{table}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Resultados}
+	\begin{center}
+		\includegraphics[width=0.9\columnwidth]{Montage.png}
+	\end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Resultados}
+	\begin{center}
+		\includegraphics[width=0.9\columnwidth]{CyberShake.png}
+	\end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Resultados}
+	\begin{center}
+		\includegraphics[width=0.9\columnwidth]{Sipht.png}
+	\end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Resultados}
+	\begin{center}
+		\includegraphics[width=0.9\columnwidth]{Inspiral.png}
+	\end{center}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusões}
+\subsection{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Dificuldades}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+	\begin{colorblock}{Técnicas}{bg=n_green_bg!30}{bg=n_green!100}
+		\begin{itemize}
+			\item Simuladores \colorize{n_red}{muito novos} e \colorize{n_orange}{pouco testados}
+			\item Dificuldades para \colorize{n_violet}{estender as funcionalidades}
+			para as	necessidades do TCC
+		\end{itemize}
+	\end{colorblock}
+\end{column}
+\begin{column}{0.5\textwidth}
+	\begin{colorblock}{Conceituais}{bg=n_green_bg!30}{bg=n_green!100}
+		\begin{itemize}
+			\item O HEFT é um algoritmo \colorize{n_blue}{simples e elegante}
+			\item Trabalho ainda \colorize{RawSienna}{em andamento} para superá-lo
+			\item Escalonamento energeticamente eficiente é uma \colorize{olive}{área de pesquisa}
+			inaugurada há \colorize{n_violet}{meses}
+		\end{itemize}
+	\end{colorblock}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Este TCC}
 \begin{itemize}
-	\item Variante do HEFT, faz uso de uma estratégia de lookahead
+	\item Fez um \colorize{n_red}{estudo} de diversas técnicas de
+	\colorize{n_orange}{escalonamento} e \colorize{olive}{simulação} em computação em nuvem
+	\item Implementou com a ajuda da mestranda Elaine Watanabe um \colorize{n_red}{algoritmo novo}
+	para resolver o problema do escalonamento energeticamente eficiente
+	\item Contribuiu com projetos de \colorize{n_blue}{software livre}
 \end{itemize}
 
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Bibliografia}
+
+
+\begin{thebibliography}{99}
+	\bibitem[PH12]{patterson:computer_organization}
+	D.A. Patterson e J.L. Hennessy. {\em Computer Organization and Design: The Hardware/software
+	  Interface}. Morgan Kaufmann Series in Computer Graphics. Morgan Kaufmann, 2012.
+
+	\bibitem[BH07]{barroso:case_energy_proportional}
+	L.A. Barroso e U.~H\"olzle.
+	The case for energy-proportional computing.
+	{\em Computer}, 40(12):33--37, 2007.
+
+	\bibitem[GMDC+13]{guerout:energy_aware_simulation}
+	Tom Gu{\'e}rout, Thierry Monteil, Georges Da~Costa, Rodrigo Neves~Calheiros,
+	  Rajkumar Buyya e Mihai Alexandru.
+	Energy-aware simulation with dvfs.
+	{\em Simulation Modelling Practice and Theory}, v.39, i.1, p.76-91, 2013.
+
+	\bibitem[THW02]{topcoglu:heft}
+	H.~Topcuoglu, S.~Hariri e Min-You Wu.
+	Performance-effective and low-complexity task scheduling for
+	  heterogeneous computing.
+	{\em IEEE Transactions on Parallel and Distributed Systems},
+	  13(3):260--274, 2002.
+
+\end{thebibliography}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{}
+
+\begin{center}
+	\Huge Obrigado! \\
+	\Large Perguntas?
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\appendix
+
 
 
 \end{document}
