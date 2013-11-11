@@ -29,16 +29,17 @@
 \usepackage{graphicx}
 \usepackage{array}
 \usepackage{colortbl}
+\usepackage{pgf-pie}
 \usepackage{tikz}
-\usepackage{pgfplots}
+\usepackage{pgf}
+%\usepackage{pgfplots}
 \usepackage{colortbl}
 \usepackage{xcolor}
-\usepackage{pgf-pie}
 \usepackage{clrscode3e}
-\pgfplotsset{compat=1.7}
+%\pgfplotsset{compat=1.8}
 
 \definecolor{n_red}{HTML}{D7191C}
-\definecolor{n_orange}{HTML}{FD9B61}
+\definecolor{n_orange}{HTML}{FF5800}
 \definecolor{n_green}{HTML}{3F745A}
 \definecolor{n_green_bg}{HTML}{AAE6C9}
 \definecolor{n_blue}{HTML}{2B83BA}
@@ -123,7 +124,7 @@
 	\end{itemize}
 \end{colorblock}
 
-\begin{colorblock}{Experimentos}{bg=n_violet!5}{bg=n_violet!100}
+\begin{colorblock}{Algoritmo Proposto \& Experimentos}{bg=n_violet!5}{bg=n_violet!100}
 	\begin{itemize}
 		\item O desenvolvimento de um novo algoritmo: Êxitos e frustrações
 	\end{itemize}
@@ -178,11 +179,20 @@
 \begin{frame}
 \frametitle{}
 
-\begin{figure}[htp]
-\begin{center}
-  \includegraphics[height=6cm]{nuvem.png}
-\end{center}
-\end{figure}
+\begin{columns}
+	\begin{column}{0.5\textwidth}	
+	\begin{center}
+	  \includegraphics[width=0.9\textwidth]{nuvem.png}
+	\end{center}
+	\end{column}
+	\begin{column}{0.5\textwidth}	
+		\begin{itemize}
+			\item Economia de \colorize{olive}{escala}
+			\item \colorize{n_violet}{Consolidação} de poder computacional, armazenamento e
+				transferência de dados
+		\end{itemize}
+	\end{column}
+\end{columns}
 
 %Comentar sobre complexide de algoritmo de escalonamento
 
@@ -193,10 +203,22 @@
 \frametitle{}
 
 \begin{figure}[htp]
-\begin{center}
-  \includegraphics[height=7cm]{Montage_PP.png}
-  \caption[map]{Montage: Gerador de mosaicos astronômicos}
-\end{center}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}	
+	\begin{center}
+	  \includegraphics[width=0.9\textwidth]{Montage_PP.png}
+	  \caption[map]{Montage: Gerador de mosaicos astronômicos}
+	\end{center}
+	\end{column}
+	\begin{column}{0.5\textwidth}	
+	\begin{center}
+	  \includegraphics[width=0.9\textwidth]{Mosaico.jpg}
+	  \caption[map]{Aglomerado de Plêiades, figura em domínio público}
+	\end{center}
+	\end{column}
+\end{columns}
+
 \end{figure}
 
 %Comentar sobre complexide de algoritmo de escalonamento
@@ -211,13 +233,16 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{Computação em nuvem}
+\frametitle{Custo total de posse de um \emph{rack} em um \emph{datacenter}}
+\begin{figure}
 \begin{tikzpicture}
-	\pie{1/Monitoramento, 5/Gerenciamento, 18/Equipamentos Elétricos,
-                  6/Refrigeração, 18/Instalações, 20/Eletricidade,
-                   15/Serviços, 2/Rack, 15/Espaço}
-
+	\pie[explode={0.3, 0.3, 0.3, 0, 0, 0, 0, 0, 0}, radius=2.2]{6/Refrigeração,
+	20/Eletricidade, 18/Equipamentos Elétricos, 1/Monitoramento, 5/Gerenciamento,
+                  18/Instalações,15/Serviços, 2/Rack, 15/Espaço}
 \end{tikzpicture}
+\caption{Custo total de posse de um \emph{rack} em um \emph{data center} típico 
+de alta disponibilidade \cite{rasmussen:tco_data_center}}
+\end{figure}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -236,6 +261,7 @@
 \frametitle{HEFT: \emph{Heterogeneous Earliest Finish Time}}
 \begin{itemize}
 	\item Publicado em \colorize{n_green}{2002}
+	\item Heurística para um problema \colorize{n_red}{NP-difícil}!
 	\item Bastante aceito na comunidade científica (Quase \colorize{n_violet}{mil citações})
 	\item Duas fases: \colorize{olive}{priorização} e \colorize{RawSienna}{seleção}
 \end{itemize}
@@ -262,38 +288,6 @@
 	\item Busca por um \colorize{olive}{espaço vago} grande o suficiente
 \end{itemize}
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{Algoritmo}
-	\begin{codebox}
-	\Procname{$\proc{Heterogeneous-Earliest-Finish-Time}()$}
-	\li	Defina os custos computacionais das tarefas e os cus-
-	\zi tos de de comunicação das arestas com valores médios
-
-	\li	Calcule $rank_u$ para todas as tarefas varrendo o grafo
-	\zi de ``baixo para cima'',	iniciando pela tarefa final.
-
-	\li Ordene as tarefas em uma lista de escalonamento utilizando
-	\zi uma ordem não crescente de valores de $rank_u$.
-
-	\li 	\While há tarefas não escalonadas na lista
-	\li 		\Do
-					Selecione a primeira tarefa, $n_i$ da lista de escalonamento.
-
-	\li				\For cada processador $p_k$ no conjunto de processadores
-	\li 				\Do
-							Calcule o tempo mais cedo de conclusão da tarefa  $n_i$,
-	\zi						considerando que ela execute em $p_k$
-						\End
-	\li				Defina a tarefa $n_i$ para executar no processador $p_j$ que
-	\zi					minimiza o tempo mais cedo de conclusão da tarefa $n_i$.
-				\End
-	\End
-	\end{codebox}
-\end{frame}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -334,9 +328,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Experimentos}
+\section{Algoritmo Proposto}
 \subsection{}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -344,7 +337,7 @@
 \begin{itemize}
 	\item \colorize{n_orange}{Variante} do HEFT, faz uso de uma estratégia de \colorize{n_blue}{lookahead}
 	\item \colorize{n_green}{Motivação}: Otimizar o consumo energético de uma
-		\colorize{n_yellow}{tarefa sozinha} \colorize{n_violet}{não é eficiente}
+		\colorize{RawSienna}{tarefa sozinha não é eficiente}
 	\item Desenvolvido em conjunto com a mestranda \colorize{olive}{Elaine Naomi Watanabe}
 	(\url{elainew@ime.usp.br})
 \end{itemize}
@@ -354,7 +347,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Algoritmo}
-	\small
+	\footnotesize
 	\begin{codebox}
 	\Procname{$\proc{PowerHEFTLookahead}()$}
 		\li $V \gets \{VmMaisRapida\}$ \Comment VMs usadas ao escalonar
@@ -363,12 +356,13 @@
 	   
 		\li \While há tarefas não escalonadas
 			\li \Do $t \gets \text{a tarefa não escalonada de maior } rank_u$
+			\zi
 		    \li \Comment Vamos tentar escalonar t em uma VM existente
 		    \li \For cada $v$ em $V$:
 			    \li \Do	$\proc{EscalonarPowerHEFT}(t, v)$
 		    \End
 		    
-%		    \zi
+		    \zi
 		    \li \Comment Vamos tentar escalonar t em uma nova VM
 		    \li \For cada $o$ em $O$:
 			    \li \Do	$V \gets V \cup \{o\}$
@@ -394,6 +388,7 @@
 		\li $F \gets \text{filhos diretos da } tarefa \text{ no DAG}$
 	    \li Escalone $tarefa$ em $VM$
     	\li Escalone $F$ utilizando o algoritmo \textsc{HEFT}
+    	\zi
     	\li \Comment A modelagem energética utilizada está descrita em
 	    	\cite{guerout:energy_aware_simulation}
     	\li $energia \gets$ \proc{EstimarEnergiaConsumida()}
@@ -401,6 +396,13 @@
     	\li \Return $energia$
 	\end{codebox}
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experimentos}
+\subsection{}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -412,26 +414,6 @@
 \end{description}
 
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{Modelagem energética}
-
-\begin{table}
-    \begin{tabular}{c|cllll}
-    \hline
-    \textbf{Velocidades (GHz)} & \textbf{0.8} & \textbf{1.0} & \textbf{1.2} & \textbf{1.5} & \textbf{1.7} \\ \hline
-    \textbf{Nível ocioso (W)}       & 140          & 146          & 153          & 159          & 167          \\
-    \textbf{Nível máximo (W)}  & 228          & 238          & 249          & 260          & 272          \\ \hline
-    \end{tabular}
-    \caption{Frequências do Grid'5000 Reims com as medidas de potência durante
-    cargas mínima e máxima (0\% e 100\% de uso dos 24 núcleos de um nó de processamento)
-    \cite{guerout:energy_aware_simulation}}
-\end{table}
-
-
-\end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -449,13 +431,6 @@
 	\end{center}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{Resultados}
-	\begin{center}
-		\includegraphics[width=0.9\columnwidth]{Sipht.png}
-	\end{center}
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -514,14 +489,22 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+\frametitle{}
+
+\begin{center}
+	\Huge Obrigado! \\
+	\Large Perguntas?
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
 \frametitle{Bibliografia}
 
 
 \begin{thebibliography}{99}
-	\bibitem[PH12]{patterson:computer_organization}
-	D.A. Patterson e J.L. Hennessy. {\em Computer Organization and Design: The Hardware/software
-	  Interface}. Morgan Kaufmann Series in Computer Graphics. Morgan Kaufmann, 2012.
-
+	\small
 	\bibitem[BH07]{barroso:case_energy_proportional}
 	L.A. Barroso e U.~H\"olzle.
 	The case for energy-proportional computing.
@@ -532,6 +515,12 @@
 	  Rajkumar Buyya e Mihai Alexandru.
 	Energy-aware simulation with dvfs.
 	{\em Simulation Modelling Practice and Theory}, v.39, i.1, p.76-91, 2013.
+
+	\bibitem[Ras11]{rasmussen:tco_data_center}
+	Neil Rasmussen.
+	Determining Total Cost of Ownership for Data Center and Network Room
+	  Infrastructure.
+	Relat{\'o}rio t{\'e}cnico, Schneider Electric, Paris, 2011.
 
 	\bibitem[THW02]{topcoglu:heft}
 	H.~Topcuoglu, S.~Hariri e Min-You Wu.
@@ -546,22 +535,68 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{}
-
-\begin{center}
-	\Huge Obrigado! \\
-	\Large Perguntas?
-\end{center}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
 	\titlepage
 \end{frame}
 
 \appendix
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Algoritmo}
+	\begin{codebox}
+	\Procname{$\proc{Heterogeneous-Earliest-Finish-Time}()$}
+	\li	Defina os custos computacionais das tarefas e os cus-
+	\zi tos de de comunicação das arestas com valores médios
+
+	\li	Calcule $rank_u$ para todas as tarefas varrendo o grafo
+	\zi de ``baixo para cima'',	iniciando pela tarefa final.
+
+	\li Ordene as tarefas em uma lista de escalonamento utilizando
+	\zi uma ordem não crescente de valores de $rank_u$.
+
+	\li 	\While há tarefas não escalonadas na lista
+	\li 		\Do
+					Selecione a primeira tarefa, $n_i$ da lista de escalonamento.
+
+	\li				\For cada processador $p_k$ no conjunto de processadores
+	\li 				\Do
+							Calcule o tempo mais cedo de conclusão da tarefa  $n_i$,
+	\zi						considerando que ela execute em $p_k$
+						\End
+	\li				Defina a tarefa $n_i$ para executar no processador $p_j$ que
+	\zi					minimiza o tempo mais cedo de conclusão da tarefa $n_i$.
+				\End
+	\End
+	\end{codebox}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Modelagem energética}
+
+\begin{table}
+    \begin{tabular}{c|cllll}
+    \hline
+    \textbf{Velocidades (GHz)} & \textbf{0.8} & \textbf{1.0} & \textbf{1.2} & \textbf{1.5} & \textbf{1.7} \\ \hline
+    \textbf{Nível ocioso (W)}       & 140          & 146          & 153          & 159          & 167          \\
+    \textbf{Nível máximo (W)}  & 228          & 238          & 249          & 260          & 272          \\ \hline
+    \end{tabular}
+    \caption{Frequências do Grid'5000 Reims com as medidas de potência durante
+    cargas mínima e máxima (0\% e 100\% de uso dos 24 núcleos de um nó de processamento)
+    \cite{guerout:energy_aware_simulation}}
+\end{table}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Resultados}
+	\begin{center}
+		\includegraphics[width=0.9\columnwidth]{Sipht.png}
+	\end{center}
+\end{frame}
 
 
 \end{document}

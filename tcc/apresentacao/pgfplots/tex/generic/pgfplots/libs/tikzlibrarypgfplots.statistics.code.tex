@@ -1,0 +1,1057 @@
+%--------------------------------------------
+%
+% Package pgfplots, library for statistical plots (boxplots in the first version)
+%
+% Copyright 2007-2012 by Christian Feuersänger.
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%
+%--------------------------------------------
+
+\newif\ifpgfplotsplothandlerboxplot@variable@width
+
+\pgfplotsset{
+	boxplot/.code={%
+		\def\tikz@plot@handler{\pgfplotsplothandlerboxplot}%
+		\pgfkeysalso{%
+			/pgfplots/every boxplot,
+			/pgfplots/boxplot/.cd,
+			#1%
+		}%
+	},
+	boxplot prepared/.code={%
+		\def\tikz@plot@handler{\pgfplotsplothandlerboxplotprepared}%
+		\pgfkeysalso{%
+			/pgfplots/every boxplot,
+			/pgfplots/boxplot/.cd,
+			#1%
+		}%
+	},
+	boxplot/data value/.code	=\pgfplots@set@source@for{boxplot/data}{#1}{0},%
+	boxplot/data/.code			=\pgfplots@set@source@for{boxplot/data}{#1}{1},%
+	boxplot/data filter/.code=,
+	boxplot/data value=\pgfkeysvalueof{/data point/y},
+	%
+	every boxplot/.style={%
+	},
+	%
+	% 'auto' means "if possible".
+	% For boxplot prepared, this is equivalent to "disabled" (empty value).
+	% For boxplot, it means "compute it".
+	% Empty value means disabled.
+	boxplot/median/.initial=auto,
+	boxplot/lower quartile/.initial=auto,
+	boxplot/upper quartile/.initial=auto,
+	boxplot/lower whisker/.initial=auto,
+	boxplot/upper whisker/.initial=auto,
+	boxplot/average/.initial=,
+	%
+	boxplot/lower quartile off/.initial=0.25,
+	boxplot/upper quartile off/.initial=0.75,
+	boxplot/whisker range/.initial=1.5,
+	%
+	%
+	% the size of whisker lines in axis units.
+	% The default is to make it relative to 'box extend'
+	boxplot/whisker extend/.initial=\pgfkeysvalueof{/pgfplots/boxplot/box extend}*0.8,
+	%
+	% the size of the box in axis units. Note that this has been
+	% chosen to fit the initial 'draw position':
+	boxplot/box extend/.initial=0.8,
+	% draw direction=x|y
+	boxplot/draw direction/.initial=x,	
+	%
+	% Activates "dynamic size" feature
+	boxplot/variable width/.is if=pgfplotsplothandlerboxplot@variable@width,
+	boxplot/variable width/.default=true,
+	%
+	boxplot/sample size/.initial=auto,
+	%
+	% a transformation which is applied to anything related to
+	% sample size.
+	boxplot/variable width expr/.code=\pgfmathparse{sqrt(#1)},
+	%
+	% will be computed automatically if needed. If it is present, it
+	% will not contribute to the axis-wide limit unless it has been
+	% given axis-wide.
+	boxplot/sample size min/.initial=,
+	boxplot/sample size max/.initial=,
+	%
+	% this factor times 'box extend' is the size for 
+	% 'sample size min'. The max value gets 'box extend'.
+	boxplot/variable width min target/.initial=0.2,
+	%
+	%
+	% defines where how the "free" position is chosen. The idea is to
+	% place one box at each "y" position and to number these
+	% 1,2,3,4,... . This should probably simplify tick (label) generation.
+	boxplot/draw position/.initial=1+\plotnumofactualtype,
+	%
+	% draw relative anchor=0:  
+	%     |    |---|  |
+	%     |    |   |  |
+	%     |----|---|--|
+	%
+	% draw relative anchor=0.5:
+	%     |    |---|  |
+	%     |----|   |--|
+	%     |    |---|  |
+	%
+	% draw relative anchor=1:  
+	%     |----|---|--|
+	%     |    |   |  |
+	%     |    |---|  |
+	boxplot/draw relative anchor/.initial=0.5,
+	%
+	boxplot/every whisker/.style={%
+	},
+	boxplot/every box/.style={%
+	},
+	boxplot/every median/.style={%
+	},
+	boxplot/every average/.style={%
+		/tikz/mark=diamond*,
+	},
+	boxplot/draw/lower whisker/.style={%
+		/pgfplots/boxplot/draw/whisker=%
+			{\pgfplotsboxplotvalue{lower quartile}}
+			{\pgfplotsboxplotvalue{lower whisker}}
+	},
+	boxplot/draw/upper whisker/.style={%
+		/pgfplots/boxplot/draw/whisker=%
+			{\pgfplotsboxplotvalue{upper quartile}}
+			{\pgfplotsboxplotvalue{upper whisker}}%
+	},
+	boxplot/draw/whisker/.code 2 args={%
+		\draw[/pgfplots/boxplot/every whisker/.try]
+			(boxplot cs:#1) -- (boxplot cs:#2)
+			(boxplot whisker cs:#2,0)
+			--
+			(boxplot whisker cs:#2,1)
+		;
+	},%
+	%
+	boxplot/draw/box/.code={%
+		\draw[/pgfplots/boxplot/every box/.try]
+			(boxplot box cs:\pgfplotsboxplotvalue{lower quartile},0)
+			rectangle
+			(boxplot box cs:\pgfplotsboxplotvalue{upper quartile},1)
+		;
+	},%
+	%
+	boxplot/draw/average/.code={%
+		\draw[/pgfplots/boxplot/every average/.try]
+			\pgfextra
+			% do NOT use \draw[mark=*] plot coordinates because
+			% boxplots uses the same plot handler to draw its
+			% outliers.
+			\pgftransformshift{%
+				\pgfplotsboxplotpointabbox
+					{\pgfplotsboxplotvalue{average}}
+					{0.5}%
+			}%
+			\pgfuseplotmark{\tikz@plot@mark}%
+			\endpgfextra
+		;
+	},
+	%
+	boxplot/draw/median/.code={%
+		\draw[/pgfplots/boxplot/every median/.try]
+			(boxplot box cs:\pgfplotsboxplotvalue{median},0)
+			--
+			(boxplot box cs:\pgfplotsboxplotvalue{median},1)
+		;
+	},%
+}
+
+
+\def\pgfplotsplothandlerboxplot{%
+	\pgfplotsresetplothandler
+	\def\pgf@plotstreamstart{%
+		\pgfplotsset{/pgfplots/boxplot prepared}%
+		\pgfplotsresetplothandler
+		\tikz@plot@handler
+		\pgf@plotstreamstart
+	}%
+	\def\pgfplotsplothandlername{boxplot}%
+	\let\pgfplotsplothandlersurveypoint=\pgfplotsplothandlersurveypoint@boxplot
+	\let\pgfplotsplothandlersurveystart=\pgfplotsplothandlersurveystart@boxplot
+	\let\pgfplotsplothandlersurveyend=\pgfplotsplothandlersurveyend@boxplot
+}
+
+
+\def\pgfplotsplothandlersurveystart@boxplot{%
+	\pgfplots@prepare@source@parser@for{boxplot/}{data}{\pgfplotsplothandlerboxplot@parse}%
+	%
+	\pgfplotscoordmath{float}{zero}%
+	\let\pgfplotsplothandlerboxplot@sum=\pgfmathresult
+	%
+	\pgfplotscoordmath{float}{min limit}%
+	\let\pgfplotsplothandlerboxplot@last=\pgfmathresult
+	%
+	\def\b@pgfplotsplothandlerboxplot@issorted{1}%
+	%
+	% FIXME : the decision to store the input points into a SINGLY
+	% LINKED LIST is based on the observation that huge TeX arrays
+	% (with one macro per index) run into out-of-memory easily.
+	% The list does not: it does not need that many macros and uses a
+	% different memory limit...
+	%
+	% However, the linked-list is bought off for a high price... the
+	% statistics computation takes linear time instead of constant.
+	% But we have linear time anyway, so it does not destroy the
+	% asymptotics... and it appears to be better to get it into main
+	% memory (?)
+	\pgfplotsapplistXnewempty\pgfp@boxplot@@
+	\def\c@pgfplotsplothandlerboxplot@num{0}%
+	\c@pgfplots@coordindex=0
+}%
+
+\def\pgfplotsplothandlersurveyend@boxplot{%
+	\pgfplots@curplot@threedimfalse
+	%
+	\pgfplotsapplistXlet\pgfplots@boxplot@data=\pgfp@boxplot@@
+	\pgfplotsapplistXnewempty\pgfp@boxplot@@
+	%
+	\if0\b@pgfplotsplothandlerboxplot@issorted
+		\pgfplotsplothandlersurveyend@boxplot@sort
+	\fi
+	%
+	%
+	\edef\numcoords{\pgfplots@current@point@coordindex}%
+	%
+	%%
+	\pgfplotsset{%
+		/pgfplots/boxplot prepared={%
+			data value=\pgfplots@current@point@data,
+		},%
+	}%
+	\pgfplotsresetplothandler
+	%
+	\let\pgfplotsplothandlerboxplotprepared@normalize@values@@=\pgfplotsplothandlerboxplotprepared@normalize@values
+	\def\pgfplotsplothandlerboxplotprepared@normalize@values{\relax}%
+	%
+	\tikz@plot@handler
+	%
+	\pgfplotsplothandlersurveystart
+	%
+	% this will report outliers as point stream:
+	\pgfplotsplothandlersurveyend@boxplot@computestats
+	\let\pgfplots@boxplot@data=\relax
+	%
+	\let\pgfplotsplothandlerboxplotprepared@normalize@values=\pgfplotsplothandlerboxplotprepared@normalize@values@@
+	\pgfplotsplothandlerboxplotprepared@normalize@values
+	%
+	%
+	\pgfplotsplothandlersurveyend
+}%
+
+\def\pgfplotsplothandlersurveyend@boxplot@sort{%
+	% how bad. we have to convert to array, sort, convert back to
+	% list... it would have been better if we had worked with arrays
+	% right away! But see the docs in front of the line
+	% '\pgfplotsapplistXnewempty\pgfp@boxplot@@' somewhere in this
+	% file...
+	%
+	\begingroup
+	\pgfplotsarraynewempty{P}%
+	\pgfplotsarrayresize{P}{\c@pgfplots@coordindex}%
+	%
+	\c@pgfplots@coordindex=0
+	\let\pgfplotsplothandlersurveyend@boxplot@computestats@=\pgfplots@boxplot@fillarray
+	\expandafter\pgfplotsplothandlersurveyend@boxplot@computestats@loop\pgfplots@boxplot@data\pgfplots@EOI
+	%
+	\pgfkeysdef{/pgfplots/array/unscope pre}{%
+		\pgfplotsapplistXnewempty\pgfp@boxplot@@
+		\pgfplotsarrayforeachungrouped{##1}\as\elem{%
+			\edef\elem{{\elem}}%
+			\expandafter\pgfplotsapplistXpushback\expandafter{\elem}\to\pgfp@boxplot@@
+		}%
+		\pgfplotsapplistXlet\pgfplots@boxplot@data=\pgfp@boxplot@@
+		\global\let\pgfplots@glob@boxplot@TMPd=\pgfplots@boxplot@data
+	}%
+	\pgfkeysdef{/pgfplots/array/unscope post}{%
+	}%
+	%
+	%\message{[}\pgfplotsarrayforeach{P}\as\elem{\message{\elem,}}\message{]^^J}%
+	%
+	\pgfkeys{/pgfplots/float <}%
+	\pgfplotsarraysort{P}%
+	%
+	\endgroup
+	\let\pgfplots@boxplot@data=\pgfplots@glob@boxplot@TMPd
+	%\message{-> \meaning\pgfplots@boxplot@data^^J}%
+}%
+
+\def\pgfplots@boxplot@fillarray{%
+	\def\pgfplots@loc@TMPa{\pgfplotsarrayset\c@pgfplots@coordindex\of{P}\to}%
+	\expandafter\pgfplots@loc@TMPa\expandafter{\pgfplots@current@point@data}%
+}
+
+%%%%
+
+% 
+% OUTPUT:
+% \pgfplotsretval: the result of #1 * #2 as integer
+% \pgfplotsretvalb = 1 iff #1 * #2 is an integer (without loss)
+\def\pgfplots@boxplot@get@quantile@offset#1#2{%
+	\pgfplotscoordmath{float}{parsenumber}{#2}%
+	\pgfplotscoordmath{float}{op}{multiply}{{\pgfmathresult}{#1}}%
+	\pgfplotscoordmath{float}{tofixed}{\pgfmathresult}%
+	\afterassignment\pgfplots@boxplot@get@quantile@remainder
+	\c@pgf@countd=\pgfmathresult\relax
+	\edef\pgfplotsretval{\the\c@pgf@countd}%
+}%
+
+\def\pgfplots@boxplot@get@quantile@remainder#1\relax{%
+	\ifdim #1pt>0.001pt
+		\def\pgfplotsretvalb{0}%
+	\else
+		\def\pgfplotsretvalb{1}%
+	\fi
+}%
+
+\def\pgfplotsplothandlersurveyend@boxplot@computestats{ 
+	%
+	% compute TMPa := float(\numcoords - 1)
+	\pgfplotscoordmath{float}{one}%
+	\let\pgfplots@loc@TMPa=\pgfmathresult
+	\pgfplotscoordmath{float}{parsenumber}{\numcoords}%
+	\let\pgfplots@boxplot@numcoords=\pgfmathresult
+	\pgfplotscoordmath{float}{op}{subtract}{{\pgfmathresult}{\pgfplots@loc@TMPa}}%
+	\let\pgfplots@boxplot@numcoords@minus@one=\pgfmathresult
+	%
+	% compute the indices into the coordinate arrays:
+	\pgfplots@boxplot@get@quantile@offset{\pgfplots@boxplot@numcoords@minus@one}{\pgfplotsboxplotvalue{lower quartile off}}%
+	\let\c@pgfplotsplothandlerboxplot@lowerquartile=\pgfplotsretval
+	\let\b@pgfplotsplothandlerboxplot@lowerquartile@isint=\pgfplotsretvalb
+	\pgfplots@boxplot@get@quantile@offset{\pgfplots@boxplot@numcoords@minus@one}{0.5}%
+	\let\c@pgfplotsplothandlerboxplot@median=\pgfplotsretval
+	\let\b@pgfplotsplothandlerboxplot@median@isint=\pgfplotsretvalb
+	\pgfplots@boxplot@get@quantile@offset{\pgfplots@boxplot@numcoords@minus@one}{\pgfplotsboxplotvalue{upper quartile off}}%
+	\let\c@pgfplotsplothandlerboxplot@upperquartile=\pgfplotsretval
+	\let\b@pgfplotsplothandlerboxplot@upperquartile@isint=\pgfplotsretvalb
+	%
+	% hm. I once had the idea to support quartile-based whisker
+	% definitions... but I did not implement them.
+	\let\c@pgfplotsplothandlerboxplot@lowerwhisker=\pgfutil@empty
+	\let\c@pgfplotsplothandlerboxplot@upperwhisker=\pgfutil@empty
+	%
+	%
+	% These here are the VALUES that will be communicated to 'boxplot prepared'
+	% They need to be computed below.
+	\let\pgfplotsplothandlerboxplot@lowerwhisker=\pgfutil@empty
+	\let\pgfplotsplothandlerboxplot@lowerquartile=\pgfutil@empty
+	\let\pgfplotsplothandlerboxplot@median=\pgfutil@empty
+	\let\pgfplotsplothandlerboxplot@upperquartile=\pgfutil@empty
+	\let\pgfplotsplothandlerboxplot@upperwhisker=\pgfutil@empty
+	%
+	\c@pgfplots@coordindex=0 %
+	\def\pgfplots@boxplot@@next@target{lowerquartile}%
+	\def\pgfplots@boxplot@next@@lowerquartile{median}%
+	\def\pgfplots@boxplot@next@@median{upperquartile}%
+	\def\pgfplots@boxplot@next@@upperquartile{}%
+	\let\pgfplotsplothandlersurveyend@boxplot@computestats@=\pgfplotsplothandlersurveyend@boxplot@computestats@quantile
+	\expandafter\pgfplotsplothandlersurveyend@boxplot@computestats@loop\pgfplots@boxplot@data\pgfplots@EOI
+	%
+	%
+	\pgfplotscoordmath{float}{op}{divide}{{\pgfplotsplothandlerboxplot@sum}{\pgfplots@boxplot@numcoords}}%
+	\let\pgfplotsplothandlerboxplot@average=\pgfmathresult
+	%
+	% communicate and set results to pgfkeys - and to the plot
+	% specification option list:
+	\pgfplotsplothandlersurveyend@boxplot@set{lower whisker}{\pgfplotsplothandlerboxplot@lowerwhisker}%
+	\pgfplotsplothandlersurveyend@boxplot@set{lower quartile}{\pgfplotsplothandlerboxplot@lowerquartile}%
+	\pgfplotsplothandlersurveyend@boxplot@set{median}{\pgfplotsplothandlerboxplot@median}%
+	\pgfplotsplothandlersurveyend@boxplot@set{average}{\pgfplotsplothandlerboxplot@average}%
+	\pgfplotsplothandlersurveyend@boxplot@set{upper quartile}{\pgfplotsplothandlerboxplot@upperquartile}%
+	\pgfplotsplothandlersurveyend@boxplot@set{upper whisker}{\pgfplotsplothandlerboxplot@upperwhisker}%
+	\pgfplotsplothandlersurveyend@boxplot@set{sample size}{\pgfplots@boxplot@numcoords}%
+	%
+	% Ok, now make sure that we use the FINAL variables from the user,
+	% i.e. that we respect manual overrides. This is only necessary
+	% for quartiles from what I see here.
+	\pgfplotsplothandlersurveyend@boxplot@get{\pgfplotsplothandlerboxplot@lowerquartile}{lower quartile}%
+	\pgfplotsplothandlersurveyend@boxplot@get{\pgfplotsplothandlerboxplot@upperquartile}{upper quartile}%
+	%
+	\pgfplotscoordmath{float}{parsenumber}{\pgfplotsboxplotvalue{whisker range}}%
+	\let\pgfplots@loc@TMPa=\pgfmathresult
+	\pgfplotscoordmath{float}{op}{subtract}{{\pgfplotsplothandlerboxplot@upperquartile}{\pgfplotsplothandlerboxplot@lowerquartile}}%
+	\pgfplotscoordmath{float}{op}{multiply}{{\pgfmathresult}{\pgfplots@loc@TMPa}}%
+	\let\pgfplots@boxplot@whisker@width=\pgfmathresult
+	\pgfplotscoordmath{float}{op}{add}{{\pgfplotsplothandlerboxplot@upperquartile}{\pgfplots@boxplot@whisker@width}}%
+	\let\pgfplotsplothandlerboxplot@upperwhisker@value=\pgfmathresult
+	\pgfplotscoordmath{float}{op}{subtract}{{\pgfplotsplothandlerboxplot@lowerquartile}{\pgfplots@boxplot@whisker@width}}%
+	\let\pgfplotsplothandlerboxplot@lowerwhisker@value=\pgfmathresult
+	%
+	\c@pgfplots@coordindex=0 %
+	\let\pgfplotsplothandlersurveyend@boxplot@computestats@=\pgfplotsplothandlersurveyend@boxplot@computestats@valuebased
+	\expandafter\pgfplotsplothandlersurveyend@boxplot@computestats@loop\pgfplots@boxplot@data\pgfplots@EOI
+	%
+	\pgfplotsplothandlersurveyend@boxplot@set{lower whisker}{\pgfplotsplothandlerboxplot@lowerwhisker}%
+	\pgfplotsplothandlersurveyend@boxplot@set{upper whisker}{\pgfplotsplothandlerboxplot@upperwhisker}%
+	%
+}%
+
+% takes a key #1 which is expected in /pgfplots/boxplot/#1,
+% and overwrites its value with #2 if that is allowed.
+%
+% More specifically, if the current value of '#1' is 'auto', it is
+% replaced by #2. In all other cases, it will not be modified.
+%
+% The "replaced by #2" means to set the value right away and to modify
+% the plot's option list to reflect the new value.
+\def\pgfplotsplothandlersurveyend@boxplot@set#1#2{%
+	\pgfkeysgetvalue{/pgfplots/boxplot/#1}\pgfplots@loc@TMPa
+	\edef\pgfplots@loc@TMPa{\pgfplots@loc@TMPa}%
+	\def\pgfplots@loc@TMPc{auto}%
+	\ifx\pgfplots@loc@TMPa\pgfplots@loc@TMPc
+		\edef\pgfmathresult{#2}%
+		\ifx\pgfmathresult\pgfutil@empty
+		\else
+			\pgfplotscoordmath{float}{tostring}{#2}%
+			\edef\pgfplots@loc@TMPb{\noexpand\pgfplotsplothandlersurveyaddoptions{/pgfplots/boxplot/#1={\pgfmathresult}}}%
+			\pgfplots@loc@TMPb
+		\fi
+	\fi
+}%
+
+\def\pgfplotsplothandlersurveyend@boxplot@get#1#2{%
+	\pgfkeysgetvalue{/pgfplots/boxplot/#2}\pgfplots@loc@TMPa
+	\edef\pgfplots@loc@TMPa{\pgfplots@loc@TMPa}%
+	\def\pgfplots@loc@TMPc{auto}%
+	\ifx\pgfplots@loc@TMPa\pgfplots@loc@TMPc
+	\else
+		\ifx\pgfplots@loc@TMPa\pgfutil@empty
+		\else
+			\pgfmathparse{\pgfplots@loc@TMPa}%
+			\let#1=\pgfmathresult
+		\fi
+	\fi
+}
+
+
+% Assuming that the input coordinates are in a LIST, we have to loop
+% over that list.
+\def\pgfplotsplothandlersurveyend@boxplot@computestats@loop#1{%
+	\def\pgfplots@loc@TMPa{#1}%
+	\ifx\pgfplots@loc@TMPa\pgfplots@EOI
+	\else
+		%
+		\let\pgfplots@current@point@data=\pgfplots@loc@TMPa
+		\pgfplotsplothandlersurveyend@boxplot@computestats@
+		%
+		\advance\c@pgfplots@coordindex by1 %
+		\expandafter\pgfplotsplothandlersurveyend@boxplot@computestats@loop
+	\fi
+}%
+
+% Really computes stats.
+% 
+% This method computes ALL quantiles (one after the other). These are 0.25,
+% 0.5, and 0.75. Perhaps I add quantile-based whiskers eventually.
+%
+% XXX : this method is quite inefficient because it iterates through a
+% loop for what would be 3 arrays lookups otherwise. If I would have enough
+% courage to store the points into an array, both this and the
+% whisker-loop would be more efficient. But in TeX, arrays are not
+% necessarily that efficient ... they run out of memory easily!
+%
+% The data is in \pgfplots@current@point@data.
+\def\pgfplotsplothandlersurveyend@boxplot@computestats@quantile{%
+	%
+	\c@pgf@countd=\csname c@pgfplotsplothandlerboxplot@\pgfplots@boxplot@@next@target\endcsname\relax
+	\expandafter\let\expandafter\pgfplots@loc@TMPa\csname pgfplotsplothandlerboxplot@\pgfplots@boxplot@@next@target\endcsname
+	%
+	\ifnum\c@pgf@countd=\c@pgfplots@coordindex\relax
+		% Ah - we found the occurence of the current search target! 
+		\expandafter\let\csname pgfplotsplothandlerboxplot@\pgfplots@boxplot@@next@target\endcsname=\pgfplots@current@point@data
+		%
+		\expandafter\let\expandafter\pgfplots@loc@TMPb\csname b@pgfplotsplothandlerboxplot@\pgfplots@boxplot@@next@target @isint\endcsname
+		\if 1\pgfplots@loc@TMPb
+			% accept the match!
+			% ... and search for the next search target.
+			\expandafter\let\expandafter\pgfplots@boxplot@@next@target\csname pgfplots@boxplot@next@@\pgfplots@boxplot@@next@target\endcsname
+		\else
+			% ... continue searching for the same target in order to
+			% compute the mean.
+		\fi
+	\else
+		\ifx\pgfplots@loc@TMPa\pgfutil@empty
+		\else
+			% Ah! this can *only* happen if we have to compute a
+			% mean between the previous and this data point.
+			%
+			% The current search target is 0.5 * (value + next):
+			\pgfplotscoordmath{float}{op}{add}{{\pgfplots@current@point@data}{\pgfplots@loc@TMPa}}%
+			\let\pgfplots@loc@TMPb=\pgfmathresult
+			\pgfplotscoordmath{float}{parsenumber}{0.5}%
+			\pgfplotscoordmath{float}{op}{multiply}{{\pgfmathresult}{\pgfplots@loc@TMPb}}%
+			%
+			\expandafter\let\csname pgfplotsplothandlerboxplot@\pgfplots@boxplot@@next@target\endcsname
+				=\pgfmathresult
+			%
+			% ... and search for the next search target.
+			\expandafter\let\expandafter\pgfplots@boxplot@@next@target\csname pgfplots@boxplot@next@@\pgfplots@boxplot@@next@target\endcsname
+			%
+		\fi
+	\fi
+	%
+	\ifx\pgfplots@boxplot@@next@target\pgfutil@empty
+		% stop searching.
+		\let\pgfplotsplothandlersurveyend@boxplot@computestats@=\relax
+	\fi
+}
+
+\def\pgfplotsplothandlersurveyend@boxplot@computestats@valuebased{%
+	\ifx\pgfplotsplothandlerboxplot@lowerwhisker\pgfutil@empty
+		\pgfplotscoordmath{float}{if less than}{\pgfplots@current@point@data}{\pgfplotsplothandlerboxplot@lowerwhisker@value}{%
+			% Ah. an outlier.
+			\pgfplotsplothandlerboxplot@outlier
+		}{%
+			\let\pgfplotsplothandlerboxplot@lowerwhisker=\pgfplots@current@point@data
+		}%
+	\fi
+	%
+	% it would be so cool if we could simply check the list in reverse
+	% order. but not if it really is a singly-linked list...
+	\pgfplotscoordmath{float}{if less than}{\pgfplotsplothandlerboxplot@upperwhisker@value}{\pgfplots@current@point@data}{%
+		% Ah. an outlier.
+		\pgfplotsplothandlerboxplot@outlier
+	}{%
+		\ifx\pgfplotsplothandlerboxplot@upperwhisker\pgfutil@empty
+			\let\pgfplotsplothandlerboxplot@upperwhisker=\pgfplots@current@point@data
+		\else
+			\pgfplotscoordmath{float}{max}{\pgfplotsplothandlerboxplot@upperwhisker}{\pgfplots@current@point@data}%
+			\let\pgfplotsplothandlerboxplot@upperwhisker=\pgfmathresult
+		\fi
+	}%
+}
+
+\def\pgfplotsplothandlerboxplot@outlier{%
+	\def\pgfplots@current@point@x{0}%
+	\def\pgfplots@current@point@y{0}%
+	\def\pgfplots@current@point@z{0}%
+	\pgfplotsplothandlersurveypoint
+}%
+
+%%%
+
+\def\pgfplotsplothandlersurveypoint@boxplot{%
+	\pgfplotsplothandlerboxplot@parse
+	\let\pgfplots@current@point@data=\pgfmathresult
+	%
+	\ifx\pgfplots@current@point@data\pgfutil@empty
+	\else
+		\pgfplotscoordmath{float}{if is bounded}{\pgfplots@current@point@data}{%
+			%
+			\pgfplotsplothandlersurveypoint@boxplot@
+		}{%
+		}%
+	\fi
+}%
+
+\def\pgfplotsplothandlersurveypoint@boxplot@{%
+	\pgfplotsutil@advancestringcounter\c@pgfplotsplothandlerboxplot@num
+	%
+	\if1\b@pgfplotsplothandlerboxplot@issorted
+		\pgfplotscoordmath{float}{if less than}{\pgfplots@current@point@data}{\pgfplotsplothandlerboxplot@last}{%
+			\def\b@pgfplotsplothandlerboxplot@issorted{0}%
+		}{%
+		}%
+	\fi
+	%
+	%
+	\pgfplotscoordmath{float}{op}{add}{{\pgfplots@current@point@data}{\pgfplotsplothandlerboxplot@sum}}%
+	\let\pgfplotsplothandlerboxplot@sum=\pgfmathresult
+	%
+	% store parsed result.
+	\edef\pgfmathresult{{\pgfplots@current@point@data}}%
+	\expandafter\pgfplotsapplistXpushback\expandafter{\pgfmathresult}\to\pgfp@boxplot@@
+	%
+	\let\pgfplotsplothandlerboxplot@last=\pgfplots@current@point@data
+	%
+	\advance\c@pgfplots@coordindex by1
+}
+% =============================================================
+
+\def\pgfplotsplothandlerboxplotprepared{%
+	\ifpgfplots@stackedmode
+		\pgfplotsthrow{unsupported operation}{Sorry, 'stacked plots' are currently unsupported for box plots. See the manual for 'boxplot/draw position' for how to achieve the effect (using \string\plotnumofactualtype)}\pgfeov
+	\else
+		\pgfplotsplothandlerboxplotprepared@
+	\fi
+}
+\def\pgfplotsplothandlerboxplotprepared@{%
+	\pgfplotsresetplothandler
+	%
+	\def\pgfplotsplothandlername{boxplot prepared}%
+	%
+	\let\pgf@plotstreamstart=\pgfplotsplothandlervisstart@boxplot@prepared
+	\let\pgfplotsplothandlersurveystart=\pgfplotsplothandlersurveystart@boxplot@prepared
+	\let\pgfplotsplothandlersurveypoint=\pgfplotsplothandlersurveypoint@boxplot@prepared
+	\let\pgfplotsplothandlersurveyend=\pgfplotsplothandlersurveyend@boxplot@prepared
+	%
+	\pgfplotsplothandlerboxplotprepared@normalize@values
+	%
+	\pgfkeysgetvalue{/pgfplots/boxplot/draw direction}\pgfplots@loc@TMPa
+	\if x\pgfplotsboxplotvalue{draw direction}%
+	\else
+		\if y\pgfplotsboxplotvalue{draw direction}%
+		\else
+			\pgfplotsthrow{invalid argument}{\pgfplots@loc@TMPa}{Invalid choice boxplot/draw direction=\pgfplots@loc@TMPa}\pgfeov%
+			\def\pgfplots@loc@TMPa{x}%
+		\fi
+	\fi
+	\csname pgfplotsplothandlerboxplotprepared@setxy@\pgfplots@loc@TMPa\endcsname
+	%
+	\def\pgfplotsboxplotpointab##1##2{%
+		\begingroup
+			\pgfkeys{/pgf/fpu}%
+			\pgfmathparse{##1}%
+			\let\pgfplotsplothandlerboxplot@@=\pgfmathresult
+			\pgfmathparse{\pgfplotsboxplotvalue{draw position} + ##2}%
+			\xdef\pgfplots@glob@TMPa{{\pgfplotsplothandlerboxplot@@}{\pgfmathresult}}%
+			\expandafter\pgfplotsboxplotpointab@\pgfplots@glob@TMPa{\pgfplotspointaxisxy}%
+			\pgf@process{}%
+		\endgroup
+	}%
+	\def\pgfplotsboxplotpointab@survey##1##2{%
+		\edef\pgfmathresult{##1}%
+		\ifx\pgfmathresult\pgfutil@empty
+		\else
+			\pgfmathparse{\pgfmathresult}%
+		\fi
+		\let\pgfplotsplothandlerboxplot@@=\pgfmathresult
+		\pgfmathparse{\pgfplotsboxplotvalue{draw position} + ##2}%
+		\xdef\pgfplots@glob@TMPa{{\pgfplotsplothandlerboxplot@@}{\pgfmathresult}}%
+		\let\pgfplotsplothandlerboxplot@modified@draw@position=\pgfmathresult%
+		\expandafter\pgfplotsboxplotpointab@\pgfplots@glob@TMPa{\pgfplotsboxplotpointab@@define@current@xy}%
+	}%
+}%
+
+\def\pgfplotsplothandlerboxplotprepared@normalize@values{%
+	\def\pgfplots@loc@TMPa{auto}%
+	\pgfplotsforeachentryinCSV{\value}{%
+		lower whisker,%
+		lower quartile,%
+		median,%
+		average,%
+		upper quartile,%
+		upper whisker,%
+		sample size%
+	}{%
+		\pgfkeysgetvalue{/pgfplots/boxplot/\value}\pgfplots@loc@TMPb
+		\edef\pgfplots@loc@TMPb{\pgfplots@loc@TMPb}%
+		\ifx\pgfplots@loc@TMPb\pgfplots@loc@TMPa
+			\pgfkeyslet{/pgfplots/boxplot/\value}\pgfutil@empty
+		\fi
+	}%
+}%
+
+\def\pgfplotsboxplotpointab@@define@current@xy#1#2{%
+	\edef\pgfplots@current@point@x{#1}%
+	\edef\pgfplots@current@point@y{#2}%
+}%
+
+\def\pgfplotsplothandlerboxplotprepared@setxy@x{%
+	\def\pgfplotsboxplotpointab@##1##2##3{%
+		##3{##1}{##2}%
+	}%
+}%
+\def\pgfplotsplothandlerboxplotprepared@setxy@y{%
+	\def\pgfplotsboxplotpointab@##1##2##3{%
+		##3{##2}{##1}%
+	}%
+}%
+
+\def\pgfplotsplothandlersurveypoint@boxplot@collect@limits{%
+	\pgfplotsaxisparsecoordinate
+	\pgfplotsaxispreparecoordinate
+	\ifpgfplotsaxisparsecoordinateok
+		\pgfplotsaxisupdatelimitsforcoordinate\pgfplots@current@point@x\pgfplots@current@point@y\pgfplots@current@point@z
+	\fi
+	%
+	% do NOT store the processed coordinate! the coordinate stream
+	% is ONLY for outliers.
+	%
+	% ... but update this stuff to avoid a "plot without coordinates"
+	% case
+	\pgfplotscoordstream@firstlast@update
+}
+
+\def\pgfplotsplothandlersurveystart@boxplot@prepared{%
+	\pgfplots@prepare@source@parser@for{boxplot/}{data}{\pgfplotsplothandlerboxplot@parse}%
+	%
+	\let\pgfplotsboxplotpointab=\pgfplotsboxplotpointab@survey
+	%
+	\pgfplotsplothandlersurveystart@default
+}
+
+\def\pgfplotsplothandlersurveypoint@boxplot@prepared{%
+	% seems the "parse" routine is stupid ... the /data point/ stuff
+	% is redefined although it should not. Strange...
+	\pgfkeyslet{/data point/x}\pgfplots@current@point@x
+	\pgfkeyslet{/data point/y}\pgfplots@current@point@y
+	\pgfkeyslet{/data point/z}\pgfplots@current@point@z
+	\pgfplotsplothandlerboxplot@parse
+	%
+	\pgfplotsboxplotpointab{\pgfmathresult}{0}%
+	%
+	\pgfplotsplothandlersurveypoint@default
+}
+
+\def\pgfplotsplothandlersurveyend@boxplot@prepared{%
+	\let\pgfplots@invoke@filter@xyz@old=\pgfplots@invoke@filter@xyz
+	\let\pgfplots@invoke@filter@xyz=\relax
+	\let\pgfplots@invoke@filter@old=\pgfplots@invoke@filter
+	\def\pgfplots@invoke@filter##1##2{}%
+	\let\pgfplots@invoke@prefilter@old=\pgfplots@invoke@prefilter
+	\let\pgfplots@invoke@prefilter=\relax
+	%
+	\pgfmathparse{\pgfplotsboxplotvalue{draw position}}%
+	\let\pgfplots@loc@TMPa=\pgfmathresult
+	\ifpgfplots@usefpu
+		\pgfmathfloattofixed\pgfmathresult
+	\fi
+	% remember it for later - it might have been retrieved from some
+	% table column! If you used something like 
+	% 'draw position=\thisrow{position}, the position of the LAST data point
+	% will be used (because we are in end survey here).
+	\edef\pgfplots@loc@TMPb{\noexpand\pgfplotsplothandlersurveyaddoptions{/pgfplots/boxplot/draw position=\pgfmathresult}}%
+	\pgfplots@loc@TMPb
+	%
+	% ... this here will make things faster if the FPU is active.
+	\pgfkeyslet{/pgfplots/boxplot/draw position}\pgfplots@loc@TMPa
+	%
+	%
+	%
+	%
+	\pgfplotsboxplotpointabwhisker
+		{\pgfplotsboxplotvalue{lower whisker}}
+		{0}%
+	\pgfplotsplothandlersurveypoint@boxplot@collect@limits
+	%
+	\pgfplotsboxplotpointabwhisker
+		{\pgfplotsboxplotvalue{lower whisker}}
+		{1}%
+	\pgfplotsplothandlersurveypoint@boxplot@collect@limits
+	%
+	%
+	\pgfplotsboxplotpointabbox
+		{\pgfplotsboxplotvalue{lower quartile}}%
+		{0}%
+	\pgfplotsplothandlersurveypoint@boxplot@collect@limits
+	%
+	\pgfplotsboxplotpointabbox
+		{\pgfplotsboxplotvalue{lower quartile}}%
+		{1}%
+	\pgfplotsplothandlersurveypoint@boxplot@collect@limits
+	%
+	%
+	\pgfplotsboxplotpointabbox
+		{\pgfplotsboxplotvalue{median}}
+		{0}%
+	\pgfplotsplothandlersurveypoint@boxplot@collect@limits
+	%
+	\pgfplotsboxplotpointabbox
+		{\pgfplotsboxplotvalue{median}}
+		{1}%
+	\pgfplotsplothandlersurveypoint@boxplot@collect@limits
+	%
+	%
+	\pgfplotsboxplotpointabbox
+		{\pgfplotsboxplotvalue{average}}
+		{0}%
+	\pgfplotsplothandlersurveypoint@boxplot@collect@limits
+	%
+	\pgfplotsboxplotpointabbox
+		{\pgfplotsboxplotvalue{average}}
+		{1}%
+	\pgfplotsplothandlersurveypoint@boxplot@collect@limits
+	%
+	%
+	\pgfplotsboxplotpointabbox
+		{\pgfplotsboxplotvalue{upper quartile}}%
+		{0}%
+	\pgfplotsplothandlersurveypoint@boxplot@collect@limits
+	%
+	\pgfplotsboxplotpointabbox
+		{\pgfplotsboxplotvalue{upper quartile}}%
+		{1}%
+	\pgfplotsplothandlersurveypoint@boxplot@collect@limits
+	%
+	%
+	%
+	\pgfplotsboxplotpointabwhisker
+		{\pgfplotsboxplotvalue{upper whisker}}%
+		{1}%
+	\pgfplotsplothandlersurveypoint@boxplot@collect@limits
+	%
+	\pgfplotsboxplotpointabwhisker
+		{\pgfplotsboxplotvalue{upper whisker}}%
+		{0}%
+	\pgfplotsplothandlersurveypoint@boxplot@collect@limits
+	%
+	\let\pgfplots@invoke@prefilter=\pgfplots@invoke@prefilter@old
+	\let\pgfplots@invoke@filter=\pgfplots@invoke@filter@old
+	\let\pgfplots@invoke@filter@xyz=\pgfplots@invoke@filter@xyz@old
+	%
+	\pgfplotsplothandlerboxplotsurvey@variable@width%
+	%
+	\pgfplotsplothandlersurveyend@default
+}%
+
+\def\pgfplotsplothandlerboxplotsurvey@variable@width{%
+	\ifnum\plotnumofactualtype=0 %
+		% Ah - the first boxplot in this axis. Init the global
+		% counter:
+		\pgfplotscoordmath{default}{max limit}%
+		\global\let\g@pgfplotsplothandlerboxplot@widthkey@min=\pgfmathresult
+		\pgfplotscoordmath{default}{min limit}%
+		\global\let\g@pgfplotsplothandlerboxplot@widthkey@max=\pgfmathresult
+	\fi
+	%
+	%
+	\ifpgfplotsplothandlerboxplot@variable@width
+		\pgfkeysgetvalue{/pgfplots/boxplot/sample size}\pgfmathresult
+		\edef\pgfmathresult{\pgfmathresult}%
+		\ifx\pgfmathresult\pgfutil@empty
+		\else
+			\pgfplotsplothandlerboxplot@variable@width@expr{\pgfmathresult}%
+			%
+			\let\pgfplots@widthkey@=\pgfmathresult
+			%
+			\pgfkeysgetvalue{/pgfplots/boxplot/sample size min}\pgfmathresult
+			\edef\pgfplotsplothandlerboxplot@widthkey@min{\pgfmathresult}%
+			%
+			\pgfkeysgetvalue{/pgfplots/boxplot/sample size max}\pgfmathresult
+			\edef\pgfplotsplothandlerboxplot@widthkey@max{\pgfmathresult}%
+			%
+			%
+			\ifx\pgfplotsplothandlerboxplot@widthkey@min\pgfutil@empty
+				\let\pgfplotsplothandlerboxplot@widthkey@min=\g@pgfplotsplothandlerboxplot@widthkey@min
+				\def\pgfplotsplothandlerboxplot@widthkey@min@autocompute{1}%
+			\else
+				\pgfplotsplothandlerboxplot@variable@width@expr{\pgfplotsplothandlerboxplot@widthkey@min}%
+				\let\pgfplotsplothandlerboxplot@widthkey@min=\pgfmathresult
+				\def\pgfplotsplothandlerboxplot@widthkey@min@autocompute{0}%
+			\fi
+			\ifx\pgfplotsplothandlerboxplot@widthkey@max\pgfutil@empty
+				\let\pgfplotsplothandlerboxplot@widthkey@max=\g@pgfplotsplothandlerboxplot@widthkey@max
+				\def\pgfplotsplothandlerboxplot@widthkey@max@autocompute{1}%
+			\else
+				\pgfplotsplothandlerboxplot@variable@width@expr{\pgfplotsplothandlerboxplot@widthkey@max}%
+				\def\pgfplotsplothandlerboxplot@widthkey@max@autocompute{0}%
+			\fi
+			%
+			\if1\pgfplotsplothandlerboxplot@widthkey@max@autocompute
+				\pgfmathparse{max(\pgfplotsplothandlerboxplot@widthkey@max,\pgfplots@widthkey@)}%
+				\global\let\g@pgfplotsplothandlerboxplot@widthkey@max=\pgfmathresult
+				\let\pgfplotsplothandlerboxplot@widthkey@max=\pgfmathresult
+				%
+				\pgfmathparse{min(\pgfplotsplothandlerboxplot@widthkey@min,\pgfplots@widthkey@)}%
+				\global\let\g@pgfplotsplothandlerboxplot@widthkey@min=\pgfmathresult
+				\let\pgfplotsplothandlerboxplot@widthkey@min=\pgfmathresult
+			\fi
+			%
+			%
+		\fi
+	\fi
+	%
+%\message{sample size=\pgfplots@widthkey@. interval = \pgfplotsplothandlerboxplot@widthkey@min:\pgfplotsplothandlerboxplot@widthkey@max^^J}%
+}%
+
+\def\pgfplotsplothandlerboxplot@variable@width@expr#1{%
+	\begingroup
+	\pgfkeys{/pgf/fpu}%
+	\let\pgfmathresult=#1%
+	\pgfplotsboxplotvalue{variable width expr/.@cmd}#1\pgfeov
+	\pgfmath@smuggleone\pgfmathresult
+	\endgroup
+	\let#1=\pgfmathresult
+}%
+
+\def\pgfplotsplothandlerboxplotvisualization@variable@width{%
+	\ifpgfplotsplothandlerboxplot@variable@width
+		\pgfkeysgetvalue{/pgfplots/boxplot/sample size}\pgfmathresult
+		\edef\pgfmathresult{\pgfmathresult}%
+		\ifx\pgfmathresult\pgfutil@empty
+		\else
+			\pgfplotsplothandlerboxplot@variable@width@expr{\pgfmathresult}%
+			\let\pgfplots@widthkey@=\pgfmathresult
+			%
+			\pgfkeysgetvalue{/pgfplots/boxplot/sample size min}\pgfmathresult
+			\edef\pgfplotsplothandlerboxplot@widthkey@min{\pgfmathresult}%
+			%
+			\pgfkeysgetvalue{/pgfplots/boxplot/sample size max}\pgfmathresult
+			\edef\pgfplotsplothandlerboxplot@widthkey@max{\pgfmathresult}%
+			%
+			%
+			\ifx\pgfplotsplothandlerboxplot@widthkey@min\pgfutil@empty
+				\let\pgfplotsplothandlerboxplot@widthkey@min=\g@pgfplotsplothandlerboxplot@widthkey@min
+			\else
+				\pgfplotsplothandlerboxplot@variable@width@expr{\pgfplotsplothandlerboxplot@widthkey@min}%
+			\fi
+			\ifx\pgfplotsplothandlerboxplot@widthkey@max\pgfutil@empty
+				\let\pgfplotsplothandlerboxplot@widthkey@max=\g@pgfplotsplothandlerboxplot@widthkey@max
+			\else
+				\pgfplotsplothandlerboxplot@variable@width@expr{\pgfplotsplothandlerboxplot@widthkey@max}%
+			\fi
+			%
+			\pgfkeysgetvalue{/pgfplots/boxplot/variable width min target}\pgfplots@widthkey@mintrg
+			\pgfkeysgetvalue{/pgfplots/boxplot/box extend}\pgfplots@loc@TMPa
+	%\message{sample size=\pgfplots@widthkey@. interval = \pgfplotsplothandlerboxplot@widthkey@min:\pgfplotsplothandlerboxplot@widthkey@max. Target = [\pgfplots@widthkey@mintrg:1]^^J}%
+			\begingroup
+			\pgfkeys{/pgf/fpu}%
+			\pgfmathparse{
+				(\pgfplots@widthkey@mintrg + 
+				max(0,min(1,(\pgfplots@widthkey@ - \pgfplotsplothandlerboxplot@widthkey@min) / 
+				(\pgfplotsplothandlerboxplot@widthkey@max - \pgfplotsplothandlerboxplot@widthkey@min))) 
+				  * (1-\pgfplots@widthkey@mintrg)) * \pgfplots@loc@TMPa}%
+			\pgfmathfloattofixed\pgfmathresult
+			\pgfmath@smuggleone\pgfmathresult
+			\endgroup
+			\pgfkeyslet{/pgfplots/boxplot/box extend}\pgfmathresult
+		\fi
+	\fi
+}%
+
+\def\pgfplotsplothandlervisstart@boxplot@prepared{%
+	%
+	\pgfplotsplothandlerboxplotvisualization@variable@width
+	%
+	\global\let\pgf@plotstreampoint=\pgfutil@gobble
+	\global\let\pgf@plotstreamspecial=\pgfutil@gobble%
+	\global\let\pgf@plotstreamend=\relax
+	%
+	\pgfplotsplothandlervisstart@boxplot@prepared@draw
+}%
+
+\def\pgfplotsplothandlervisstart@boxplot@prepared@draw{%
+	\def\b@pgfplots@boxplot@hasbox{1}%
+	\edef\pgfplots@loc@TMPa{\pgfplotsboxplotvalue{lower quartile}}%
+	\ifx\pgfplots@loc@TMPa\pgfutil@empty
+		\def\b@pgfplots@boxplot@hasbox{0}%
+	\fi
+	\edef\pgfplots@loc@TMPa{\pgfplotsboxplotvalue{upper quartile}}%
+	\ifx\pgfplots@loc@TMPa\pgfutil@empty
+		\def\b@pgfplots@boxplot@hasbox{0}%
+	\fi
+	%
+	\if0\b@pgfplots@boxplot@hasbox
+		% hm. we have no box. Very strange boxplot, I'd say.
+		%
+		% But anyway: if someone has whiskers without box,
+		% short-circuit the whiskers:
+		\edef\pgfplots@loc@TMPa{\pgfplotsboxplotvalue{lower whisker}}%
+		\edef\pgfplots@loc@TMPb{\pgfplotsboxplotvalue{upper whisker}}%
+		\pgfkeyslet{/pgfplots/boxplot/lower quartile}\pgfplots@loc@TMPb
+		\pgfkeyslet{/pgfplots/boxplot/upper quartile}\pgfplots@loc@TMPa
+	\fi
+	%
+	%
+	\edef\pgfplots@loc@TMPa{\pgfplotsboxplotvalue{lower whisker}}%
+	\ifx\pgfplots@loc@TMPa\pgfutil@empty
+	\else
+		\pgfplotsboxplotvalue{draw/lower whisker/.@cmd}\pgfeov
+	\fi
+	%
+	\edef\pgfplots@loc@TMPa{\pgfplotsboxplotvalue{upper whisker}}%
+	\ifx\pgfplots@loc@TMPa\pgfutil@empty
+	\else
+		\pgfplotsboxplotvalue{draw/upper whisker/.@cmd}\pgfeov
+	\fi
+	%
+	\if1\b@pgfplots@boxplot@hasbox
+		\pgfplotsboxplotvalue{draw/box/.@cmd}\pgfeov
+	\fi
+	%
+	\edef\pgfplots@loc@TMPa{\pgfplotsboxplotvalue{median}}%
+	\ifx\pgfplots@loc@TMPa\pgfutil@empty
+	\else
+		\pgfplotsboxplotvalue{draw/median/.@cmd}\pgfeov
+	\fi
+	%
+	\edef\pgfplots@loc@TMPa{\pgfplotsboxplotvalue{average}}%
+	\ifx\pgfplots@loc@TMPa\pgfutil@empty
+	\else
+		\pgfplotsboxplotvalue{draw/average/.@cmd}\pgfeov
+	\fi
+}%
+
+\def\pgfplots@boxplot@cs@decompose#1{%
+	\edef\pgfplots@loc@TMPa{#1}%
+	\expandafter\pgfutil@in@\expandafter,\expandafter{\pgfplots@loc@TMPa}%
+	\ifpgfutil@in@
+		\def\pgfplots@loc@TMPb##1,##2\pgfplots@EOI{%
+			\def\pgfplots@boxplotcs@a{##1}%
+			\def\pgfplots@boxplotcs@b{##2}%
+		}%
+		\expandafter\pgfplots@loc@TMPb\pgfplots@loc@TMPa\pgfplots@EOI
+	\else
+		\let\pgfplots@boxplotcs@a=\pgfplots@loc@TMPa%
+		\def\pgfplots@boxplotcs@b{0}%
+	\fi
+}%
+
+\def\pgfplotsboxplotvalue#1{\pgfkeysvalueof{/pgfplots/boxplot/#1}}%
+
+\tikzaddtikzonlycommandshortcutlet\boxplotvalue\pgfplotsboxplotvalue
+
+% A helper which implements 'draw relative anchor'. It expands to a
+% math expression which is suitable as second argument for 'boxplot cs';
+% i.e. it needs to be added to 'boxplot/draw position'.
+% 
+% More precisely, this macro is to be used in a context where lines of
+% 'box extend' length have to be drawn.
+%
+% The argument is shifted by 'draw relative anchor' and is scaled by
+% 'box extend'.
+%
+% #1: the coordinate. 0 is the means "lower part of the construct
+% which is to be drawn". 1 means the "upper part of that construct"
+% and 0.5 is in the middle. 
+\def\pgfplots@boxplot@anchor@value#1{%
+	(#1-\pgfplotsboxplotvalue{draw relative anchor})*\pgfplotsboxplotvalue{box extend}%
+}
+
+% same as \pgfplots@boxplot@anchor@value, but for drawing constructs
+% which are at most 'whisker extend' long.
+\def\pgfplots@boxplot@anchor@value@whisker#1{%
+	(#1-\pgfplotsboxplotvalue{draw relative anchor})*\pgfplotsboxplotvalue{whisker extend}%
+}
+
+\def\pgfplotsboxplotpointabbox#1#2{%
+	\pgfplotsboxplotpointab{#1}{\pgfplots@boxplot@anchor@value{#2}}%	
+}%
+\def\pgfplotsboxplotpointabwhisker#1#2{%
+	\pgfplotsboxplotpointab{#1}{\pgfplots@boxplot@anchor@value@whisker{#2}}%	
+}%
+
+\tikzdeclarecoordinatesystem{boxplot}{%
+	\pgfplots@boxplot@cs@decompose{#1}%
+	\pgfplotsboxplotpointab{\pgfplots@boxplotcs@a}{\pgfplots@boxplotcs@b}%
+}%
+
+\tikzdeclarecoordinatesystem{boxplot box}{%
+	\pgfplots@boxplot@cs@decompose{#1}%
+	\pgfplotsboxplotpointabbox{\pgfplots@boxplotcs@a}{\pgfplots@boxplotcs@b}%
+}%
+
+\tikzdeclarecoordinatesystem{boxplot whisker}{%
+	\pgfplots@boxplot@cs@decompose{#1}%
+	\pgfplotsboxplotpointabwhisker{\pgfplots@boxplotcs@a}{\pgfplots@boxplotcs@b}%
+}%
+\endinput
