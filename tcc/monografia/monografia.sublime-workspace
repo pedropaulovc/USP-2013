@@ -1,0 +1,376 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"recurso",
+				"recurso_id"
+			],
+			[
+				"sg_rec",
+				"sg_recursos_id"
+			],
+			[
+				"sg_ti",
+				"sg_tipo_equipamentos_id"
+			],
+			[
+				"sg_res",
+				"sg_reservas_id"
+			],
+			[
+				"sg_lo",
+				"sg_locadores"
+			]
+		]
+	},
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 138.0,
+		"selected_items":
+		[
+			[
+				"reind",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"indent",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"sni",
+				"Snippet: \\begin{}…\\end{}"
+			],
+			[
+				"snippet",
+				"Snippet: #!/usr/bin/env"
+			],
+			[
+				"desc",
+				"Snippet: Description"
+			],
+			[
+				"snippetdes",
+				"Snippet: Description"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Lorem ipsum"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"pa",
+				"Package Control: Remove Package"
+			],
+			[
+				"format",
+				"FormatSQL: Format SQL statement"
+			],
+			[
+				"ip",
+				"Package Control: Install Package"
+			],
+			[
+				"add",
+				"Package Control: Add Repository"
+			],
+			[
+				"ind",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"in",
+				"Indentation: Reindent Lines"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 151.0,
+		"history":
+		[
+			"sublime.log_commands(True)",
+			"dir(sublime)",
+			"save_all()",
+			"save_all",
+			"sublime.log_commands(False)",
+			"sublime.log_commands(True)",
+			"dir(sublime)",
+			"dir(view)",
+			"view.save_all()",
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read()) ",
+			" import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read()) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/pedropaulovc/.config/sublime-text-3/Packages/Language - Português/pt_BR.aff",
+		"/home/pedropaulovc/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/pedropaulovc/atual/tcc/monografia/monografia.sublime-workspace",
+		"/home/pedropaulovc/atual/tcc/monografia/monografia.sublime-project",
+		"/home/pedropaulovc/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/home/pedropaulovc/atual/labbd/LabBD/Fase2/fase2Create.sql",
+		"/home/pedropaulovc/atual/labbd/LabBD/Fase2/fase2 Create.ddl",
+		"/home/pedropaulovc/atual/labbd/LabBD/Fase2/fase2 Create.sql"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"begin",
+			"Button",
+			"funcionarios",
+			"externos",
+			"locadores",
+			"locatario",
+			"locatarios",
+			"professores_id",
+			"funcionarios_id",
+			"tipo_equipamentos_id",
+			"professores_id",
+			"funcionarios_id",
+			"locatarios_id",
+			"administradores_id",
+			"orgaos_id",
+			"reservas_id",
+			"recursos_id",
+			"locadores_id",
+			"tipo_equipamentos_id",
+			"administradores_id",
+			"locatarios_id",
+			"orgaos_id",
+			"reservas_id",
+			"recursos_id",
+			"locadores_id",
+			"s_id",
+			"sg_",
+			"^rm",
+			"wrote `(.+)`",
+			"\\Bsg_\\B",
+			"sg_recursos_sg_reservas",
+			"sg_locadores_sg_reservas",
+			"sg_locadores_sg_recursos",
+			"cpf",
+			"sg_externos_cpf_seq",
+			"externos",
+			"\\s+",
+			"\\d+",
+			"public \\|\\s+(.+?)\\s+\\| .* \\| u7538743",
+			"public  \\|\\s+(.+?)\\s+\\| .* \\| u7538743",
+			" teste  \\|\\s+(.+?)\\s+\\| .* \\| u7538743",
+			" teste  \\|\\s+(.+)\\s+\\| .* \\| u7538743",
+			"tipo_equipamentos_id",
+			"tipo_equipamento_id",
+			"locatarios_id",
+			"funcionarios_nusp",
+			"professores_nusp",
+			"orgaos_id",
+			"administrador_id",
+			"d",
+			"reservas_id",
+			"recursos_id",
+			"locadores_id",
+			"tipo_equipamento_id",
+			"sg_tipo_equipamento",
+			"sg_aloca",
+			"sg_julga_reserva",
+			"REFERENCES ",
+			"sg_julga_reserva",
+			"sg_pode_julgarsg_locadores_sg_recursos",
+			"ALTER TABLE sg_locatarios ADD CONSTRAINT FKlocatarios982187\nFOREIGN KEY (administrador_id) REFERENCES administradores (id)\nON UPDATE CASCADE;\n",
+			"locadores_nusp",
+			"sg_pode_julgar",
+			" FOREIGN KEY",
+			"	\n",
+			"CREATE TABLE (.*) \\(",
+			");",
+			", ",
+			"\\)\\);",
+			"));",
+			" (",
+			"d",
+			"NULLdtipo",
+			", ",
+			"TABLE ",
+			" ",
+			"\\n\\n",
+			"ddCREATE",
+			"\n",
+			"CREATE",
+			"administradores",
+			"CREATE",
+			"administradores"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"professor_id",
+			"funcionario_id",
+			"tipo_equipamento_id",
+			"professor_id",
+			"funcionario_id",
+			"locatario_id",
+			"administrador_id",
+			"orgao_id",
+			"reserva_id",
+			"recurso_id",
+			"locador_id",
+			"tipo_equipamento_id",
+			"administrador_id",
+			"locatario_id",
+			"orgao_id",
+			"reserva_id",
+			"recurso_id",
+			"locador_id",
+			"",
+			"rm -f",
+			"rm $1",
+			"",
+			"sg_recursos_reservas",
+			"sg_locadores_reservas",
+			"sg_locadores_recursos",
+			"\\n",
+			"DROP TABLE IF EXISTS $1 CASCADE;",
+			"REFERENCES sg_",
+			"CREATE TABLE $1 (\\n\\t",
+			",\\n\\t",
+			")\\n);",
+			"TABLE sg_",
+			"\\n",
+			"lorem"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"clus",
+				"~/atual/tcc/monografia/cap-conclusoes.tex"
+			],
+			[
+				"con",
+				"~/atual/tcc/monografia/cap-conceitos.tex"
+			],
+			[
+				"ex",
+				"~/atual/tcc/monografia/cap-experimentos.tex"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+		"last_automatic_layout":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		]
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 165.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

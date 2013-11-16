@@ -1,0 +1,35 @@
+% epigraph with 4 params.
+% first is width
+% second is text
+% third is author
+% four is book title
+%
+\newcommand\bookepigraph[4]{
+\vspace{1em}\hfill{}\begin{minipage}{#1}{\begin{spacing}{0.9}
+\small\noindent\textit{#2}\end{spacing}
+\vspace{1em}
+\hfill{}{#3}\\
+ 
+\vspace{-1em}\begin{flushright}{#4}\end{flushright}}\vspace{2em}
+\end{minipage}}
+ 
+% epigraph with 3 params
+% first is width
+% second is text
+% third is author
+%
+\newcommand\epigraph[3]{
+\vspace{1em}\hfill{}\begin{minipage}{#1}{\begin{spacing}{0.9}
+\small\noindent\textit{#2}\end{spacing}
+\vspace{1em}
+\hfill{}{#3}}\vspace{2em}
+\end{minipage}}
+ 
+% epigraph with 2 params
+% first is width
+% second is text
+\newcommand\anonymousepigraph[2]{
+\vspace{1em}\hfill{}\begin{minipage}{#1}{\begin{spacing}{0.9}
+\small\noindent\textit{#2}\end{spacing}}
+\vspace{1em}
+\end{minipage}}

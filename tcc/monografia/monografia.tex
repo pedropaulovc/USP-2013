@@ -38,6 +38,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage[bottom]{footmisc}
+\usepackage{epigraph}
 
 
 %\usepackage[pdftex,plainpages=false,pdfpagelabels,pagebackref,colorlinks=true,citecolor=black,linkcolor=black,urlcolor=black,filecolor=black,bookmarksopen=true]{hyperref} % links em preto
@@ -118,35 +119,35 @@ framexrightmargin=10pt
 % orifício de 10,7cm de largura x 6,0cm de altura que há na capa fornecida pela SPG.
 \thispagestyle{empty}
 \begin{center}
-    \vspace*{2.3cm}
-    \textbf{\Large{Um Algoritmo de Escalonamento para Redução do Consumo de
-    Energia em Computação em Nuvem}}\\
-    
-    \vspace*{1.2cm}
-    \Large{Pedro Paulo Vezzá Campos}
-    
-    \vskip 2cm
-    \textsc{
-    Monografia apresentada\\[-0.25cm] 
-    ao\\[-0.25cm]
-    Instituto de Matemática e Estatística\\[-0.25cm]
-    da\\[-0.25cm]
-    Universidade de São Paulo\\[-0.25cm]
-    para\\[-0.25cm]
-    obtenção do título\\[-0.25cm]
-    de\\[-0.25cm]
-    Bacharel em Ciência da Computação}
-    
-    \vskip 1.5cm
-    Programa: Bacharelado em Ciência da Computação\\
-    Orientador: Prof. Dr. Daniel Macêdo Batista\\
+\vspace*{2.3cm}
+\textbf{\Large{Um Algoritmo de Escalonamento para Redução do Consumo de
+Energia em Computação em Nuvem}}\\
 
-   	\vskip 1cm
+\vspace*{1.2cm}
+\Large{Pedro Paulo Vezzá Campos}
+
+\vskip 2cm
+\textsc{
+Monografia apresentada\\[-0.25cm] 
+ao\\[-0.25cm]
+Instituto de Matemática e Estatística\\[-0.25cm]
+da\\[-0.25cm]
+Universidade de São Paulo\\[-0.25cm]
+para\\[-0.25cm]
+obtenção do título\\[-0.25cm]
+de\\[-0.25cm]
+Bacharel em Ciência da Computação}
+
+\vskip 1.5cm
+Programa: Bacharelado em Ciência da Computação\\
+Orientador: Prof. Dr. Daniel Macêdo Batista\\
+
+\vskip 1cm
 %    \normalsize{Durante o desenvolvimento deste trabalho o autor recebeu auxílio
 %    financeiro da CAPES/CNPq/FAPESP}
-    
-    \vskip 0.5cm
-    \normalsize{\today}
+
+\vskip 0.5cm
+\normalsize{\today}
 \end{center}
 
 % ---------------------------------------------------------------------------- %
@@ -227,12 +228,22 @@ framexrightmargin=10pt
 %\pagebreak
 
 
-%\pagenumbering{roman}     % começamos a numerar 
+\pagenumbering{roman}     % começamos a numerar 
 
 % ---------------------------------------------------------------------------- %
 % Agradecimentos:
 % Se o candidato não quer fazer agradecimentos, deve simplesmente eliminar esta página 
-%\chapter*{Agradecimentos}
+\chapter*{Agradecimentos}
+À minha família, pelo amor, paciência e apoio incondicionais.
+
+Aos meus amigos todos, por terem tornado a vida acadêmica muito mais divertida e
+diversificada.
+
+Ao professor Daniel, pela sugestão de tema para o TCC, reuniões, críticas e
+comentários sempre pertinentes.
+
+À Elaine Naomi Watanabe por todas as ideias, ajuda e tempo dedicados no apoio à
+produção dos resultados apresentados nesta monografia.
 
 
 % ---------------------------------------------------------------------------- %
@@ -292,25 +303,23 @@ usage conditions.\\
 consumption, CloudSim, DAG.
 
 %------------------------------------------------------------------------------%
-%I'm the operator with my pocket calculator
-%I'm the operator with my pocket calculator
-%I am adding and subtracting
-%I'm controlling and composing
-%I'm the operator with my pocket calculator
-%I'm the operator with my pocket calculator
-%                              -- Kraftwerk
+% Epígrafe
+\newpage
+\thispagestyle{empty}
+\null
+\vfill
+\bookepigraph{7cm}{Only those who attempt the absurd will achieve the impossible.}{M. C. Escher}{}
 % ---------------------------------------------------------------------------- %
 % Sumário
 \tableofcontents    % imprime o sumário
 
 % ---------------------------------------------------------------------------- %
-%\chapter{Lista de Abreviaturas}
-%\begin{tabular}{ll}
-%         CFT         & Transformada contínua de Fourier (\emph{Continuous Fourier Transform})\\
-%         DFT         & Transformada discreta de Fourier (\emph{Discrete Fourier Transform})\\
-%        EIIP         & Potencial de interação elétron-íon (\emph{Electron-Ion Interaction Potentials})\\
-%        STFT         & Tranformada de Fourier de tempo reduzido (\emph{Short-Time Fourier Transform})\\
-%\end{tabular}
+\chapter{Lista de Abreviaturas}
+\begin{tabular}{ll}
+         DAG         & Grafo acíclico dirigido (\emph{Directed acyclic graph})\\
+        HEFT         & Tempo mais cedo de conclusão heterogênea (\emph{Heterogeneous earliest finish time})\\
+          TI         & Tecnologia da informação\\
+\end{tabular}
 
 % ---------------------------------------------------------------------------- %
 %\chapter{Lista de Símbolos}
@@ -322,8 +331,8 @@ consumption, CloudSim, DAG.
 
 % ---------------------------------------------------------------------------- %
 % Listas de figuras e tabelas criadas automaticamente
-%\listoffigures            
-%\listoftables            
+\listoffigures            
+\listoftables            
 
 % ---------------------------------------------------------------------------- %
 % Capítulos do trabalho
@@ -337,7 +346,7 @@ consumption, CloudSim, DAG.
 
 \part{Parte Objetiva}
 
-\input cap-cronograma        % associado ao arquivo: 'cap-cronograma.tex'
+%\input cap-cronograma        % associado ao arquivo: 'cap-cronograma.tex'
 \input cap-introducao        % associado ao arquivo: 'cap-introducao.tex'
 \input cap-conceitos         % associado ao arquivo: 'cap-conceitos.tex'
 \input cap-experimentos      % associado ao arquivo: 'cap-experimentos.tex'
