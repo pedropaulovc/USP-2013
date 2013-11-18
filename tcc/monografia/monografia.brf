@@ -28,8 +28,9 @@
 \backcite {beloglazov:cloudsim_power}{{11}{2.4.1}{section*.18}}
 \backcite {chen:workflowsim}{{12}{2.4.2}{subsection.2.4.2}}
 \backcite {workflowsim:license}{{12}{2.4.2}{subsection.2.4.2}}
-\backcite {spec:proliant_ml110_g3}{{14}{\caption@xref {??}{ on input line 92}}{table.caption.22}}
-\backcite {spec:proliant_ml110_g5}{{14}{\caption@xref {??}{ on input line 111}}{table.caption.23}}
-\backcite {spec:proliant_ml110_g3}{{14}{1}{Hfootnote.9}}
-\backcite {spec:proliant_ml110_g5}{{14}{1}{Hfootnote.9}}
-\backcite {pegasus:workflowgenerator}{{15}{3.3}{section.3.3}}
+\backcite {guerout:energy_aware_simulation}{{13}{4}{section.3.1}}
+\backcite {spec:proliant_ml110_g3}{{16}{\caption@xref {??}{ on input line 92}}{table.caption.22}}
+\backcite {spec:proliant_ml110_g5}{{16}{\caption@xref {??}{ on input line 111}}{table.caption.23}}
+\backcite {spec:proliant_ml110_g3}{{16}{1}{Hfootnote.9}}
+\backcite {spec:proliant_ml110_g5}{{16}{1}{Hfootnote.9}}
+\backcite {pegasus:workflowgenerator}{{17}{4.3}{section.4.3}}

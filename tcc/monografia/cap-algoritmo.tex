@@ -1,0 +1,47 @@
+%% ------------------------------------------------------------------------- %%
+\chapter{Algoritmo Proposto}
+\label{cap:algoritmo}
+
+\section{Proposta Inicial}
+
+\begin{codebox}
+\Procname{$\proc{Power-HEFT-Lookahead}()$}
+	\li $V \gets \{VmMaisRapida\}$ \Comment VMs usadas ao escalonar
+	\li $O \gets \text{os tipos de VMs que podem ser instanciadas}$
+	\li Ordene o conjunto de tarefas segundo o critério $rank_u$
+   
+	\li \While há tarefas não escalonadas
+		\li \Do $t \gets \text{a tarefa não escalonada de maior } rank_u$
+		\zi
+	    \li \Comment Vamos tentar escalonar t em uma VM existente
+	    \li \For cada $v$ em $V$:
+		    \li \Do	$\proc{EscalonarPowerHEFT}(t, v)$
+	    \End
+	    
+	    \zi
+	    \li \Comment Vamos tentar escalonar t em uma nova VM
+	    \li \For cada $o$ em $O$:
+		    \li \Do	$V \gets V \cup \{o\}$
+		    \li Atualize os valores de $rank_u$
+		    \li $t \gets \text{a tarefa não escalonada de maior } rank_u$
+		    \li $\proc{EscalonarPowerHEFT}(t, o)$
+	    \End
+	    
+	    \li Escalone $t$ na VM que minimiza a energia consumida
+	    \li Atualize $V$ e $rank_u$ caso necessário
+	\End
+\End
+\end{codebox}
+
+\begin{codebox}
+\Procname{$\proc{EscalonarPowerHEFT}(tarefa, VM)$}
+	\li $F \gets \text{filhos diretos da } tarefa \text{ no DAG}$
+    \li Escalone $tarefa$ em $VM$
+	\li Escalone $F$ utilizando o algoritmo \textsc{HEFT}
+	\zi
+	\li \Comment A modelagem energética utilizada está descrita em
+    	\cite{guerout:energy_aware_simulation}
+	\li $energia \gets$ \proc{EstimarEnergiaConsumida()}
+		\li Volte para o escalonamento do começo do laço
+	\li \Return $energia$
+\end{codebox}

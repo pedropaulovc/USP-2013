@@ -25,18 +25,54 @@
 			]
 		]
 	},
-	"build_system": "",
+	"build_system": "Packages/Makefile/Make.sublime-build",
 	"command_palette":
 	{
-		"height": 138.0,
+		"height": 159.0,
 		"selected_items":
 		[
 			[
-				"reind",
-				"Indentation: Reindent Lines"
+				"item",
+				"Snippet: \\item[description]"
+			],
+			[
+				"desc",
+				"Snippet: Description"
+			],
+			[
+				"subs",
+				"Snippet: Sub Section"
+			],
+			[
+				"fold",
+				"Code Folding: Fold Tag Attributes"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"pak",
+				"Package Control: List Packages"
 			],
 			[
 				"indent",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"consol",
+				"Set Syntax: R Console"
+			],
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
+			[
+				"reind",
 				"Indentation: Reindent Lines"
 			],
 			[
@@ -48,24 +84,12 @@
 				"Snippet: #!/usr/bin/env"
 			],
 			[
-				"desc",
-				"Snippet: Description"
-			],
-			[
 				"snippetdes",
 				"Snippet: Description"
 			],
 			[
 				"Snippet: ",
 				"Snippet: Lorem ipsum"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
-			],
-			[
-				"insta",
-				"Package Control: Install Package"
 			],
 			[
 				"pa",
@@ -99,6 +123,11 @@
 		"height": 151.0,
 		"history":
 		[
+			"sublime.saveAll()",
+			"saveAll()",
+			"sublime.save_all()",
+			"save_all()",
+			"save_all",
 			"sublime.log_commands(True)",
 			"dir(sublime)",
 			"save_all()",
@@ -123,11 +152,20 @@
 	},
 	"file_history":
 	[
-		"/home/pedropaulovc/.config/sublime-text-3/Packages/Language - Português/pt_BR.aff",
-		"/home/pedropaulovc/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
-		"/home/pedropaulovc/atual/tcc/monografia/monografia.sublime-workspace",
-		"/home/pedropaulovc/atual/tcc/monografia/monografia.sublime-project",
+		"/home/pedropaulovc/tmp/struts2/META-INF/maven/org.apache.struts/struts2-blank/pom.xml",
+		"/home/pedropaulovc/Desktop/struts2-blank/build.xml",
+		"/home/pedropaulovc/atual/tcc/monografia/cap-a-graduacao.tex",
+		"/home/pedropaulovc/atual/tcc/monografia/cap-o-tcc.tex",
+		"/home/pedropaulovc/atual/tcc/www/proposta.html",
+		"/home/pedropaulovc/atual/tcc/www/index.html",
+		"/home/pedropaulovc/atual/tcc/monografia/epigraph.sty",
 		"/home/pedropaulovc/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/home/pedropaulovc/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/pedropaulovc/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/pedropaulovc/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/pedropaulovc/atual/tcc/monografia/monografia.sublime-project",
+		"/home/pedropaulovc/.config/sublime-text-3/Packages/Language - Português/pt_BR.aff",
+		"/home/pedropaulovc/atual/tcc/monografia/monografia.sublime-workspace",
 		"/home/pedropaulovc/atual/labbd/LabBD/Fase2/fase2Create.sql",
 		"/home/pedropaulovc/atual/labbd/LabBD/Fase2/fase2 Create.ddl",
 		"/home/pedropaulovc/atual/labbd/LabBD/Fase2/fase2 Create.sql"
@@ -149,6 +187,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"new",
+			"ctrl\\+alt\\+s",
+			"ctrl\\+shift\\+",
+			"ctrl\\+t",
+			"alt+up",
 			"begin",
 			"Button",
 			"funcionarios",
@@ -311,6 +354,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 27.0
+	},
 	"replace":
 	{
 		"height": 64.0
