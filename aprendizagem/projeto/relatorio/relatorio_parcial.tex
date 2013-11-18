@@ -23,8 +23,8 @@
 
 
 \title{Relatório Parcial - Projeto de Aprendizagem Computacional}
-\author{Camila Fernandez Achutti \hfill 6795610\\
-		Pedro Paulo Vezzá Campos \hfill 7538743}
+\author{Pedro Paulo Vezzá Campos \hfill 7538743\\
+		Camila Fernandez Achutti \hfill 6795610}
 \date{\today}
 
 \maketitle
@@ -35,7 +35,7 @@
 
 \section{Proposta escolhida}
 O grupo optou pela proposta 2, animação de algoritmos de aprendizagem
-computacional. O algoritmo que está sendo implementado e simulado visualmente é o
+computacional. O algoritmo a ser implementado e simulado visualmente é o
 Perceptron.
 
 \section{Sobre o problema de aprendizagem}
@@ -56,13 +56,9 @@ Neste trabalho esperamos implementar o perceptron para dimensão arbitrária d $
 
 \section{Interface Gráfica}
 
-Está sendo desenvolvida uma interface gráfica de visualização da execução do
-algoritmo em 2D. Para entradas com dimensões maiores que 2 representaremos
-apenas 2 delas, dando ao usuário a opção de escolher qual visualizar.
+Foi e será desenvolvida em 2D, ainda que a dimensão d seja maior que 2. Vamos sempre fazer a representação somente de 2 delas. 
 
-A implementação está sendo feita em Python com o apoio das bibliotecas
-matplotlib (pyplot) para o plot dos gráficos e a interface do usuário usando
-PyGTK.
+A implementação será feita em python e a plotagem será feita usando PyLab e a interface do usuário usando PyGTK.
 
 A entrada pode ser efetuada de 3 maneiras diferentes:
 \begin{itemize}
@@ -186,4 +182,167 @@ Nesse algoritmo limitamos o número máximo de iterações em 100 e $\eta$ para 
 			\hline
 			cor & textura & classe \\ \hline
 			5 & 1 & 1 \\
-			5 
+			5 & 3 & 2 \\
+			6 & 2 & 1 \\ \hline
+			\end{tabular}
+			\caption{Conjunto de teste do exemplo das violetas}
+		\end{table}
+\end{itemize}
+
+\item Implementar interface gráfica
+
+A interface gráfica já desenvolvida se restringe a exibição dos pontos de treinamento e teste e das linhas obtidas durante o treinamento.
+
+Assim que o programa rodar ele abre uma janela como ilustrada abaixo e a interface com o usuário já está implementada para suportar sequências de cliques errados.
+
+\newpage
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{erro.png}
+\caption{Interface com o usuário.}
+\end{figure}
+
+Se escolhermos sortear os dados o nosso aplicativo se comporta da seguinte maneira representada pela sequência de fotos abaixo:
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex1-1.png}
+\caption{Situação inicial do exemplo 1, onde uma reta arbitrária foi sorteada.}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex1-2.png}
+\caption{Começa a execução do algoritmo para o exemplo 1.}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex1-3.png}
+\caption{Fim do algoritmo, reta classificadora foi encontrada no exemplo 1.}
+\end{figure}
+
+Agora queremos mostrar como é feito o teste, que é quando o usuário clica no botão TESTAR. Lembrando que só será valido se ele já tiver realizado o treino.
+
+\newpage
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex2-1.png}
+\caption{Situação inicial do exemplo 2, onde uma reta arbitrária foi sorteada.}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex2-2.png}
+\caption{Começa a execução do algoritmo para o exemplo 2.}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex2-3.png}
+\caption{Fim do algoritmo, reta classificadora foi encontrada para o exemplo 2.}
+\end{figure}
+
+Agora se o usuário apertar o botão TESTAR os dados de treino serão retirados do gráfico e os dados de teste serão colocados conforme ilustrado nas imagens abaixo:
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex2-t1.png}
+\caption{Remoção dos dados de treino.}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex2-t2.png}
+\caption{Exibição dos dados de teste.}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex2-t3.png}
+\caption{Fim do teste para o exemplo 2.}
+\end{figure}
+
+Neste caso apresentado acima temos um treinamento bem sucedido. Agora vamos ilustrar uma caso de treinamento mal-sucedido. Para isso alteramos o eta para um valor baixo para que a taxa de aprendizado fosse bem baixa e limitamos o número de iterações para 1. O resultado obtido está ilustrado abaixo: 
+
+\newpage
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex3-1.png}
+\caption{Exibição dos dados de teste.}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex3-2.png}
+\caption{Fim do teste para o exemplo 2.}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex3-3.png}
+\caption{Exibição dos dados de teste.}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex3-4.png}
+\caption{Fim do teste para o exemplo 2.}
+\end{figure}
+
+\newpage
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex3-t1.png}
+\caption{Exibição dos dados de teste.}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.25]{ex3-t2.png}
+\caption{Fim do teste para o exemplo 3.}
+\end{figure}
+
+
+Aqui esclarecemos que o diamante amarelo representa os dados de teste mal classificados de ambas as amostras.
+
+É possível também realizar a entrada de dados por arquivos externos. Devem ser produzidos e carregados dois arquivos separados um de treinamento e outro de teste, ambos no formato CSV com o seguinte padrão: \texttt{x1, x2, classe}, onde a classe é 1 ou -1.
+\end{itemize} 
+
+\section{O que falta ser feito}
+
+\begin{itemize}
+\item Estudo e implementação do algoritmo perceptron em Python
+
+Falta a implementação do algoritmo para mais de duas dimensões.
+
+\item Implementar interface gráfica
+
+Falta a implementação da interface com o usuário que permitirá a seleção do método de entrada por clique.
+ 
+\item Escrever Relatório Final
+
+A redação do relatório final será iniciada em novembro conforme consta no cronograma. 
+
+\end{itemize}  
+
+\section{Bibliografia}
+\begin{itemize}
+\item http://computing.dcu.ie/~humphrys/Notes/Neural/single.neural.html
+\item http://eecs.wsu.edu/~cook/ai/lectures/applets/perceptron/
+\item http://matplotlib.org/
+\item http://www.pygtk.org/
+\end{itemize}
+\end{document}
+

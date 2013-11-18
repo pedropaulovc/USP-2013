@@ -149,7 +149,7 @@ atuais \cite{lago:escalonamento_com_prioridade_eficiente}.
 \label{sec:escalonamento_tarefas}
 Segundo \cite{lago:escalonamento_com_prioridade_eficiente}, o escalonamento de 
 tarefas pode ser visto através de duas óticas: a do usuário da nuvem, que deseja
-que sua tarefa execute o mais rapidamente possivel e com o menor custo e a 
+que sua tarefa execute o mais rapidamente possível e com o menor custo e a 
 perspectiva do provedor da nuvem, interessado em reduzir os recursos utilizados,
 gerando economias na manutenção e energia elétrica. Esta monografia foca no
 escalonamento pelo ponto de vista do provedor. 
@@ -160,25 +160,33 @@ escalonamento pelo ponto de vista do provedor.
 O algoritmo \emph{Heterogeneous Earliest Finish Time} -- HEFT é um algoritmo de
 escalonamento de fluxos de trabalho modelados utilizando um digrafo acíclico
 (\emph{Directed acyclic graph} -- DAG) para um número limitado de computadores
-heterogêneos \cite{kim:virtual_computing}. Como o problema de escalonamento de
-tarefas é NP-difícil, ele é frequentemente utilizado como
+heterogêneos \cite{kim:virtual_computing}.
+
+O HEFT é um exemplo de escalonador \emph{baseado em lista}. Ou seja, funciona
+ordenando as tarefas a serem executadas ao definir prioridades de escalonamento.
+Em seguida, processa uma tarefa por vez até que um escalonamento válido seja
+produzido. Para cada tarefa, é definido o processador que irá acomodar esta
+tarefa. Todo o processamento do HEFT é feito antes do escalonamento ser
+executado, ou seja, é um escalonador \emph{off-line}.
+
+Como o problema de escalonamento de
+tarefas é NP-difícil, o HEFT é frequentemente utilizado como
 referência na literatura para comparar o desempenho de novas propostas, 
 como por exemplo em \cite{batista:embedding_software_requirements}.
 
-O HEFT recebe como entrada um 
-conjunto de tarefas modeladas como um DAG, um conjunto de nós computacionais,
-os tempos para executar uma tarefa em um dado nó e os tempos necessários para
-comunicar os resultados de uma tarefa para cada uma de suas tarefas filhas no
-DAG. Como saída o algoritmo gera um escalonamento, mapeando cada tarefa a uma
-máquina.
+O HEFT recebe como entrada um conjunto de tarefas modeladas como um DAG, um
+conjunto de nós computacionais, os tempos para executar uma tarefa em um dado nó
+e os tempos necessários para comunicar os resultados de uma tarefa para cada uma
+de suas tarefas filhas no DAG. Como saída o algoritmo gera um escalonamento,
+mapeando cada tarefa a uma máquina.
 
 O HEFT consiste de duas fases principais:
 
 \begin{description}
-	\item[Fase de priorização] Definição das prioridades das tarefas e a seleção
-	de tais tarefas com base nas suas prioridades
-	\item[Fase de seleção] Mapeamento e escalonamento de cada tarefa selecionada
-	em um processador
+	\item[Fase de priorização] Cálculo da prioridade das tarefas e criação
+		da lista de escalonamento com base neste cálculo
+	\item[Fase de seleção] Mapeamento de cada tarefa em uma máquina para
+		processamento
 \end{description}
 
 \subsubsection{Fase de Priorização}
@@ -195,36 +203,45 @@ A prioridade de uma tarefa $n_i$ é definida recursivamente como:
 
 $$ \label{eq:rank} rank_u(n_i) = \overline{w_i} + \max_{n_j \in succ(n_i)} (\overline{c_{i,j}} + rank_u(n_j)) $$
 
-onde $n_i$ representa a $i$-ésima tarefa, $\overline{w_i}$ é uma média
-do custo computacional da tarefa $i$ entre todos os processadores, $succ(n_i)$ 
-é o conjunto de todas as tarefas que dependem imediatamente da tarefa $n_i$
-e $\overline{c_{i,j}}$ é o custo de comunicação dos dados transferidos entre 
-as tarefas $n_i$ e $n_j$. %TODO ver no artigo original do HEFT
+onde $n_i$ representa a $i$-ésima tarefa, $\overline{w_i}$ é uma média do custo
+computacional em uma unidade de tempo da tarefa $i$ entre todos os
+processadores, $succ(n_i)$ é o conjunto de todas as tarefas que dependem
+imediatamente da tarefa $n_i$ e $\overline{c_{i,j}}$ é o custo de comunicação
+dos dados transferidos entre as tarefas $n_i$ e $n_j$ na mesma unidade de tempo
+utilizada antes. %TODO ver no artigo original do HEFT
 
-Note que o cálculo de $rank_u(n_i)$ depende do cálculo do $rank$ de todas as
-suas tarefas filhas. A noção intuitiva por trás do $rank$ é que ele deve
+Note que o cálculo de $rank_u(n_i)$ depende do cálculo do $rank_u$ de todas as
+suas tarefas filhas. A noção intuitiva por trás do $rank_u$ é que ele deve
 representar a distância esperada de qualquer tarefa até o fim da execução do
 \emph{workflow}.
 
+Ao processar primeiramente as tarefas que estão em um potencial caminho crítico
+do DAG, o HEFT possui à sua disposição máquinas mais poderosas disponíveis para
+o processamento. Desta forma, pode aplicá-las para garantir que este caminho
+crítico seja processado o mais rápido possível. Um caminho crítico é definido
+como uma sequência de vértices conectados cujo tempo de execução é o limitante
+inferior no tempo total de execução do fluxo de trabalho
 
 \begin{codebox}
 \Procname{$\proc{Heterogeneous-Earliest-Finish-Time}()$}
-\li	Defina os custos computacionais das tarefas e os custos de comunicação das
-	arestas \\com valores médios
+\li	Defina os custos computacionais das tarefas e os custos de comunicação entre as tarefas
+\zi com valores médios
 \li	Calcule $rank_u$ para todas as tarefas varrendo o grafo de ``baixo para cima'',
 	iniciando \\pela tarefa final.
-\li Ordene as tarefas em uma lista de escalonamento utilizando uma ordem não \\
-	crescente de valores de $rank_u$.
+\li Ordene as tarefas em uma lista de escalonamento utilizando uma ordem não
+\zi crescente de valores de $rank_u$.
 \li 	\While há tarefas não escalonadas na lista
 \li 		\Do
 				Selecione a primeira tarefa, $n_i$ da lista de escalonamento.
-\li				\For cada processafor $p_k$ no conjunto de processadores $(p_k \in P)$
+\li				\For cada processador $p_k$ no conjunto de processadores $(p_k \in P)$
 \li 				\Do
 						Calcule o tempo mais cedo de conclusão da tarefa  $n_i$,
-						considerando que ela execute \\em $p_k$
+						considerando que ela execute 
+\zi         em $p_k$
 					\End
 \li				Defina a tarefa $n_i$ para executar no processador $p_j$ que
-					minimiza o tempo mais\\ cedo de conclusão da tarefa $n_i$.
+					minimiza o tempo mais
+\zi       cedo de conclusão da tarefa $n_i$.
 			\End
 \End
 \end{codebox}
@@ -254,7 +271,7 @@ executar em $p_j$, ou seja, o momento quando todos os dados
 de entrada de $n_i$ foram enviados pelos predecessores imediatos
 de $n_i$ ao processador $p_j$. A busca continua até que seja
 encontrado um intervalo de tempo capaz de suportar o custo
-computacional de $n_i$.topcoglu:heft
+computacional de $n_i$ \cite{topcoglu:heft}.
 
 
 \subsubsection{Análise de Complexidade do HEFT}
@@ -278,27 +295,31 @@ transmissão de dados entre um nó de processamento e outro}
 \label{fig:dag_heft}
 \end{figure}
 
-Para uma execução simulada do algoritmo HEFT, consideramos o
-fluxo de trabalho apresentado no artigo original do algoritmo,
-\cite{topcoglu:heft}, descrito na Figura \ref{fig:dag_heft}. Cada
-vértice do DAG é uma tarefa a ser executada em um dos três
-processadores disponíveis: P1, P2 e P3. Os rótulos nas arestas
-indicam o tempo necessário para transferir os resultados de uma
-tarefa entre dois processadores \emph{distintos}. 
+Para uma execução simulada do algoritmo HEFT, consideramos o fluxo de trabalho
+apresentado no artigo original do algoritmo, \cite{topcoglu:heft}, descrito na
+Figura \ref{fig:dag_heft}. Cada vértice do DAG é uma tarefa a ser executada em
+um dos três processadores (heterogêneos) disponíveis: P1, P2 e P3. Os rótulos
+nas arestas indicam o tempo necessário para transferir os resultados de uma
+tarefa entre dois processadores \emph{distintos}.
 
-Para uma dada tarefa, o tempo para processá-la em cada um dos
-processadores está descrito na Tabela
-\ref{tab:custos_computacionais}. Com os valores apresentados é
-possível calcular o valor de $rank_u$, seguindo a fórmula
-apresentada anteriormente. O valor resultado está também na
-Tabela \ref{tab:custos_computacionais}.
-
+Para uma dada tarefa, o tempo para processá-la em cada um dos processadores está
+descrito na Tabela \ref{tab:custos_computacionais}. Com os valores apresentados
+é possível calcular o valor de $rank_u$, seguindo a fórmula apresentada
+anteriormente. O resultado está também na Tabela
+\ref{tab:custos_computacionais}. O escalonamento resultante da execução do HEFT
+com o grafo da Figura \ref{fig:dag_heft} está apresentado na Figura
+\ref{fig:escalonamento_heft}. Note que o tempo total de execução do fluxo de
+trabalho após o escalonamento feito pelo HEFT é de 80 segundos no total. Em
+comparação, se todas as tarefas fossem processadas na máquina P1 o tempo de
+execução seria de 127 segundos, na máquina P2 de 130 segundos e na máquina P3 de
+143 segundos. Isso confere ao HEFT ganhos de 37\%, 38,5\% e 44\%
+respectivamente.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.3\linewidth]{escalonamento_heft.pdf}
 \caption{Escalonamento produzido pelo algoritmo HEFT}
-\label{fig:dag_heft}
+\label{fig:escalonamento_heft}
 \end{figure}
 
 
@@ -306,7 +327,7 @@ Tabela \ref{tab:custos_computacionais}.
 	\centering
     \begin{tabular}{|c|c|c|c|c|}
     \hline
-    \textbf{Tarefa} & \textbf{P1} & \textbf{P2} & \textbf{P3} & $rank_u(n_i)$ \\ \hline
+    \textbf{Tarefa} & \textbf{P1 (s)} & \textbf{P2 (s)} & \textbf{P3 (s)} & $rank_u(n_i)$ \\ \hline
 	1               & 14          & 16          & 9           & 108.000       \\
 	2               & 13          & 19          & 18          & 77.000        \\
 	3               & 11          & 13          & 19          & 80.000        \\
@@ -424,7 +445,7 @@ arquitetura projetada pelos desenvolvedores do CloudSim.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[draft,width=8cm,height=5cm]{graph.pdf}
+\includegraphics[width=12cm]{CloudSim.pdf}
 \caption{Arquitetura do CloudSim}
 \label{fig:arquitetura_cloudsim}
 \end{figure}

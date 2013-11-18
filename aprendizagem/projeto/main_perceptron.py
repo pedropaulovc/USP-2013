@@ -155,7 +155,7 @@ class Main:
 		elementos visuais e cadastra os respectivos tratadores
 		de eventos."""
 		window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-		window.set_size_request(400, 300)
+		window.set_size_request(450, 300)
 		window.set_title("Perceptron")
 		window.connect("delete_event", lambda w,e: gtk.main_quit())
 

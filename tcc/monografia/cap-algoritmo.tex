@@ -45,3 +45,59 @@
 		\li Volte para o escalonamento do começo do laço
 	\li \Return $energia$
 \end{codebox}
+
+\section{Proposta Revisada} % (fold)
+\label{sec:proposta_revisada}
+
+\begin{codebox}
+\Procname{$\proc{TaskClustering}()$}
+	\li \For cada Vm com tarefas alocadas
+		\li \Do \If $VmAnterior$ e a $VmAtual$ forem do tipo \{VmMaisLenta\}
+			\li \Do Aloque uma nova Vm do tipo \{VmMaisRápida\}
+			\li Transfira as tarefas da $VmAnterior$ e $VmAtual$ para a nova Vm
+		\End
+	\End
+\end{codebox}
+
+% section proposta_revisada (end)
+
+\begin{codebox}
+\Procname{$\proc{HEFT-DynamicAllocationVm}()$}
+\li Aloque uma Vm do tipo \{VmMaisRápida\}
+\li	Defina os custos computacionais das tarefas e os custos de comunicação entre as tarefas
+\zi com valores médios
+\li	Calcule $rank_u$ para todas as tarefas varrendo o grafo de ``baixo para cima'',
+	iniciando \\pela tarefa final.
+\li Ordene as tarefas em uma lista de escalonamento utilizando uma ordem não
+\zi crescente de valores de $rank_u$.
+\li 	\While há tarefas não escalonadas na lista
+\li 		\Do
+				Selecione a primeira tarefa, $t_i$ da lista de escalonamento.
+\li 			Calcule o tempo mínimo para execução da tarefa $t_i$ com base nas tarefas
+\zi das quais $t_i$ dependa				
+\li				\For cada VM $m_k$ no conjunto de VM $(m_k \in P)$
+\li 				\Do
+						Calcule o tempo mais cedo de conclusão da tarefa  $t_i$,
+						considerando que ela execute 
+\zi         em $m_k$
+					\End
+\li				Defina o tempo mais cedo de conclusão da tarefa $t_i$ e o tempo
+				de início da VM em que esse tempo foi obtido
+\li			\If a Vm escolhida não é do tipo \{VmMaisRápida\}
+\li				\Then
+					Aloque uma nova VM do tipo \{VmMaisLenta\}
+\li				\Else
+\li					\If a Vm escolhida não é do tipo \{VmMaisRápida\}
+\li 					\Then
+							Aloque uma nova Vm do tipo \{VmMaisRápida\}
+\li							Migre todas as tarefas da Vm antiga
+\li 						Defina a tarefa na nova Vm
+\li						\Else
+\li							Defina a tarefa $t_i$ para ser executada na Vm que
+							minimiza o tempo de
+\zi							conclusão desta tarefa
+						\End
+				\End
+			\End
+\End
+\end{codebox}

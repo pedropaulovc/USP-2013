@@ -20,17 +20,18 @@
 \backcite {kim:virtual_computing}{{7}{2.3.1}{subsection.2.3.1}}
 \backcite {batista:embedding_software_requirements}{{7}{2.3.1}{subsection.2.3.1}}
 \backcite {topcoglu:heft}{{8}{2.3.1}{section*.10}}
+\backcite {topcoglu:heft}{{8}{2.3.1}{section*.10}}
 \backcite {topcoglu:heft}{{8}{2.3.1}{figure.caption.13}}
-\backcite {batista:embedding_software_requirements}{{8}{2.3.2}{subsection.2.3.2}}
-\backcite {calheiros:cloudsim}{{10}{2.4.1}{subsection.2.4.1}}
-\backcite {google:cloudsim}{{10}{2.4.1}{subsection.2.4.1}}
+\backcite {batista:embedding_software_requirements}{{10}{2.3.2}{subsection.2.3.2}}
+\backcite {calheiros:cloudsim}{{11}{2.4.1}{subsection.2.4.1}}
+\backcite {google:cloudsim}{{11}{2.4.1}{subsection.2.4.1}}
 \backcite {cloudsim:site}{{11}{2.4.1}{subsection.2.4.1}}
-\backcite {beloglazov:cloudsim_power}{{11}{2.4.1}{section*.18}}
+\backcite {beloglazov:cloudsim_power}{{12}{2.4.1}{section*.18}}
 \backcite {chen:workflowsim}{{12}{2.4.2}{subsection.2.4.2}}
 \backcite {workflowsim:license}{{12}{2.4.2}{subsection.2.4.2}}
-\backcite {guerout:energy_aware_simulation}{{13}{4}{section.3.1}}
-\backcite {spec:proliant_ml110_g3}{{16}{\caption@xref {??}{ on input line 92}}{table.caption.22}}
-\backcite {spec:proliant_ml110_g5}{{16}{\caption@xref {??}{ on input line 111}}{table.caption.23}}
-\backcite {spec:proliant_ml110_g3}{{16}{1}{Hfootnote.9}}
-\backcite {spec:proliant_ml110_g5}{{16}{1}{Hfootnote.9}}
-\backcite {pegasus:workflowgenerator}{{17}{4.3}{section.4.3}}
+\backcite {guerout:energy_aware_simulation}{{15}{4}{section.3.1}}
+\backcite {spec:proliant_ml110_g3}{{17}{1}{Hfootnote.9}}
+\backcite {spec:proliant_ml110_g5}{{17}{1}{Hfootnote.9}}
+\backcite {spec:proliant_ml110_g3}{{18}{\caption@xref {??}{ on input line 93}}{table.caption.22}}
+\backcite {pegasus:workflowgenerator}{{18}{4.3}{section.4.3}}
+\backcite {spec:proliant_ml110_g5}{{19}{\caption@xref {??}{ on input line 112}}{table.caption.23}}
