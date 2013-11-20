@@ -28,9 +28,25 @@
 \backcite {beloglazov:cloudsim_power}{{11}{2.4.1}{section*.18}}
 \backcite {chen:workflowsim}{{12}{2.4.2}{subsection.2.4.2}}
 \backcite {workflowsim:license}{{12}{2.4.2}{subsection.2.4.2}}
-\backcite {guerout:energy_aware_simulation}{{13}{4}{section.3.1}}
-\backcite {spec:proliant_ml110_g3}{{16}{\caption@xref {??}{ on input line 92}}{table.caption.22}}
-\backcite {spec:proliant_ml110_g5}{{16}{\caption@xref {??}{ on input line 111}}{table.caption.23}}
-\backcite {spec:proliant_ml110_g3}{{16}{1}{Hfootnote.9}}
-\backcite {spec:proliant_ml110_g5}{{16}{1}{Hfootnote.9}}
-\backcite {pegasus:workflowgenerator}{{17}{4.3}{section.4.3}}
+\backcite {guerout:energy_aware_simulation}{{13}{3}{chapter.3}}
+\backcite {barroso:case_energy_proportional}{{13}{3}{chapter.3}}
+\backcite {bittencourt:heft_lookahead}{{13}{3.1}{section.3.1}}
+\backcite {guerout:energy_aware_simulation}{{14}{3.1}{section.3.1}}
+\backcite {guerout:energy_aware_simulation}{{14}{4}{section.3.1}}
+\backcite {chen:workflowsim}{{15}{3.2}{section.3.2}}
+\backcite {guerout:energy_aware_simulation}{{17}{4.2}{section.4.2}}
+\backcite {cappello:grid5000}{{17}{4.2}{section.4.2}}
+\backcite {pegasus:workflowgenerator}{{18}{4.3}{section.4.3}}
+\backcite {guerout:energy_aware_simulation}{{19}{\caption@xref {??}{ on input line 185}}{table.caption.23}}
+\backcite {guerout:energy_aware_simulation}{{19}{\caption@xref {??}{ on input line 186}}{table.caption.23}}
+\backcite {guerout:energy_aware_simulation}{{19}{\caption@xref {??}{ on input line 204}}{table.caption.24}}
+\backcite {guerout:energy_aware_simulation}{{19}{\caption@xref {??}{ on input line 205}}{table.caption.24}}
+\backcite {guerout:energy_aware_simulation}{{19}{4.4.3}{subsection.4.4.3}}
+\backcite {guerout:energy_aware_simulation}{{19}{\caption@xref {??}{ on input line 234}}{table.caption.25}}
+\backcite {guerout:energy_aware_simulation}{{19}{\caption@xref {??}{ on input line 235}}{table.caption.25}}
+\backcite {guerout:energy_aware_simulation}{{20}{\caption@xref {??}{ on input line 253}}{table.caption.26}}
+\backcite {guerout:energy_aware_simulation}{{20}{\caption@xref {??}{ on input line 254}}{table.caption.26}}
+\backcite {guerout:energy_aware_simulation}{{20}{\caption@xref {??}{ on input line 282}}{table.caption.27}}
+\backcite {guerout:energy_aware_simulation}{{20}{\caption@xref {??}{ on input line 283}}{table.caption.27}}
+\backcite {guerout:energy_aware_simulation}{{20}{\caption@xref {??}{ on input line 301}}{table.caption.28}}
+\backcite {guerout:energy_aware_simulation}{{20}{\caption@xref {??}{ on input line 302}}{table.caption.28}}
