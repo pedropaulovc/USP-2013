@@ -77,7 +77,7 @@ foi aceito como contribuidor no projeto.
 O ambiente simulado foi o mesmo que o artigo
 \cite{guerout:energy_aware_simulation} utilizou em seus experimentos e é baseado
 no Grid'5000 REIMS \cite{cappello:grid5000}. As configurações utilizadas estão
-descritas na Tabela \ref{tab:configuracoes_cloudsim_dvfs}.
+na Tabela \ref{tab:configuracoes_cloudsim_dvfs}.
 
 \begin{table}
 	\centering
@@ -103,13 +103,16 @@ descritas na Tabela \ref{tab:configuracoes_cloudsim_dvfs}.
 \section{Fluxos de Trabalho Utilizados}
 \label{sec:fluxos_trabalho}
 
-Para facilitar a análise de algoritmos que operam sobre fluxos de trabalho,
-tais como os algoritmos descritos nesta monografia, o projeto Pegasus Workflow
+Para facilitar a análise de algoritmos que operam sobre fluxos de trabalho, tais
+como os algoritmos descritos nesta monografia, o projeto Pegasus Workflow
 Management System desenvolveu uma ferramenta geradora de \emph{workflows}
 científicos. Estes \emph{workflows} artificiais são gerados a partir de
 informações extraídas de instâncias reais das aplicações juntamente com
 conhecimentos prévios sobre seu funcionamento interno
-\cite{pegasus:workflowgenerator}. 
+\cite{pegasus:workflowgenerator}. Os fluxos gerados pelo projeto Pegasus foram
+executados no CloudSim\_DVFS com as configurações apresentadas na Seção
+\ref{sec:ambiente_simulado}.
+
 
 \begin{figure}
         \centering
@@ -143,11 +146,12 @@ conhecimentos prévios sobre seu funcionamento interno
 \end{figure}
 
 
-Os fluxos gerados pelo projeto Pegasus são então executados no CloudSim\_DVFS
-com as configurações apresentadas na Seção \ref{sec:ambiente_simulado}. É
+Para este trabalho foram escolhidos três aplicações: Sipht, Montage e CyberShake.
+As três estão descritas na Figura \ref{fig:dags_aplicacoes}. É
 importante notar a necessidade de realizar testes com fluxos de trabalho com
 diferentes topologias. Alguns algoritmos de escalonamento podem ser mais
 adequados a fluxos de trabalho mais ou menos paralelos.
+
 
 
 \section{Resultados Experimentais}
@@ -268,7 +272,8 @@ escalonamento.
 \subsection{Montage} % (fold)
 \label{sub:montage}
 
-Já para a aplicação Montage, os resultados foram diferentes. Os escalonadores
+Já para a aplicação Montage os resultados foram diferentes conforme mostram as
+Tabelas \ref{tab:montage_tempo} e \ref{tab:montage_energia}. Os escalonadores
 baseados no HEFT se mostraram melhores que os propostos por
 \cite{guerout:energy_aware_simulation}, inclusive superando o modo OnDemand.
 Neste caso, \emph{clustering} não trouxe ganhos significativos em tempo ou

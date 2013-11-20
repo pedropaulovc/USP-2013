@@ -73,37 +73,37 @@ do tráfego de rede.
 
 \section{Objetivos}
 \label{sec:objetivos}
+
 Este trabalho tem por objetivo implementar e validar uma nova heurística para o
-problema apresentado que reduza o consumo energético sem grandes prejuízos
-ao tempo de execução da tarefa. A heurística foi desenvolvida por Elaine Watanabe, 
-aluna de Mestrado em Computação do IME/USP. O desempenho desse algoritmo é
-comparado com a heurística proposta por Chaves e Batista em
-\cite{chaves:scheduling_software_requirements} e
-\cite{batista:embedding_software_requirements} e com outros algoritmos com
+problema apresentado que reduza o consumo energético sem grandes prejuízos ao
+tempo de execução da tarefa. A heurística foi desenvolvida em conjunto com
+Elaine Naomi Watanabe (\url{elainew@ime.usp.br}), aluna de Mestrado em Computação
+do IME/USP. O desempenho desse algoritmo é comparado com outros algoritmos com
 objetivos similares encontrados na literatura. Para isso será feito uso de um
-simulador de computação em nuvem, o WorkflowSim, a ser detalhado na Seção
+simulador de computação em nuvem, o CloudSim\_DVFS, a ser detalhado na Seção
 \ref{sec:ambiente_simulacao}.
 
 
 \section{Desafios}
 \label{sec:desafios}
-As dificuldades enfrentadas nesta monografia vem de duas fontes: a primeira é
-tecnológica, há diversos simuladores de computação em nuvem ou em grade, porém
-o tópico de simulação energética é relativamente recente como atividade de 
-pesquisa. Sendo assim, de todos programas de simulação estudados, CloudSim, 
-GridSim, SimGrid e WorkflowSim, apenas o primeiro possui tal funcionalidade
-disponível para ser utilizada no momento. O simulador escolhido, WorkflowSim,
-apesar de ser baseado no CloudSim  não tem por padrão a API de simulação energética
-disponível. Uma das tarefas da monografia foi justamente resolver tal problema.
 
-O outro desafio é uma questão computacional mais fundamental: o problema de 
+As dificuldades enfrentadas nesta monografia vem de duas fontes: a primeira é
+tecnológica, há diversos simuladores de computação em nuvem ou em grade, porém o
+tópico de simulação energética é relativamente recente como atividade de
+pesquisa. Sendo assim, de todos programas de simulação estudados, CloudSim,
+GridSim, SimGrid, WorkflowSim e CloudSim\_DVFS, apenas o primeiro e o último
+possuem tal funcionalidade disponível para ser utilizada no momento. O
+simulador, WorkflowSim, apesar de ser baseado no CloudSim  não tem por padrão a
+API de simulação energética disponível. Uma das tarefas da monografia foi
+justamente tentar resolver tal problema.
+
+O outro desafio é uma questão computacional mais fundamental: o problema de
 escalonar tarefas em diversos processadores (Num sentido mais amplo do que seria
 um processador) é NP-difícil \cite{sinnen:task_scheduling_parallel_systems}.
 Para contornar esse problema diversas heurísticas já foram propostas, inclusive
-a apresentada nesta monografia. Um trecho do livro
-\emph{Task Scheduling for Parallel Systems} de Oliver Sinnen resume a relação
-custo-benefício que deve ser ponderada para a descoberta de um escalonamento
-ótimo:
+a apresentada nesta monografia. Um trecho do livro \emph{Task Scheduling for
+Parallel Systems} de Oliver Sinnen resume a relação custo-benefício que deve ser
+ponderada para a descoberta de um escalonamento ótimo:
 
 \begin{quote}
 	Unfortunately, finding a schedule of minimal length (i.e., an optimal schedule)
