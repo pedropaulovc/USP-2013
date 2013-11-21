@@ -433,21 +433,31 @@ experimentos descritos no Capítulo \ref{cap:experimentos}: CloudSim, WorkflowSi
 e PowerWorkflowSim.
 
 \subsection{CloudSim}
+
 CloudSim \cite{calheiros:cloudsim} é um simulador para computação em nuvem,
-reconhecido academicamente com citações em mais de 300 trabalhos indexados
-pelo Google Scholar \cite{google:cloudsim}. Ele provê as funcionalidades
-de simulação de máquinas virtuais, \emph{hosts}, \emph{data centers}, políticas
-de provisionamento de recursos, tarefas a serem executadas em máquinas virtuais
+reconhecido academicamente com citações em mais de 300 trabalhos indexados pelo
+Google Scholar \cite{google:cloudsim}. Ele provê as funcionalidades de simulação
+de máquinas virtuais, \emph{hosts}, \emph{data centers}, políticas de
+provisionamento de recursos, tarefas a serem executadas em máquinas virtuais
 (\emph{cloudlets}) além de efetuar análises de duração de simulações e consumo
 de energia. Ainda, é software livre, disponibilizado sob a licença GNU LGPL
 \cite{cloudsim:site}. Na Figura \ref{fig:arquitetura_cloudsim} é possível ver a
-arquitetura projetada pelos desenvolvedores do CloudSim. 
+arquitetura projetada pelos desenvolvedores do CloudSim já a Figura
+\ref{fig:classes_cloudsim} apresenta o diagrama de classes da implmentação do
+CloudSim.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=12cm]{CloudSim.pdf}
-\caption{Arquitetura do CloudSim}
+\includegraphics[width=\linewidth]{CloudSim.pdf}
+\caption{Arquitetura do CloudSim, adaptada de \cite{calheiros:cloudsim}}
 \label{fig:arquitetura_cloudsim}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{ClassesCloudSim.pdf}
+\caption{Diagrama de classes simplificado do CloudSim, adaptada de \cite{calheiros:cloudsim}}
+\label{fig:classes_cloudsim}
 \end{figure}
 
 A arquitetura em camadas do CloudSim permite uma separação clara das diferentes
@@ -518,19 +528,77 @@ MinMin, MaxMin, MCT e \emph{Data aware} já estão implementados na versão atua
 
 \begin{figure}[ht]
 \centering
-\includegraphics[draft,width=8cm,height=5cm]{graph.pdf}
-\caption{Arquitetura do WorkflowSim}
+\includegraphics[width=10cm]{WorkflowSim.pdf}
+\caption{Arquitetura do WorkflowSim, adaptado de \cite{chen:workflowsim}.
+Os componentes em verde são providos pelo CloudSim}
 \label{fig:arquitetura_workflowsim}
 \end{figure}
 
-Como é possível ver na Figura \ref{fig:arquitetura_workflowsim}, há múltiplas 
+Como é possível ver na Figura \ref{fig:arquitetura_workflowsim}, há múltiplas
 camadas de componentes envolvidos na preparação e execução do \emph{workflow}:
 Um \ttt{Workflow Mapper} que mapeia \emph{workflows} abstratos em
 \emph{workflows} concretos, dependentes do local de execução; uma \ttt{Workflow
-Engine} que gerencia a dependência de dados e um \ttt{Workflow Scheduler} para 
-associar tarefas aos processadores. Outros componentes incluem uma \ttt{Clustering
-Engine}, que é responsável por agrupar tarefas menores em um pacote maior, um
-\ttt{Provenance Collector}, dedicado a registrar a história da execução de uma
-tarefa e um \ttt{Workflow Partitioner}, que divide o \emph{workflow} em diversos
-\emph{sub-workflows}. 
+Engine} que gerencia a dependência de dados e um \ttt{Workflow Scheduler} para
+associar tarefas aos processadores, por fim a \ttt{Clustering Engine} é
+responsável por agrupar tarefas menores em um pacote maior.
 
+
+\subsection{CloudSim\_DVFS}
+\label{subsec:cloudsim_dvfs}
+
+Um segundo simulador baseado no CloudSim foi desenvolvido de maneira
+concomitante com o WorkflowSim. O CloudSim\_DVFS foi lançado em outubro de 2013
+no artigo \cite{guerout:energy_aware_simulation}. Esta ferramenta também
+implementa  o processamento de fluxos de trabalho modelados como DAGs e
+descritos utilizando o mesmo formato de entrada que o WorkflowSim: Arquivos XML
+no formato DAX definido pelo projeto Pegasus \cite{pegasus:dax}.
+
+A principal diferença do CloudSim\_DVFS para o simulador anterior é o foco em
+simulações energéticas, como já reflete seu nome. Ele aprofunda a API de
+simulação energética disponível no CloudSim. Agora, são definidas diferentes
+estratégias de DVFS:
+
+\begin{description}
+  \item[Performance] Utiliza a CPU em frequência máxima (Sem DVFS)
+  \item[PowerSave] Utiliza a CPU na frequência mínima
+  \item[UserSpace] Permite que o usuário defina a faixa de frequência que
+    a máquina deve operar
+  \item[Conservative] Utiliza um limite superior e um inferior para decidir
+    as mudanças na frequência da CPU. Caso a carga esteja acima do limite
+    superior, a frequência é aumentada se possível. Caso ela esteja abaixo
+    do limite inferior tenta diminuir a frequência.
+\end{description}
+
+\subsubsection{Modelagem energética} % (fold)
+\label{ssub:modelagem_energ_tica}
+
+Os autores do CloudSim\_DVFS optaram pela estratégia ``caixa-preta'' para a
+modelagem do consumo energético de uma máquina. Desta forma, é capaz de abstrair
+detalhes da construção dos processadores atuais e trabalhar em um modelo de
+alto nível. O modelo descreve dois valores de consumo energético para cada
+faixa de frequência disponível às estratégias de DVFS: consumo em máxima
+capacidade (100\% da faixa escolhida) e quando a máquina está ociosa (0\% 
+da faixa escolhida). Por fim, é feita uma interpolação linear entre estes
+dois níveis, com base na proporção de tempo que a máquina esteve realizando
+processamento. A fórmula utilizada está descrita na equação \ref{eq:modelagem_energetica}. $\alpha$ é o uso de CPU e $P_{CPUIdle}$ e $P_{CPUFull}$ são os valores
+de potência consumida pela CPU com 0\% e 100\% de utilização respectivamente.
+
+\begin{equation}
+P_{TOT} = (1 - \alpha)P_{CPUIdle} + (\alpha)P_{CPUFull} \label{eq:modelagem_energetica}  
+\end{equation}
+
+\begin{table}
+    \centering
+    \begin{tabular}{c|cllll}
+    \hline
+    \textbf{Velocidades (GHz)} & \textbf{0.8} & \textbf{1.0} & \textbf{1.2} & \textbf{1.5} & \textbf{1.7} \\ \hline
+    \textbf{Nível ocioso (W)}       & 140          & 146          & 153          & 159          & 167          \\
+    \textbf{Nível máximo (W)}  & 228          & 238          & 249          & 260          & 272          \\ \hline
+    \end{tabular}
+    \caption{Frequências do Grid'5000 Reims com as medidas de potência durante
+    cargas mínima e máxima (0\% e 100\% de uso dos 24 núcleos de um nó de processamento)
+    \cite{guerout:energy_aware_simulation}}
+\end{table}
+
+
+% subsubsection modelagem_energ_tica (end)

@@ -1,4 +1,8 @@
 \backcite {rasmussen:tco_data_center}{{xiii}{(document)}{Doc-Start}}
+\backcite {calheiros:cloudsim}{{xiii}{(document)}{Doc-Start}}
+\backcite {calheiros:cloudsim}{{xiii}{(document)}{Doc-Start}}
+\backcite {chen:workflowsim}{{xiii}{(document)}{Doc-Start}}
+\backcite {guerout:energy_aware_simulation}{{xv}{(document)}{Doc-Start}}
 \backcite {patterson:computer_organization}{{3}{1.1}{section.1.1}}
 \backcite {chaves:scheduling_software_requirements}{{4}{1.1}{section.1.1}}
 \backcite {batista:embedding_software_requirements}{{4}{1.1}{section.1.1}}
@@ -26,12 +30,18 @@
 \backcite {calheiros:cloudsim}{{11}{2.4.1}{subsection.2.4.1}}
 \backcite {google:cloudsim}{{11}{2.4.1}{subsection.2.4.1}}
 \backcite {cloudsim:site}{{11}{2.4.1}{subsection.2.4.1}}
-\backcite {beloglazov:cloudsim_power}{{12}{2.4.1}{section*.18}}
-\backcite {chen:workflowsim}{{12}{2.4.2}{subsection.2.4.2}}
-\backcite {workflowsim:license}{{12}{2.4.2}{subsection.2.4.2}}
+\backcite {calheiros:cloudsim}{{11}{2.4}{figure.caption.16}}
+\backcite {calheiros:cloudsim}{{12}{2.5}{figure.caption.17}}
+\backcite {beloglazov:cloudsim_power}{{12}{2.4.1}{section*.19}}
+\backcite {chen:workflowsim}{{13}{2.4.2}{subsection.2.4.2}}
+\backcite {workflowsim:license}{{13}{2.4.2}{subsection.2.4.2}}
+\backcite {chen:workflowsim}{{13}{2.6}{figure.caption.20}}
+\backcite {guerout:energy_aware_simulation}{{13}{2.4.3}{subsection.2.4.3}}
+\backcite {pegasus:dax}{{13}{2.4.3}{subsection.2.4.3}}
+\backcite {guerout:energy_aware_simulation}{{14}{2.2}{table.caption.22}}
 \backcite {guerout:energy_aware_simulation}{{15}{4}{section.3.1}}
 \backcite {spec:proliant_ml110_g3}{{17}{1}{Hfootnote.9}}
 \backcite {spec:proliant_ml110_g5}{{17}{1}{Hfootnote.9}}
-\backcite {spec:proliant_ml110_g3}{{18}{\caption@xref {??}{ on input line 93}}{table.caption.22}}
+\backcite {spec:proliant_ml110_g3}{{18}{\caption@xref {??}{ on input line 93}}{table.caption.25}}
 \backcite {pegasus:workflowgenerator}{{18}{4.3}{section.4.3}}
-\backcite {spec:proliant_ml110_g5}{{19}{\caption@xref {??}{ on input line 112}}{table.caption.23}}
+\backcite {spec:proliant_ml110_g5}{{19}{\caption@xref {??}{ on input line 112}}{table.caption.26}}

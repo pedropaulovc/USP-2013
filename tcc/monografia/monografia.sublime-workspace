@@ -28,12 +28,24 @@
 	"build_system": "Packages/Makefile/Make.sublime-build",
 	"command_palette":
 	{
-		"height": 159.0,
+		"height": 55.0,
 		"selected_items":
 		[
 			[
+				"equa",
+				"Snippet: Equation"
+			],
+			[
+				"subsu",
+				"Snippet: Sub Sub Section"
+			],
+			[
 				"item",
 				"Snippet: \\item[description]"
+			],
+			[
+				"descr",
+				"Snippet: Description"
 			],
 			[
 				"desc",
@@ -152,6 +164,7 @@
 	},
 	"file_history":
 	[
+		"/home/bcc/pedrovc/atual/tcc/monografia/monografia.sublime-project",
 		"/home/pedropaulovc/tmp/struts2/META-INF/maven/org.apache.struts/struts2-blank/pom.xml",
 		"/home/pedropaulovc/Desktop/struts2-blank/build.xml",
 		"/home/pedropaulovc/atual/tcc/monografia/cap-a-graduacao.tex",
@@ -172,7 +185,7 @@
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 50.0
 	},
 	"find_in_files":
 	{
@@ -187,6 +200,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"$$\n",
+			"\\$\\$",
+			"$$",
+			"         \n",
+			"}\n",
+			"pegasus",
+			"figu",
 			"new",
 			"ctrl\\+alt\\+s",
 			"ctrl\\+shift\\+",
