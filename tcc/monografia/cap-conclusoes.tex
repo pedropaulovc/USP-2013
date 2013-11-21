@@ -2,7 +2,64 @@
 \chapter{Conclusões}
 \label{cap:conclusoes}
 
+Nesta monografia apresentada como parte da disciplina Trabalho de Formatura
+Supervisionado foram estudadas e experimentadas diversas técnicas de
+escalonamento de tarefas em computação em nuvem. O trabalho contou com a
+orientação do professor Daniel Macêdo Batista.
 
-%------------------------------------------------------
-\section{Considerações Finais} 
-\label{sec:consideracoes_finais}
+No Capítulo \ref{cap:introducao} foi vista uma motivação para o estudo de
+técnicas de economia de energia para computação em nuvem. Notou-se um
+avanço no interesse por uma computação mais econômica no uso de recursos. Ao
+mesmo tempo, foram definidos os objetivos desta monografia e os seus desafios
+relacionados, tais como o fato que otimizar o tempo de processamento de uma
+aplicação paralela é NP-difícil.
+
+O Capítulo \ref{cap:conceitos} pontuou conceitos necessários para a compreensão
+desta monografia. Foram estudados assuntos como consumo energético e técnicas
+atuais de economia de energia, um algoritmo clássico da área, o
+\emph{Heterogeneous Earliest Finish Time} e, por fim, simuladores de computação
+em nuvem, necessários para os experimentos desenvolvidos posteriormente.
+
+Continuando, no Capítulo \ref{cap:algoritmo} foram apresentadas duas propostas
+de algoritmos de escalonamento com um foco na eficiência energética, o PowerHEFT
+e o \emph{HEFT Dynamic Allocation of VM}. Em conjunto, foram traçadas as
+motivações e intuições utilizadas na concepção destes algoritmos.
+
+Por fim, no Capítulo \ref{cap:experimentos} foram apresentados os
+desenvolvimentos técnicos da monografia, com a tentativa de desenvolvimento de
+um simulador adaptado para a monografia, as configurações e dados de entrada
+escolhidos para os experimentos e, por fim, os resultados obtidos e uma
+discussão.
+
+Esta monografia trouxe algumas contribuições relevantes. Na parte acadêmica,
+foram desenvolvidos dois novos algoritmos de escalonamento com foco energético.
+Resultados experimentais mostram que para entradas menores ambos são
+tão eficientes quanto os outros algoritmos estudados, o que não se concretizou
+para o caso de entradas maiores.
+
+Já na parte técnica, o autor do trabalho implementou o \emph{HEFT Dynamic
+Allocation of VM} em dois simuladores de computação em nuvem e disponibilizou o 
+código fonte para os desenvolvedores originais. Por fim, o autor colaborou
+com diversos pesquisadores internacionais, o que resultou na disponibilização
+do código fonte de um simulador e na adição do autor como contribuidor de outro
+simulador.
+
+\section{Trabalhos Futuros} % (fold)
+\label{sec:trabalhos_futuros}
+
+O algoritmo PowerHEFT mostrou-se pouco escalável no critério de \emph{makespan}.
+Isto pode ser melhorado de diversas formas, como por exemplo, a definição de um
+\emph{deadline} para o tempo de execução da aplicação paralela.
+
+A área de escalonamento energeticamente eficiente é muito recente, como é
+possível ver pelas datas de publicação dos artigos estudados nesta monografia.
+Uma revisão bibliográfica mais extensa poderia ser feita para encontrar novas
+propostas de algoritmos que ainda apresentassem margem para melhorias e, 
+em seguida, trabalhar em novas propostas de algoritmos.
+
+Por fim, os simuladores utilizados ainda são muito novos e pouco testados.
+Foram identificados alguns problemas de engenharia de software, tais como falta
+de documentação, código morto, problemas de tradução, etc. que poderiam ser
+corrigidos.
+
+% section trabalhos_futuros (end)

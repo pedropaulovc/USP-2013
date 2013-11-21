@@ -2,7 +2,98 @@
 \chapter{Algoritmo Proposto}
 \label{cap:algoritmo}
 
-\section{Proposta Inicial}
+Após a revisão bibliográfica, foi decidido que os algoritmos de referência para
+comparação com a proposta desenvolvida neste trabalho foram o algoritmo HEFT,
+assunto da seção \ref{subsec:heft} e os algoritmos apresentados no trabalho de
+Tom Guérout et al \cite{guerout:energy_aware_simulation}. O desenvolvimento de
+uma proposta de algoritmo de escalonamento de fluxos de trabalho que fosse
+energeticamente eficiente foi fruto da observação de alguns conceitos
+importantes:
+
+Uma ideia inicial seria alterar a fase de seleção do algoritmo HEFT para que, ao
+invés de tentar minimizar o tempo mais cedo de conclusão de cada tarefa
+processada, tentasse minimizar o consumo energético. Porém, devido à natureza de
+algoritmo guloso do HEFT, esta ideia foi abandonada.
+
+Para compreender esta decisão é preciso lembrar de um fato. A eficiência
+energética máxima de um processador (Que pode ser medida em energia consumida
+por instrução processada) acontece quando este processador opera no máximo de
+sua capacidade \cite{barroso:case_energy_proportional}. Desta forma, quando o
+algoritmo HEFT tentar otimizar o consumo energético de cada tarefa
+individualmente ele optaria por sempre manter a máquina escolhida operando na
+frequência máxima. De fato, isto é eficiente para um processamento sequencial,
+mas não necessariamente se mantém verdade para aplicações paralelas. Como
+maneira de remediar esta possível vulnerabilidade do algoritmo, foi desenvolvida
+uma versão do algoritmo que emprega uma estratégia de \emph{lookahead}, descrita
+na seção \ref{sec:proposta_inicial}.
+
+Paralelamente, foi desenvolvida uma segunda proposta, que faz uso da
+característica do CloudSim\_DVFS que permite que VMs sejam criadas ou removidas
+durante o momento do escalonamento. Uma variante desenvolvida emprega, ainda,
+uma estratégia de \emph{clustering} inspirada no trabalho desenvolvido para o
+WorkflowSim. A descrição detalhada da segunda proposta está na seção
+\ref{sec:heft_davm}.
+
+\section{PowerHEFT}
+\label{sec:proposta_inicial}
+
+Como explicado na introdução do capítulo, a primeira proposta de algoritmo
+energeticamente eficiente, chamada de PowerHEFT, é uma adaptação do algoritmo
+HEFT para empregar uma estratégia de \emph{lookahead}. Sua inspiração veio da
+leitura do artigo \cite{bittencourt:heft_lookahead} que analisa diversas
+otimizações ao HEFT. Uma das propostas é uma mudança na fase de seleção do
+algoritmo: ao invés de escolher a máquina que minimize o tempo mais cedo de
+conclusão de cada tarefa sozinha, seria escolhida a máquina que minimizasse o
+tempo mais cedo de conclusão das tarefas filhas, após um escalonamento
+``simulado'' com o HEFT. Esta proposta foi chamada de \textsc{HEFT-Lookahead}.
+
+O PowerHEFT funciona da seguinte maneira: como não é sabido de antemão quantas
+ou quais VMs são necessárias para um processamento que otimize o consumo
+energético, o algoritmo é foi projetado para alocar novas VMs sob demanda.
+Inicialmente, há apenas uma máquina alocada, a mais rápida disponível. Esta
+máquina é responsável por receber as primeiras tarefas a serem escalonadas,
+pertencentes a um possível caminho crítico, como comentado na seção
+\ref{subsec:heft}.
+
+Para cada tarefa a ser processada, o algoritmo ``força'' a alocação de cada
+tarefa em cada máquina disponível. Em seguida, o algoritmo HEFT é invocado para
+escalonar todas as tarefas filhas da tarefa atual. Neste momento, o
+escalonamento parcial possui o seu consumo energético avaliado, segundo a
+modelagem energética do trabalho \cite{guerout:energy_aware_simulation} e
+comentada na Seção \ref{ssub:modelagem_energetica}. A melhor opção de máquina no
+momento é memorizada.
+
+Em um segundo momento do processamento da tarefa, o algoritmo analisa se seria
+mais vantajoso energeticamente alocar mais uma máquina para auxiliar o
+processamento. Neste momento, uma nova máquina é disponibilizada, sendo
+comparadas as diferentes opções disponíveis para alocação. Em seguida, o
+algoritmo repete o procedimento descrito no parágrafo anterior.
+
+Uma vez que é conhecida a melhor opção de máquina, o algoritmo aplica o
+escalonamento para a tarefa atual e prossegue para a próxima tarefa da lista de
+escalonamento.
+
+É importante ressaltar que algumas tarefas filhas da tarefa atual podem não
+estar prontas para serem escalonadas por estarem aguardando alguma outra
+tarefa pai ainda não processada. Nestes casos, a fase \emph{lookahead} ignora
+a existência destas tarefas pai. Isto tem como consequência o fato que a
+estimativa energética pode ser mais otimista que a realidade.
+
+O algoritmo do PowerHEFT está descrito abaixo:
+
+\begin{codebox}
+\Procname{$\proc{EscalonarPowerHEFT}(tarefa, VM)$}
+	\li $F \gets \text{filhos diretos da } tarefa \text{ no DAG}$
+    \li Escalone $tarefa$ em $VM$
+	\li Escalone $F$ utilizando o algoritmo \textsc{HEFT}
+	\zi
+	\li \Comment A modelagem energética utilizada está descrita em
+    	\cite{guerout:energy_aware_simulation}
+	\li $energia \gets$ \proc{EstimarEnergiaConsumida()}
+		\li Volte para o escalonamento do começo do laço
+	\li \Return $energia$
+\end{codebox}
+
 
 \begin{codebox}
 \Procname{$\proc{Power-HEFT-Lookahead}()$}
@@ -33,21 +124,29 @@
 \End
 \end{codebox}
 
-\begin{codebox}
-\Procname{$\proc{EscalonarPowerHEFT}(tarefa, VM)$}
-	\li $F \gets \text{filhos diretos da } tarefa \text{ no DAG}$
-    \li Escalone $tarefa$ em $VM$
-	\li Escalone $F$ utilizando o algoritmo \textsc{HEFT}
-	\zi
-	\li \Comment A modelagem energética utilizada está descrita em
-    	\cite{guerout:energy_aware_simulation}
-	\li $energia \gets$ \proc{EstimarEnergiaConsumida()}
-		\li Volte para o escalonamento do começo do laço
-	\li \Return $energia$
-\end{codebox}
 
-\section{Proposta Revisada} % (fold)
-\label{sec:proposta_revisada}
+\section{\emph{HEFT Dynamic Allocation of VM}} % (fold)
+\label{sec:heft_davm}
+
+A segunda proposta de algoritmo baseia-se nas características do simulador
+CloudSim\_DVFS descrito na Seção \ref{subsec:cloudsim_dvfs}. Aqui, a motivação para
+o algoritmo é explorar ao máximo o paralelismo na execução do fluxo de trabalho.
+Novamente, o conjunto de máquinas utilizadas é inicializado com apenas uma VM.
+
+Para cada tarefa a ser escalonada é calculado seu tempo mais cedo de
+\emph{início}. Este instante marca o primeiro momento que a tarefa pode ser
+executada. Em seguida, o algoritmo HEFT é aplicado para determinar qual será o
+tempo de início efetivo da tarefa, que depende da ocupação atual das máquinas
+disponíveis. Sempre que for detectada uma sobrecarga nas máquinas, indicada por
+$\text{tempo de início } \neq \text{ tempo mais cedo de início}$, uma nova VM (A
+mais lenta/econômica disponível) é alocada. A esperança é que isto garanta uma
+economia na alocação de VMs sem prejudicar o \emph{makespan} da aplicação.
+
+Uma segunda otimização é a aplicação de \emph{clustering} inspirada no trabalho
+\cite{chen:workflowsim}. Sempre que uma máquina for utilizada para mais de uma
+tarefa no escalonamento esta máquina possui sua configuração alterada da mais
+lenta para a mais rápida disponível. O algoritmo do \emph{HEFT Dynamic Allocation
+of VM} está descrito abaixo:
 
 \begin{codebox}
 \Procname{$\proc{TaskClustering}()$}
@@ -58,8 +157,6 @@
 		\End
 	\End
 \end{codebox}
-
-% section proposta_revisada (end)
 
 \begin{codebox}
 \Procname{$\proc{HEFT-DynamicAllocationVm}()$}
@@ -101,3 +198,6 @@
 			\End
 \End
 \end{codebox}
+
+
+% section proposta_revisada (end)

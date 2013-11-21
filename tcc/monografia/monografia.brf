@@ -6,8 +6,6 @@
 \backcite {patterson:computer_organization}{{3}{1.1}{section.1.1}}
 \backcite {chaves:scheduling_software_requirements}{{4}{1.1}{section.1.1}}
 \backcite {batista:embedding_software_requirements}{{4}{1.1}{section.1.1}}
-\backcite {chaves:scheduling_software_requirements}{{4}{1.2}{section.1.2}}
-\backcite {batista:embedding_software_requirements}{{4}{1.2}{section.1.2}}
 \backcite {sinnen:task_scheduling_parallel_systems}{{4}{1.3}{section.1.3}}
 \backcite {sinnen:task_scheduling_parallel_systems}{{4}{1.3}{section.1.3}}
 \backcite {eecs:above-clouds}{{5}{2.1}{section.2.1}}
@@ -39,9 +37,25 @@
 \backcite {guerout:energy_aware_simulation}{{13}{2.4.3}{subsection.2.4.3}}
 \backcite {pegasus:dax}{{13}{2.4.3}{subsection.2.4.3}}
 \backcite {guerout:energy_aware_simulation}{{14}{2.2}{table.caption.22}}
-\backcite {guerout:energy_aware_simulation}{{15}{4}{section.3.1}}
-\backcite {spec:proliant_ml110_g3}{{17}{1}{Hfootnote.9}}
-\backcite {spec:proliant_ml110_g5}{{17}{1}{Hfootnote.9}}
-\backcite {spec:proliant_ml110_g3}{{18}{\caption@xref {??}{ on input line 93}}{table.caption.25}}
-\backcite {pegasus:workflowgenerator}{{18}{4.3}{section.4.3}}
-\backcite {spec:proliant_ml110_g5}{{19}{\caption@xref {??}{ on input line 112}}{table.caption.26}}
+\backcite {guerout:energy_aware_simulation}{{15}{3}{chapter.3}}
+\backcite {barroso:case_energy_proportional}{{15}{3}{chapter.3}}
+\backcite {bittencourt:heft_lookahead}{{15}{3.1}{section.3.1}}
+\backcite {guerout:energy_aware_simulation}{{16}{3.1}{section.3.1}}
+\backcite {guerout:energy_aware_simulation}{{16}{4}{section.3.1}}
+\backcite {chen:workflowsim}{{17}{3.2}{section.3.2}}
+\backcite {guerout:energy_aware_simulation}{{19}{4.2}{section.4.2}}
+\backcite {cappello:grid5000}{{19}{4.2}{section.4.2}}
+\backcite {pegasus:workflowgenerator}{{20}{4.3}{section.4.3}}
+\backcite {guerout:energy_aware_simulation}{{21}{\caption@xref {??}{ on input line 190}}{table.caption.26}}
+\backcite {guerout:energy_aware_simulation}{{21}{\caption@xref {??}{ on input line 191}}{table.caption.26}}
+\backcite {guerout:energy_aware_simulation}{{21}{\caption@xref {??}{ on input line 209}}{table.caption.27}}
+\backcite {guerout:energy_aware_simulation}{{21}{\caption@xref {??}{ on input line 210}}{table.caption.27}}
+\backcite {guerout:energy_aware_simulation}{{21}{\caption@xref {??}{ on input line 239}}{table.caption.28}}
+\backcite {guerout:energy_aware_simulation}{{21}{\caption@xref {??}{ on input line 240}}{table.caption.28}}
+\backcite {guerout:energy_aware_simulation}{{21}{\caption@xref {??}{ on input line 258}}{table.caption.29}}
+\backcite {guerout:energy_aware_simulation}{{21}{\caption@xref {??}{ on input line 259}}{table.caption.29}}
+\backcite {guerout:energy_aware_simulation}{{22}{\caption@xref {??}{ on input line 288}}{table.caption.30}}
+\backcite {guerout:energy_aware_simulation}{{22}{\caption@xref {??}{ on input line 289}}{table.caption.30}}
+\backcite {guerout:energy_aware_simulation}{{22}{\caption@xref {??}{ on input line 307}}{table.caption.31}}
+\backcite {guerout:energy_aware_simulation}{{22}{\caption@xref {??}{ on input line 308}}{table.caption.31}}
+\backcite {guerout:energy_aware_simulation}{{22}{4.4.3}{subsection.4.4.3}}
