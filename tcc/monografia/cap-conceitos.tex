@@ -442,7 +442,7 @@ provisionamento de recursos, tarefas a serem executadas em máquinas virtuais
 (\emph{cloudlets}) além de efetuar análises de duração de simulações e consumo
 de energia. Ainda, é software livre, disponibilizado sob a licença GNU LGPL
 \cite{cloudsim:site}. Na Figura \ref{fig:arquitetura_cloudsim} é possível ver a
-arquitetura projetada pelos desenvolvedores do CloudSim já a Figura
+arquitetura projetada pelos desenvolvedores do CloudSim. Já a Figura
 \ref{fig:classes_cloudsim} apresenta o diagrama de classes da implmentação do
 CloudSim.
 
@@ -574,14 +574,22 @@ estratégias de DVFS:
 
 Os autores do CloudSim\_DVFS optaram pela estratégia ``caixa-preta'' para a
 modelagem do consumo energético de uma máquina. Desta forma, é capaz de abstrair
-detalhes da construção dos processadores atuais e trabalhar em um modelo de
-alto nível. O modelo descreve dois valores de consumo energético para cada
-faixa de frequência disponível às estratégias de DVFS: consumo em máxima
-capacidade (100\% da faixa escolhida) e quando a máquina está ociosa (0\% 
-da faixa escolhida). Por fim, é feita uma interpolação linear entre estes
-dois níveis, com base na proporção de tempo que a máquina esteve realizando
-processamento. A fórmula utilizada está descrita na equação \ref{eq:modelagem_energetica}. $\alpha$ é o uso de CPU e $P_{CPUIdle}$ e $P_{CPUFull}$ são os valores
-de potência consumida pela CPU com 0\% e 100\% de utilização respectivamente.
+detalhes da construção dos processadores atuais e trabalhar em um modelo de alto
+nível. O modelo descreve dois valores de consumo energético para cada faixa de
+frequência disponível às estratégias de DVFS: consumo em máxima capacidade
+(100\% da faixa escolhida) e quando a máquina está ociosa (0\%  da faixa
+escolhida). Por fim, é feita uma interpolação linear entre estes dois níveis,
+com base na proporção de tempo que a máquina esteve realizando processamento. A
+fórmula utilizada está descrita na Equação \ref{eq:modelagem_energetica}.
+$\alpha$ é o uso de CPU e $P_{CPUIdle}$ e $P_{CPUFull}$ são os valores de
+potência consumida pela CPU com 0\% e 100\% de utilização respectivamente.
+
+Para os experimentos propostos no artigo e nesta monografia, foram utilizados os
+valores experimentais retirados do projeto Grid'5000 REIMS e reproduzidos na
+Tabela \ref{tab:modelo_grid_5000} \cite{cappello:grid5000}
+\cite{guerout:energy_aware_simulation}. Cada coluna da tabela indica uma
+diferente configuração de \emph{máquina virtual} e seus respectivos consumos
+energéticos a 0\% e 100\% de utilização.
 
 \begin{equation}
 P_{TOT} = (1 - \alpha)P_{CPUIdle} + (\alpha)P_{CPUFull} \label{eq:modelagem_energetica}  
@@ -597,7 +605,8 @@ P_{TOT} = (1 - \alpha)P_{CPUIdle} + (\alpha)P_{CPUFull} \label{eq:modelagem_ener
     \end{tabular}
     \caption{Frequências do Grid'5000 Reims com as medidas de potência durante
     cargas mínima e máxima (0\% e 100\% de uso dos 24 núcleos de um nó de processamento)
-    \cite{guerout:energy_aware_simulation}}
+    }
+    \label{tab:modelo_grid_5000}
 \end{table}
 
 

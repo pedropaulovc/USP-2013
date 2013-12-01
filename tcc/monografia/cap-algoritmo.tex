@@ -3,7 +3,7 @@
 \label{cap:algoritmo}
 
 Após a revisão bibliográfica, foi decidido que os algoritmos de referência para
-comparação com a proposta desenvolvida neste trabalho foram o algoritmo HEFT,
+comparação com a proposta desenvolvida neste trabalho seriam o algoritmo HEFT,
 assunto da seção \ref{subsec:heft} e os algoritmos apresentados no trabalho de
 Tom Guérout et al \cite{guerout:energy_aware_simulation}. O desenvolvimento de
 uma proposta de algoritmo de escalonamento de fluxos de trabalho que fosse
@@ -37,19 +37,19 @@ WorkflowSim. A descrição detalhada da segunda proposta está na seção
 \section{PowerHEFT}
 \label{sec:proposta_inicial}
 
-Como explicado na introdução do capítulo, a primeira proposta de algoritmo
-energeticamente eficiente, chamada de PowerHEFT, é uma adaptação do algoritmo
-HEFT para empregar uma estratégia de \emph{lookahead}. Sua inspiração veio da
-leitura do artigo \cite{bittencourt:heft_lookahead} que analisa diversas
-otimizações ao HEFT. Uma das propostas é uma mudança na fase de seleção do
-algoritmo: ao invés de escolher a máquina que minimize o tempo mais cedo de
-conclusão de cada tarefa sozinha, seria escolhida a máquina que minimizasse o
-tempo mais cedo de conclusão das tarefas filhas, após um escalonamento
-``simulado'' com o HEFT. Esta proposta foi chamada de \textsc{HEFT-Lookahead}.
+A primeira proposta de algoritmo energeticamente eficiente, chamada de
+PowerHEFT, é uma adaptação do algoritmo HEFT para empregar uma estratégia de
+\emph{lookahead}. Sua inspiração veio da leitura do artigo
+\cite{bittencourt:heft_lookahead} que analisa diversas otimizações ao HEFT. Uma
+das propostas é uma mudança na fase de seleção do algoritmo: ao invés de
+escolher a máquina que minimize o tempo mais cedo de conclusão de cada tarefa
+sozinha, seria escolhida a máquina que minimizasse o tempo mais cedo de
+conclusão das tarefas filhas, após um escalonamento ``simulado'' com o HEFT.
+Esta proposta foi chamada de \textsc{HEFT-Lookahead}.
 
 O PowerHEFT funciona da seguinte maneira: como não é sabido de antemão quantas
 ou quais VMs são necessárias para um processamento que otimize o consumo
-energético, o algoritmo é foi projetado para alocar novas VMs sob demanda.
+energético, o algoritmo foi projetado para alocar novas VMs sob demanda.
 Inicialmente, há apenas uma máquina alocada, a mais rápida disponível. Esta
 máquina é responsável por receber as primeiras tarefas a serem escalonadas,
 pertencentes a um possível caminho crítico, como comentado na seção
@@ -87,17 +87,18 @@ O algoritmo do PowerHEFT está descrito abaixo:
     \li Escalone $tarefa$ em $VM$
 	\li Escalone $F$ utilizando o algoritmo \textsc{HEFT}
 	\zi
-	\li \Comment A modelagem energética utilizada está descrita em
-    	\cite{guerout:energy_aware_simulation}
+	\li \Comment A modelagem energética utilizada é a descrita na Seção \ref{ssub:modelagem_energetica}
 	\li $energia \gets$ \proc{EstimarEnergiaConsumida()}
-		\li Volte para o escalonamento do começo do laço
 	\li \Return $energia$
 \end{codebox}
 
 
 \begin{codebox}
 \Procname{$\proc{Power-HEFT-Lookahead}()$}
-	\li $V \gets \{VmMaisRapida\}$ \Comment VMs usadas ao escalonar
+	\li \Comment $V$ é o conjunto de VMs usadas ao escalonar
+	\li \Comment $VmMaisRápida$ no modelo energético descrito na
+	 Tabela \ref{tab:modelo_grid_5000} é a máquina de 1.7 GHz.
+	\li $V \gets \{VmMaisRápida\}$
 	\li $O \gets \text{os tipos de VMs que podem ser instanciadas}$
 	\li Ordene o conjunto de tarefas segundo o critério $rank_u$
    
@@ -112,10 +113,12 @@ O algoritmo do PowerHEFT está descrito abaixo:
 	    \zi
 	    \li \Comment Vamos tentar escalonar t em uma nova VM
 	    \li \For cada $o$ em $O$:
-		    \li \Do	$V \gets V \cup \{o\}$
+	    	\li \Do $n \gets \proc{Instanciar}(o)$
+		    \li $V \gets V \cup \{n\}$
 		    \li Atualize os valores de $rank_u$
 		    \li $t \gets \text{a tarefa não escalonada de maior } rank_u$
 		    \li $\proc{EscalonarPowerHEFT}(t, o)$
+		    \li Retorne $V$ e o escalonamento para o começo do laço
 	    \End
 	    
 	    \li Escalone $t$ na VM que minimiza a energia consumida
@@ -138,15 +141,23 @@ Para cada tarefa a ser escalonada é calculado seu tempo mais cedo de
 executada. Em seguida, o algoritmo HEFT é aplicado para determinar qual será o
 tempo de início efetivo da tarefa, que depende da ocupação atual das máquinas
 disponíveis. Sempre que for detectada uma sobrecarga nas máquinas, indicada por
-$\text{tempo de início } \neq \text{ tempo mais cedo de início}$, uma nova VM (A
-mais lenta/econômica disponível) é alocada. A esperança é que isto garanta uma
+$\text{tempo de início} > \text{tempo mais cedo de início}$, uma nova VM (A
+mais lenta disponível, por exemplo a configuração de 0.8 GHz da Tabela
+\ref{tab:modelo_grid_5000}) é alocada. A esperança é que isto garanta uma
 economia na alocação de VMs sem prejudicar o \emph{makespan} da aplicação.
 
-Uma segunda otimização é a aplicação de \emph{clustering} inspirada no trabalho
-\cite{chen:workflowsim}. Sempre que uma máquina for utilizada para mais de uma
-tarefa no escalonamento esta máquina possui sua configuração alterada da mais
-lenta para a mais rápida disponível. O algoritmo do \emph{HEFT Dynamic Allocation
-of VM} está descrito abaixo:
+Uma segunda otimização é a aplicação de \emph{clustering} vertical, o
+agrupamento de tarefas que podem ser processadas em uma mesma máquina, inspirada
+no trabalho \cite{chen:workflowsim}. No parágrafo anterior foi visto que o
+algoritmo inicialmente aloca apenas máquinas lentas. Isto é interessante caso
+esta máquina seja pouco utilizada, já que seu consumo energético absoluto é
+baixo. Por outro lado, esta configuração é ineficiente energeticamente se
+considerarmos seu consumo energético medido em Joules consumidos por instrução.
+Assim, quando o algoritmo verifica que seria mais vantajoso alocar mais uma
+tarefa em uma máquina lenta, esta é ``promovida'' para ser uma máquina rápida,
+mais eficiente energeticamente.
+
+O algoritmo do \emph{HEFT Dynamic Allocation of VM} está descrito abaixo:
 
 \begin{codebox}
 \Procname{$\proc{TaskClustering}()$}
@@ -179,7 +190,8 @@ of VM} está descrito abaixo:
 \zi         em $m_k$
 					\End
 \li				Defina o tempo mais cedo de conclusão da tarefa $t_i$ e o tempo
-				de início da VM em que esse tempo foi obtido
+				de início da VM
+\zi				em que esse tempo foi obtido
 \li			\If a Vm escolhida não é do tipo \{VmMaisRápida\}
 \li				\Then
 					Aloque uma nova VM do tipo \{VmMaisLenta\}
@@ -188,7 +200,7 @@ of VM} está descrito abaixo:
 \li 					\Then
 							Aloque uma nova Vm do tipo \{VmMaisRápida\}
 \li							Migre todas as tarefas da Vm antiga
-\li 						Defina a tarefa na nova Vm
+\li 						Aloque a tarefa na nova Vm
 \li						\Else
 \li							Defina a tarefa $t_i$ para ser executada na Vm que
 							minimiza o tempo de

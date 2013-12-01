@@ -117,24 +117,25 @@ executados no CloudSim\_DVFS com as configurações apresentadas na Seção
 
 \begin{figure}
         \centering
-        \begin{subfigure}[b]{0.3\textwidth}
+        \begin{subfigure}[b]{0.5\textwidth}
                 \includegraphics[width=\textwidth]{Montage.jpg}
                 \caption{A aplicação Montage, criada pela NASA/IPAC agrupa
                 diversas imagens de entrada para gerar mosaicos personalizados
                 do céu.}
                 \label{fig:montage}
         \end{subfigure}%
-        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+
+         %add desired spacing between images, e. g. ~, \quad, \qquad etc.
           %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
+        \begin{subfigure}[b]{0.5\textwidth}
                 \includegraphics[width=\textwidth]{CyberShake.jpg}
                 \caption{A aplicação CyberShake é usada pelo Centro de Terremotos
                 do Sul da Califórnia para caracterizar riscos de terremotos em uma
                 região.}
                 \label{fig:cybershake}
         \end{subfigure}
-        ~
-        \begin{subfigure}[b]{0.3\textwidth}
+        
+        \begin{subfigure}[b]{0.5\textwidth}
                 \includegraphics[width=\textwidth]{Sipht.jpg}
                 \caption{A aplicação Sipht foi criada pela Universidade de
                 Harvard para automatizar a busca por RNAs não traduzidos (sRNAs)
@@ -163,7 +164,8 @@ descritos na Seção \ref{sec:fluxos_trabalho} estão descritos abaixo. São fei
 análises tanto do consumo energético quanto do tempo de conclusão de cada
 aplicação (\emph{makespan}). A Figura \ref{fig:graficos_aplicacoes} resume esta
 seção, com os gráficos de uso de energia e tempo para cada um dos
-\emph{workflows}.
+\emph{workflows}. Para cada tabela desta seção, valores em negrito indicam o
+algoritmo que atingiu a melhor performance dentre os avaliados.
 
 
 \subsection{Sipht}
@@ -176,7 +178,7 @@ conseguiram superar o modo de referência, Performance para a instância de 30
 vértices. No entanto, entradas maiores mostram que o modo OnDemand é mais
 eficiente para este fluxo de trabalho. A economia energética foi de 15\% para a
 instância com 100 vértices. Já os \emph{makespans} desta instância, exceto o
-PowerHEFT, estão distribuídos na faixa de [1957 - 2501] segundos.
+PowerHEFT, estão distribuídos na faixa de [1957 -- 2501] segundos.
 
 Ainda, a estratégia de \emph{clustering} (Algoritmos DAVM-TC e Optimal-TC)
 mostraram-se vantajosos superando a eficiência em ambos os critérios de suas
@@ -185,17 +187,18 @@ versões regulares.
 \begin{table}
 	\centering
     \begin{tabular}{c|ccc}
-    ~                    & Sipht\_30 & Sipht\_60 & Sipht\_100 \\ \hline
-    Performance (Sem DVFS)                              & 2349     & 1975     & 1957      \\
+    \hline
+    \textbf{Algoritmos}   & \textbf{Sipht\_30} & \textbf{Sipht\_60} & \textbf{Sipht\_100} \\ \hline
+    Performance (Sem DVFS)                              & 2349     & \textbf{1975}     & \textbf{1957}      \\
     \cite{guerout:energy_aware_simulation} Optimal      & 2349     & 2249     & 2176      \\
-    \cite{guerout:energy_aware_simulation} OnDemand     & 2349     & 1975     & 1957      \\
+    \cite{guerout:energy_aware_simulation} OnDemand     & 2349     & \textbf{1975}     & \textbf{1957}      \\
     HEFT                                                & 2327     & 2443     & 2367      \\
     PowerHEFT                                           & 4016     & 16330    & 40239     \\
     DAVM                                                & 2340     & 2500     & 2501      \\
     DAVM-TC                                             & 2340     & 2500     & 2501      \\
-    Optimal-TC                                          & 2324     & 2179     & 2162      \\
+    Optimal-TC                                          & \textbf{2324}     & 2179     & 2162      \\ \hline
     \end{tabular}
-    \caption{\emph{Makespan} calculado para a aplicação Sipht}
+    \caption{\emph{Makespan} em segundos calculado para a aplicação Sipht}
     \label{tab:sipht_tempo}
 \end{table}
 
@@ -203,18 +206,19 @@ versões regulares.
 
 \begin{table}
 	\centering
-    \begin{tabular}{r|ccc}
-    ~                    & Sipht\_30 & Sipht\_60 & Sipht\_100 \\ \hline
+    \begin{tabular}{c|ccc}
+    \hline
+    \textbf{Algoritmos}   & \textbf{Sipht\_30} & \textbf{Sipht\_60} & \textbf{Sipht\_100} \\ \hline
     Performance (Sem DVFS) & 3241     & 5484     & 9060      \\
     \cite{guerout:energy_aware_simulation} Optimal      & 2818     & 5373     & 8648      \\
-    \cite{guerout:energy_aware_simulation} OnDemand     & 2751     & 4669     & 7702      \\
+    \cite{guerout:energy_aware_simulation} OnDemand     & \textbf{2751}     & 4669     & \textbf{7702}      \\
     HEFT                   & 3211     & 6745     & 10904     \\
     PowerHEFT              & 2925     & 6006     & 8886      \\
     DAVM                   & 2860     & 6172     & 10217     \\
     DAVM-TC                & 2858     & 6116     & 10166     \\
-    Optimal-TC             & 2784     & 5205     & 8590      \\
+    Optimal-TC             & 2784     & \textbf{5205}     & 8590      \\ \hline
     \end{tabular}
-    \caption{Consumo energético calculado para a aplicação Sipht}
+    \caption{Consumo energético em Joules calculado para a aplicação Sipht}
     \label{tab:sipht_energia}
 \end{table}
 
@@ -226,7 +230,7 @@ As Tabelas \ref{tab:cybershake_tempo} e \ref{tab:cybershake_energia} apresentam 
 \emph{makespan} e o consumo energético respectivamente da aplicação CyberShake para
 todos os algoritmos de escalonamento testados. Aqui, o comportamento foi similar
 ao Sipht. Os escalonadores propostos foram eficientes em entradas pequenas mas
-perderam para o algoritmo OnDeman na comparação com entradas maiores. Novamente
+perderam para o algoritmo OnDemand na comparação com entradas maiores. Novamente
 o \emph{clustering} se mostrou uma boa otimização em um algoritmo de
 escalonamento.
 
@@ -234,17 +238,18 @@ escalonamento.
 \begin{table}
 	\centering
     \begin{tabular}{c|ccc}
-    ~                    & CyberShake\_30 & CyberShake\_50 & CyberShake\_100 \\ \hline
-    Performance (Sem DVFS) & 265           & 271           & 271            \\
-    \cite{guerout:energy_aware_simulation} Optimal      & 272           & 271           & 271            \\
-    \cite{guerout:energy_aware_simulation} OnDemand     & 265           & 271           & 271            \\
-    HEFT                   & 332           & 245           & 417            \\
+    \hline
+    \textbf{Algoritmos}                    & \textbf{CyberShake\_30} & \textbf{CyberShake\_50} & \textbf{CyberShake\_100} \\ \hline
+    Performance (Sem DVFS) & 265           & 271           & \textbf{271}            \\
+    \cite{guerout:energy_aware_simulation} Optimal      & 272           & 271           & \textbf{271}            \\
+    \cite{guerout:energy_aware_simulation} OnDemand     & 265           & 271           & \textbf{271}            \\
+    HEFT                   & 332           & \textbf{245}           & 417            \\
     PowerHEFT              & 753           & 2175          & 8421           \\
     DAVM                   & 263           & 406           & 453            \\
     DAVM-TC                & 261           & 365           & 436            \\
-    Optimal-TC             & 257           & 271           & 273            \\
+    Optimal-TC             & \textbf{257}           & 271           & 273            \\ \hline
     \end{tabular}
-    \caption{\emph{Makespan} calculado para a aplicação CyberShake}
+    \caption{\emph{Makespan} em segundos calculado para a aplicação CyberShake}
     \label{tab:cybershake_tempo}
 \end{table}
 
@@ -252,18 +257,19 @@ escalonamento.
 
 \begin{table}
 	\centering
-    \begin{tabular}{l|lll}
-    ~                    & CyberShake\_30 & CyberShake\_50 & CyberShake\_100 \\ \hline
+    \begin{tabular}{c|ccc}
+    \hline
+    \textbf{Algoritmos}                    & \textbf{CyberShake\_30} & \textbf{CyberShake\_50} & \textbf{CyberShake\_100} \\ \hline
     Performance (Sem DVFS) & 380           & 651           & 1305           \\
     \cite{guerout:energy_aware_simulation} Optimal      & 352           & 636           & 1210           \\
-    \cite{guerout:energy_aware_simulation} OnDemand     & 323           & 555           & 1114           \\
+    \cite{guerout:energy_aware_simulation} OnDemand     & \textbf{323}           & \textbf{555}           & \textbf{1114}           \\
     HEFT                   & 473           & 823           & 1982           \\
     PowerHEFT              & 533           & 928           & 1805           \\
     DAVM                   & 358           & 908           & 2012           \\
     DAVM-TC                & 351           & 803           & 1900           \\
-    Optimal-TC             & 330           & 636           & 1217           \\
+    Optimal-TC             & 330           & 636           & 1217           \\ \hline
     \end{tabular}
-    \caption{Consumo energético calculado para a aplicação CyberShake}
+    \caption{Consumo energético em Joules calculado para a aplicação CyberShake}
     \label{tab:cybershake_energia}
 \end{table}
 % subsection cybershake (end)
@@ -283,17 +289,18 @@ energia.
 \begin{table}
 	\centering
     \begin{tabular}{c|ccc}
-    ~                    & Montage\_25 & Montage\_50 & Montage\_100 \\ \hline
+    \hline
+    \textbf{Algoritmos}    & \textbf{Montage\_25} & \textbf{Montage\_50} & \textbf{Montage\_100} \\ \hline
     Performance (Sem DVFS) & 205        & 231        & 236         \\
     \cite{guerout:energy_aware_simulation} Optimal      & 205        & 231        & 236         \\
     \cite{guerout:energy_aware_simulation} OnDemand     & 205        & 231        & 236         \\
-    HEFT                   & 174        & 179        & 188         \\
+    HEFT                   & \textbf{174}        & \textbf{179}        & 188         \\
     PowerHEFT              & 262        & 419        & 732         \\
     DAVM                   & 180        & 195        & 189         \\
-    DAVM-TC                & 177        & 195        & 183         \\
-    Optimal-TC             & 205        & 231        & 236         \\
+    DAVM-TC                & 177        & 195        & \textbf{183}         \\
+    Optimal-TC             & 205        & 231        & 236         \\ \hline
     \end{tabular}
-    \caption{\emph{Makespan} calculado para a aplicação Montage}
+    \caption{\emph{Makespan} em segundos calculado para a aplicação Montage}
     \label{tab:montage_tempo}
 \end{table}
 
@@ -302,17 +309,18 @@ energia.
 \begin{table}
 	\centering
     \begin{tabular}{c|ccc}
-    ~                      & Montage\_25 & Montage\_50 & Montage\_100 \\ \hline
+    \hline
+    \textbf{Algoritmos}    & \textbf{Montage\_25} & \textbf{Montage\_50} & \textbf{Montage\_100} \\ \hline
     Performance (Sem DVFS) & 241        & 544        & 1111        \\
     \cite{guerout:energy_aware_simulation} Optimal      & 241        & 544        & 1111        \\
     \cite{guerout:energy_aware_simulation} OnDemand     & 204        & 459        & 938         \\
-    HEFT                   & 206        & 423        & 889         \\
+    HEFT                   & 206        & \textbf{423}        & 889         \\
     PowerHEFT              & 307        & 980        & 3412        \\
     DAVM                   & 200        & 436        & 817         \\
-    DAVM-TC                & 195        & 438        & 784         \\
-    Optimal-TC             & 205        & 544        & 1111        \\
+    DAVM-TC                & \textbf{195}        & 438        & \textbf{784}         \\
+    Optimal-TC             & 205        & 544        & 1111        \\ \hline
     \end{tabular}
-    \caption{Consumo energético calculado para a aplicação Montage}
+    \caption{Consumo energético em Joules calculado para a aplicação Montage}
     \label{tab:montage_energia}
 \end{table}
 % subsection montage (end)
