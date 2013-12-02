@@ -156,6 +156,8 @@ class PerceptronGUI:
 		return self.pontos_inseridos
 
 	def alterar_eixos(self, x, y):
+		self.x = x
+		self.y = y
 		if self.showing_train_data:
 			data = self.trainset
 		else:
@@ -258,8 +260,8 @@ class PerceptronGUI:
 		w0 = self.perceptron.getHistory()[-1]
 		n = norm(w0)
 		ww = w0/n
-		ww1 = [ww[1],-ww[0]]
-		ww2 = [-ww[1],ww[0]]
+		ww1 = [ww[self.y],-ww[self.x]]
+		ww2 = [-ww[self.y],ww[self.x]]
 		self.line, = self.ax.plot([ww1[0], ww2[0]],[ww1[1], ww2[1]],'--k')
 		self.fig.canvas.draw()
 
@@ -272,11 +274,11 @@ class PerceptronGUI:
 				misclassified += 1
 			self.ax.set_title('{0}/{1} instances misclassified'.format(misclassified, len(self.testset)))
 			if x[dimension] == 1 and r == 1:
-				self.ax.plot(x[0],x[1],'ob')  
+				self.ax.plot(x[self.x],x[self.y],'ob')  
 			elif x[dimension] == -1 and r == -1:
-				self.ax.plot(x[0],x[1],'or')
+				self.ax.plot(x[self.x],x[self.y],'or')
 			else:
-				self.ax.plot(x[0],x[1],'Dy')
+				self.ax.plot(x[self.x],x[self.y],'Dy')
 			self.fig.canvas.draw()
 		
 		plt.show()
