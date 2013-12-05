@@ -261,7 +261,7 @@ class Main:
 		hbox.pack_start(self.label_iteracoes, True, True, 0)
 		self.label_iteracoes.show()
 		
-		self.num_iteracoes = self.criar_campo_entrada("100")
+		self.num_iteracoes = self.criar_campo_entrada("10")
 		hbox.pack_start(self.num_iteracoes, True, True, 0)
 		self.num_iteracoes.show()
 

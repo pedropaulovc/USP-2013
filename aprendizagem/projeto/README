@@ -19,20 +19,23 @@ Para iniciar a interface gráfica execute 'python main_perceptron.py'
 
 ## Utilização
 Selecione na janela do programa a fonte dos dados de entrada do algoritmo
-Perceptron. Estão implementadas duas formas: Via arquivo externo ou via
-geração aleatória.
+Perceptron. Estão implementadas três formas: Via arquivo externo, via
+geração aleatória e via clique de mouse.
 
 Obs: Um exemplo de entrada para arquivos externos encontra-se no diretório 'exemplo'.
 Cada arquivo é um CSV contendo três colunas, coordenadas x e y e a classe do
 ponto dado, -1 ou 1.
 
-Em seguida, escolha os valores da taxa de aprendizado (eta) e o número máximo de
-iterações que o algoritmo pode executar.
+Em seguida, escolha os valores da taxa de aprendizado (eta), o número máximo de
+iterações que o algoritmo pode executar e a dimensão da sua entrada.
 
 Depois, aperte TREINAR. Uma segunda janela será aberta apresentando um animação
 da evolução do algoritmo Perceptron partindo de uma reta separadora gerada
 **aleatoriamente**, a correção das coordenadas da reta para melhor classificar
 os dados de entrada e a reta separadora final.
+
+Depois do treino realizado a aba de escolha de eixos será habilitada e você poderá
+selecionar qual par de eixos você deseja visualizar o treinamento e/ou teste.
 
 Por fim, aperte TESTAR. Os dados de treinamento serão removidos dando lugar aos
 dados de teste. Instâncias classifidadas corretamente são apresentadas como
@@ -43,5 +46,7 @@ Experimente apertar repetidamente TREINAR variando a taxa de aprendizado para
 um valor menor (Ex. 0.1) e o número máximo de iterações também para um número
 menor (Ex. 1). Note como o algoritmo passa a classificar pior as instâncias
 de teste.
+
+
 
 

@@ -156,6 +156,8 @@ class PerceptronGUI:
 		return self.pontos_inseridos
 
 	def alterar_eixos(self, x, y):
+		self.x = x
+		self.y = y
 		if self.showing_train_data:
 			data = self.trainset
 		else:
@@ -186,6 +188,8 @@ class PerceptronGUI:
 				else:
 					self.ax.plot(point[x],point[y],'Dy')
 
+		print 
+		self.ax.set_title('axis {0}, {1}'.format(str(x + 1), str(y + 1)))
 		self.fig.canvas.draw()
 
 	def treinar(self, eta, max_iteracoes, treinamento, teste, dimension):
@@ -200,6 +204,8 @@ class PerceptronGUI:
 		self.perceptron = Perceptron(eta, max_iteracoes, dimension)   # perceptron instance
 		self.perceptron.train(self.trainset)  # training
 		self.testset = teste  # test set generation
+		self.x = 0
+		self.y = 0
 
 		plt.ion()
 		self.fig = plt.figure()
@@ -258,8 +264,8 @@ class PerceptronGUI:
 		w0 = self.perceptron.getHistory()[-1]
 		n = norm(w0)
 		ww = w0/n
-		ww1 = [ww[1],-ww[0]]
-		ww2 = [-ww[1],ww[0]]
+		ww1 = [ww[self.y],-ww[self.x]]
+		ww2 = [-ww[self.y],ww[self.x]]
 		self.line, = self.ax.plot([ww1[0], ww2[0]],[ww1[1], ww2[1]],'--k')
 		self.fig.canvas.draw()
 
@@ -272,11 +278,11 @@ class PerceptronGUI:
 				misclassified += 1
 			self.ax.set_title('{0}/{1} instances misclassified'.format(misclassified, len(self.testset)))
 			if x[dimension] == 1 and r == 1:
-				self.ax.plot(x[0],x[1],'ob')  
+				self.ax.plot(x[self.x],y[self.y],'ob')  
 			elif x[dimension] == -1 and r == -1:
-				self.ax.plot(x[0],x[1],'or')
+				self.ax.plot(x[self.x],y[self.y],'or')
 			else:
-				self.ax.plot(x[0],x[1],'Dy')
+				self.ax.plot(x[self.x],y[self.y],'Dy')
 			self.fig.canvas.draw()
 		
 		plt.show()
